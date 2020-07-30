@@ -1,0 +1,74 @@
+.cl-context-menu {
+	position: fixed;
+	z-index: 9999;
+
+	.cl-context-menu-box {
+		box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+		width: 160px;
+		padding: 5px 0;
+		background-color: #fff;
+		border-radius: 3px;
+		position: absolute;
+		top: 0;
+
+		&._append {
+			right: calc(-100% - 5px);
+			top: -5px;
+		}
+
+		& > div {
+			display: flex;
+			align-items: center;
+			height: 35px;
+			font-size: 13px;
+			cursor: pointer;
+			padding: 0 15px;
+			color: #666;
+			position: relative;
+
+			span {
+				height: 35px;
+				line-height: 35px;
+				flex: 1;
+			}
+
+			&:hover {
+				background-color: #f7f7f7;
+				color: #000;
+			}
+
+			i {
+				&:first-child {
+					margin-right: 5px;
+				}
+
+				&:last-child {
+					margin-left: 5px;
+				}
+			}
+
+			&._active {
+				background-color: #f7f7f7;
+				color: #000;
+			}
+
+			&._ellipsis {
+				span {
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+				}
+			}
+
+			&._disabled {
+				span {
+					color: #ccc;
+
+					&:hover {
+						color: #ccc;
+					}
+				}
+			}
+		}
+	}
+}

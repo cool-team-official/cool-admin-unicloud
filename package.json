@@ -1,5 +1,10 @@
 {
-  "dependencies": {
-    "hello-common": "file:cloudfunctions-aliyun/common/hello-common"
-  }
+	"name": "cool-admin-cloud",
+	"version": "0.0.1",
+	"dependencies": {
+		"cl-crud2": "^0.0.12",
+		"element-ui": "^2.13.0",
+		"moment": "^2.27.0",
+		"svg-sprite-loader": "^5.0.0"
+	}
 }
