@@ -1,52 +1,38 @@
 <template>
-	<view class="content">
-		<image class="logo" src="/static/logo.png"></image>
-		<view class="text-area">
-			<text class="title">{{title}}</text>
-		</view>
-	</view>
+	<div>
+		12312
+		<router-view></router-view>
+	</div>
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-				title: 'Hello'
+export default {
+	data() {
+		return {
+			// 新增、编辑配置
+			upsert: {
+				props: {},
+				items: []
+			},
+			// 表格配置
+			table: {
+				props: {},
+				column: []
 			}
-		},
-		onLoad() {
-
-		},
-		methods: {
-
+		}
+	},
+	methods: {
+		onLoad2({ ctx, app }) {
+			ctx.service({
+				page() {
+					return Promise.resolve({
+						list: [],
+						pagination: {}
+					})
+				}
+			}).done();
+			app.refresh();
 		}
 	}
+};
 </script>
-
-<style>
-	.content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.logo {
-		height: 200rpx;
-		width: 200rpx;
-		margin-top: 200rpx;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: 50rpx;
-	}
-
-	.text-area {
-		display: flex;
-		justify-content: center;
-	}
-
-	.title {
-		font-size: 36rpx;
-		color: #8f8f94;
-	}
-</style>
