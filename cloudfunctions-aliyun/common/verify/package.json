@@ -1,5 +1,5 @@
 {
-  "name": "hello-common",
+  "name": "verify",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,5 +8,9 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "svg-captcha": "^1.4.0",
+    "svg-to-dataurl": "^1.0.0"
+  }
 }
