@@ -28,5 +28,37 @@
 			    "MgoIsUnique": true
 			}
 		}]
+	},
+	// 系统-数据
+	"sys_data": {
+		"data": [],
+		"index": [{
+			"IndexName": "keyName",
+			"MgoKeySchema": { 
+			    "MgoIndexKeys": [{
+			        "Name": "keyName", 
+			        "Direction": "1" 
+			    }],
+			    "MgoIsUnique": true
+			}
+		},{
+			"IndexName": "keyValue",
+			"MgoKeySchema": { 
+			    "MgoIndexKeys": [{
+			        "Name": "keyValue", 
+			        "Direction": "1" 
+			    }],
+			    "MgoIsUnique": true
+			}
+		},{
+			"IndexName": "expiredTime",
+			"MgoKeySchema": { 
+			    "MgoIndexKeys": [{
+			        "Name": "expiredTime", 
+			        "Direction": "1" 
+			    }],
+			    "MgoIsUnique": true
+			}
+		}]
 	}
 }
