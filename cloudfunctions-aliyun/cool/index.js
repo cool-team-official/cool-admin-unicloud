@@ -14,7 +14,7 @@ exports.main = async (event, context) => {
 	// url 调用函数地址 param 参数 token 令牌
 	const {
 		url,
-		param,
+		params,
 		token
 	} = event;
 
@@ -27,7 +27,7 @@ exports.main = async (event, context) => {
 	// 上下文对象
 	const ctx = {
 		request: context,
-		param,
+		params,
 		services: requireDir('/service'),
 		utils
 	}
@@ -35,6 +35,7 @@ exports.main = async (event, context) => {
 	utils.serviceCtx(ctx.services, ctx);
 	// controller 注入ctx
 	controller['ctx'] = ctx;
+
 	try {
 		return {
 			code: 1000,
@@ -42,6 +43,7 @@ exports.main = async (event, context) => {
 			data: await controller[method].call(controller)
 		};
 	} catch (err) {
+		uniCloud.logger.error(err);
 		return {
 			code: 1001,
 			message: err,

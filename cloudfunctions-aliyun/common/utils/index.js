@@ -9,11 +9,14 @@ const md5 = require('md5');
 const moment = require('moment');
 // js工具类
 const lodash = require('lodash');
+// jwt工具类
+const jwt = require('jsonwebtoken');
 module.exports = {
 	uuid,
 	md5,
 	moment,
 	lodash,
+	jwt,
 	// 将URL解析成需要调用的controller和方法
 	parseUrl(url) {
 		const urls = url.split('/');
@@ -26,6 +29,9 @@ module.exports = {
 	// 将ctx注入到各个service
 	serviceCtx(serivces, ctx) {
 		for (const key in serivces) {
+			if(key == 'ctx'){
+				continue;
+			}
 			if (typeof serivces[key] == 'function') {
 				continue;
 			}

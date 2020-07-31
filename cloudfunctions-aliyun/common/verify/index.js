@@ -6,8 +6,8 @@ const svgToDataURL = require('svg-to-dataurl');
  */
 module.exports = {
 	// 验证码
-	captcha(param,captchaId) {
-		const { type = 'svg', width = 150, height = 50 } = param || {};
+	captcha(params,captchaId) {
+		const { type = 'svg', width = 150, height = 50 } = params || {};
 		const svg = svgCaptcha.create({
 			ignoreChars: "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM",
 			width,
