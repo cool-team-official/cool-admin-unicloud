@@ -1,8 +1,7 @@
 {
 	"pages": [
 		{
-			"path": "pages/index/index",
-			"style": {}
+			"path": "pages/login/index"
 		}
 	],
 	"subPackages": [

@@ -9,7 +9,7 @@ module.exports = {
 	parallel: require("os").cpus().length > 1,
 
 	devServer: {
-		port: 10000,
+		port: 8080,
 		open: false,
 		compress: false,
 		overlay: {
