@@ -1,0 +1,63 @@
+@font-face {
+	font-family: "cl-iconfont"; /* project id 1413181 */
+	src: url("//at.alicdn.com/t/font_1413181_4i891ty4b4q.eot");
+	src: url("//at.alicdn.com/t/font_1413181_4i891ty4b4q.eot?#iefix") format("embedded-opentype"),
+		url("//at.alicdn.com/t/font_1413181_4i891ty4b4q.woff2") format("woff2"),
+		url("//at.alicdn.com/t/font_1413181_4i891ty4b4q.woff") format("woff"),
+		url("//at.alicdn.com/t/font_1413181_4i891ty4b4q.ttf") format("truetype"),
+		url("//at.alicdn.com/t/font_1413181_4i891ty4b4q.svg#iconfont") format("svg");
+}
+
+[class*="cl-icon"] {
+	font-family: "cl-iconfont";
+	font-size: inherit;
+	font-style: normal;
+}
+
+.cl-icon-refresh:before {
+	content: "\e71e";
+}
+
+.cl-icon-schedule:before {
+	content: "\e645";
+}
+
+.cl-icon-cpu:before {
+	content: "\e641";
+}
+
+.cl-icon-network:before {
+	content: "\e603";
+}
+
+.cl-icon-storage:before {
+	content: "\e653";
+}
+
+.cl-icon-system:before {
+	content: "\e67c";
+}
+
+.cl-icon-menu:before {
+	content: "\e62c";
+}
+
+.cl-icon-user:before {
+	content: "\e646";
+}
+
+.cl-icon-permission:before {
+	content: "\e60f";
+}
+
+.cl-icon-log:before {
+	content: "\e663";
+}
+
+.cl-icon-workbench:before {
+	content: "\e649";
+}
+
+.cl-icon-common:before {
+	content: "\e6bc";
+}

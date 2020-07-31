@@ -1,8 +1,23 @@
 {
 	"pages": [
 		{
-			"path": "pages/index/index",
-			"style": {}
+			"path": "pages/login/index"
+		}
+	],
+	"subPackages": [
+		{
+			"root": "pages/system",
+			"pages": [
+				{
+					"path": "menu"
+				},
+				{
+					"path": "user"
+				},
+				{
+					"path": "role"
+				}
+			]
 		}
 	],
 	"globalStyle": {
