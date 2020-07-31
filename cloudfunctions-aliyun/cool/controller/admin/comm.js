@@ -1,8 +1,44 @@
 'use strict';
 module.exports = {
-	// 获取验证码
+	/**
+	 * 验证码
+	 */
 	async captcha() {
-		const reuslt = await this.ctx.services.comm.verify.captcha();
-		return reuslt;
+		return await this.ctx.services.comm.verify.captcha();
+	}
+
+	/**
+	 * 登录
+	 */
+	async login() {
+		return await this.ctx.services.sys.login.login();
+	}
+
+	/**
+	 * 退出登录
+	 */
+	async logout() {
+		return await this.ctx.services.sys.logout();
+	}
+
+	/**
+	 * 获得个人信息
+	 */
+	public async person() {
+		this.res({ data: await this.service.sys.user.person() });
+	}
+
+	/**
+	 * 修改个人信息
+	 */
+	public async personUpdate() {
+		this.res({ data: await this.service.sys.user.personUpdate(this.getBody()) });
+	}
+
+	/**
+	 * 权限菜单
+	 */
+	public async permmenu() {
+		this.res({ data: await this.service.sys.perms.permmenu(this.ctx.decoded.roleIds) });
 	}
 }
