@@ -1,7 +1,17 @@
 <template>
-	<svg :class="svgClass" :style="style2" aria-hidden="true">
-		<use :xlink:href="iconName"></use>
-	</svg>
+	<div
+		:class="svgClass"
+		:style="{
+			'font-size': size2
+		}"
+	>
+		<i
+			:class="iconName"
+			:style="{
+				color: color || 'currentColor'
+			}"
+		></i>
+	</div>
 </template>
 
 <script>
@@ -16,39 +26,28 @@ export default {
 			type: String
 		},
 		size: {
-			type: String
-		}
-	},
-
-	data() {
-		return {
-			style2: {}
-		};
+			type: [String, Number],
+			default: 20
+		},
+		color: String
 	},
 
 	computed: {
 		iconName() {
-			return `#${this.name}`;
+			return `cl-icon-${this.name}`;
 		},
 		svgClass() {
 			return ["icon-svg", `icon-svg__${this.name}`, this.className];
+		},
+		size2() {
+			return typeof this.size == "string" ? this.size : `${this.size}px`;
 		}
-	},
-
-	mounted() {
-		this.style2 = {
-			fontSize: this.size
-		};
 	}
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
 .icon-svg {
-	width: 1em;
-	height: 1em;
-	vertical-align: -0.15em;
-	fill: currentColor;
-	overflow: hidden;
+	display: inline-block;
 }
 </style>

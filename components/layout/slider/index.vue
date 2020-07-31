@@ -7,40 +7,60 @@
 			</a>
 		</div>
 
-		<div class="menu" v-if="visible">
-			<deep-menu></deep-menu>
-		</div>
+		<div class="menu"><deep-menu></deep-menu></div>
 	</div>
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
-	data() {
-		return {
-			visible: true
-		};
-	},
-
 	computed: {
-		...mapGetters(["menuList", "menuCollapse", "userInfo"])
-	},
-
-	watch: {
-		menuList() {
-			this.visible = false;
-
-			setTimeout(() => {
-				this.visible = true;
-			}, 0);
-		}
+		...mapGetters(["menuCollapse"])
 	},
 
 	components: {
 		DeepMenu: {
 			computed: {
-				...mapGetters(["menuList", "menuCollapse"])
+				...mapGetters(["menuList", "menuCollapse"]),
+
+				openeds() {
+					let ids = [];
+
+					const fn = (list) => {
+						let item = list.find((e) => {
+							switch (e.type) {
+								case 0:
+									ids.push(e.id);
+									return fn(e.children);
+									break;
+								case 1:
+									return e.path == this.$route.path;
+									break;
+								default:
+									return false;
+							}
+						});
+
+						if (item) {
+							return true;
+						} else {
+							ids.pop();
+						}
+					};
+
+					for (let i = 0; i < this.menuList.length; i++) {
+						let { id, children } = this.menuList[i];
+
+						ids = [id];
+
+						if (fn(children)) {
+							break;
+						}
+					}
+
+					return ids;
+				}
 			},
 
 			methods: {
@@ -60,9 +80,12 @@ export default {
 
 							if (e.type == 0) {
 								html = (
-									<el-submenu index={String(e.id)} key={e.id}>
+									<el-submenu index={String(e.id)} key={e.id} show-timeout={0}>
 										<template slot="title">
-											<icon-svg name={e.icon}></icon-svg>
+											<icon-svg
+												name={e.icon}
+												size={18}
+												color="#fff"></icon-svg>
 											<span slot="title">{e.name}</span>
 										</template>
 										{fn(e.children)}
@@ -71,7 +94,7 @@ export default {
 							} else {
 								html = (
 									<el-menu-item index={e.path} key={e.path}>
-										<icon-svg name={e.icon}></icon-svg>
+										<icon-svg name={e.icon} size={18} color="#fff"></icon-svg>
 										<span slot="title">{e.name}</span>
 									</el-menu-item>
 								);
@@ -86,6 +109,7 @@ export default {
 				return (
 					<el-menu
 						default-active={this.$route.path}
+						default-openeds={this.openeds}
 						collapse-transition={false}
 						collapse={this.menuCollapse}
 						on-select={this.toView}>
@@ -94,10 +118,6 @@ export default {
 				);
 			}
 		}
-	},
-
-	methods: {
-		...mapMutations(["COLLAPSE_MENU"])
 	}
 };
 </script>
@@ -108,10 +128,12 @@ export default {
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 
 	.logo {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		height: 80px;
+		a {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: 80px;
+		}
 
 		.c {
 			height: 30px;
@@ -169,11 +191,9 @@ export default {
 				line-height: 50px;
 
 				.icon-svg {
-					height: 15px;
-					width: 15px;
 					margin: 0 15px 0 5px;
 					position: relative;
-					top: 1px;
+					top: -1px;
 				}
 
 				span {

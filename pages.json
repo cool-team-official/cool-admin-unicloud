@@ -5,6 +5,22 @@
 			"style": {}
 		}
 	],
+	"subPackages": [
+		{
+			"root": "pages/system",
+			"pages": [
+				{
+					"path": "menu"
+				},
+				{
+					"path": "user"
+				},
+				{
+					"path": "role"
+				}
+			]
+		}
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarBackgroundColor": "#F8F8F8",

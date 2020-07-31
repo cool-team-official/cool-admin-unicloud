@@ -6,17 +6,17 @@
 			trigger="click"
 			popper-class="popper-menu-icon"
 		>
-			<el-row :gutter="10" class="list">
-				<el-col :span="3" v-for="(item, index) in list" :key="index">
-					<el-button
-						size="mini"
-						:class="{ 'is-active': item === value }"
-						@click="onSelect(item)"
-					>
-						<icon-svg :name="item"></icon-svg>
-					</el-button>
-				</el-col>
-			</el-row>
+			<div class="list">
+				<el-button
+					v-for="(item, index) in list"
+					:key="index"
+					size="mini"
+					:class="{ 'is-active': item === value }"
+					@click="onSelect(item)"
+				>
+					<icon-svg :name="item" :size="20"></icon-svg>
+				</el-button>
+			</div>
 		</el-popover>
 
 		<el-input v-model="value" v-popover:iconPopover readonly placeholder="请选择"></el-input>
@@ -24,8 +24,6 @@
 </template>
 
 <script>
-import { iconList } from "@/icons/index";
-
 export default {
 	name: "cl-menu-icons",
 
@@ -40,7 +38,20 @@ export default {
 	},
 
 	mounted() {
-		this.list = iconList();
+		this.list = [
+			"refresh",
+			"schedule",
+			"cpu",
+			"network",
+			"storage",
+			"system",
+			"menu",
+			"permission",
+			"user",
+			"log",
+			"workbench",
+			"common"
+		];
 	},
 
 	methods: {
@@ -51,26 +62,30 @@ export default {
 };
 </script>
 
-.<style lang="scss">
+.
+<style lang="scss">
 .popper-menu-icon {
-	width: 480px;
 	box-sizing: border-box;
 
 	.list {
-		height: 250px;
-		overflow-y: auto;
 		display: flex;
 		flex-wrap: wrap;
+		max-height: 250px;
+		width: 490px;
+		overflow-y: auto;
 	}
 
 	.el-button {
 		margin-bottom: 10px;
 		height: 40px;
-		width: 100%;
+		width: 40px;
 		padding: 0;
 
+		&:nth-child(11n) {
+			margin-left: 0;
+		}
+
 		.icon-svg {
-			font-size: 18px;
 			color: #444;
 		}
 	}

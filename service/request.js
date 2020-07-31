@@ -1,5 +1,9 @@
 export default function (options) {
 	return new Promise((resolve, reject) => {
+		if (!options.method || options.method == "GET") {
+			options.data = options.params;
+		}
+
 		uni.request({
 			url: options.url,
 			...options,
