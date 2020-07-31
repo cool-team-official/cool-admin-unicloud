@@ -6,21 +6,21 @@ const svgToDataURL = require('svg-to-dataurl');
  */
 module.exports = {
 	// 验证码
-	captcha: async (event, context) => {
-		const { type = 'svg', width = 150, height = 50 } = event || {};
+	captcha(param,captchaId) {
+		const { type = 'svg', width = 150, height = 50 } = param || {};
 		const svg = svgCaptcha.create({
 			ignoreChars: "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM",
 			width,
 			height
 		});
 		const result = {
-			captchaId: uuid(),
+			captchaId,
 			data: svg.data.replace(/\"/g, "'"),
 		};
 		// 文字变白
 		const rpList = ['#111', '#222', '#333', '#444', '#555', '#666', '#777', '#888', '#999'];
 		rpList.forEach(rp => {
-			result.data = result.data.replaceAll(rp, '#fff');
+			result.data = result.data.replace(new RegExp(rp, "gm"), '#fff');
 		});
 		if (type === 'base64') {
 			result.data = svgToDataURL(result.data);
