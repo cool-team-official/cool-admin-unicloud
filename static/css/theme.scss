@@ -122,3 +122,11 @@
 		}
 	}
 }
+
+.el-tree {
+	&-node {
+		&__label {
+			margin-left: 10px;
+		}
+	}
+}

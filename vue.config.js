@@ -42,25 +42,5 @@ module.exports = {
 				}
 			}
 		}
-	},
-
-	chainWebpack: (config) => {
-		// svg
-		config.module.rule("svg").uses.clear();
-
-		config.module
-			.rule("svg-sprite-loader")
-			.test(/.svg$/)
-			.exclude.add(/node_modules/)
-			.end()
-			.use("svg-sprite-loader")
-			.loader("svg-sprite-loader")
-			.options({
-				symbolId: "[name]"
-			});
-
-		if (isProduction) {
-			config.performance.set("hints", false);
-		}
 	}
 };
