@@ -21,7 +21,7 @@ exports.main = async (event, context) => {
 	const {
 		cPath,
 		method
-	} = utils.parseUrl('/admin/comm/captcha');
+	} = utils.parseUrl(url);
 	const controller = myRequire(cPath);
 
 	// 上下文对象
