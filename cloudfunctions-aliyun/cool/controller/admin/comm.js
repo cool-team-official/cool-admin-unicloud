@@ -25,7 +25,7 @@ module.exports = {
 	 * 获得个人信息
 	 */
 	async person() {
-		this.res({ data: await this.service.sys.user.person() });
+		return await this.ctx.services.sys.user.person();
 	},
 
 	/**
