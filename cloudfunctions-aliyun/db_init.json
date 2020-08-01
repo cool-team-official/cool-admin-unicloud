@@ -3,29 +3,67 @@
 {
 	// 系统-用户
 	"sys_user": {
-		"data": [],
+		"data": [{
+			"id": "dc48549b80784e66b2ede934271329ca",
+			"username": "admin",
+			"password": "e10adc3949ba59abbe56e057f20f883e", // 密码123456
+			"passwordV": 1,
+			"nickName": "超级管理员",
+			"name": "超管",
+			"headImg": "https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cool-admin/3f548330-d3c6-11ea-8bd0-2998ac5bbf7e.png",
+			"email": "123456@cool-js.com",
+			"status": 1, // 状态 0：禁用 1：启用
+			"remark": "备注",
+			"createTime": "2019-06-25 10:20:20",
+			"updateTime": "2019-06-25 10:20:20",
+			"phone": "18000000000",
+			"departmentId": 1,
+			"roleIds": ["61d14d74f17d42288301e9ed798949e9", "974b4d71f89246539227103fcdbf2100"],
+			"menuIds": ["1", "2"]
+		}],
 		"index": [{
 			"IndexName": "username",
-			"MgoKeySchema": { 
-			    "MgoIndexKeys": [{
-			        "Name": "username", 
-			        "Direction": "1" 
-			    }],
-			    "MgoIsUnique": true
+			"MgoKeySchema": {
+				"MgoIndexKeys": [{
+					"Name": "username",
+					"Direction": "1"
+				}],
+				"MgoIsUnique": true
 			}
 		}]
 	},
 	// 系统-角色
 	"sys_role": {
-		"data": [],
+		"data": [{
+			"id": "61d14d74f17d42288301e9ed798949e9",
+			"name": "超管",
+			"label": "admin",
+			"userId": "dc48549b80784e66b2ede934271329ca",
+			"remark": "超管角色"
+		}, {
+			"id": "974b4d71f89246539227103fcdbf2100",
+			"name": "测试角色",
+			"label": "test",
+			"userId": "dc48549b80784e66b2ede934271329ca",
+			"remark": "测试角色"
+		}],
 		"index": [{
 			"IndexName": "name",
-			"MgoKeySchema": { 
-			    "MgoIndexKeys": [{
-			        "Name": "name", 
-			        "Direction": "1" 
-			    }],
-			    "MgoIsUnique": true
+			"MgoKeySchema": {
+				"MgoIndexKeys": [{
+					"Name": "name",
+					"Direction": "1"
+				}],
+				"MgoIsUnique": true
+			}
+		}, {
+			"IndexName": "label",
+			"MgoKeySchema": {
+				"MgoIndexKeys": [{
+					"Name": "label",
+					"Direction": "1"
+				}],
+				"MgoIsUnique": true
 			}
 		}]
 	},
@@ -33,31 +71,31 @@
 	"sys_data": {
 		"data": [],
 		"index": [{
-			"IndexName": "keyName",
-			"MgoKeySchema": { 
-			    "MgoIndexKeys": [{
-			        "Name": "keyName", 
-			        "Direction": "1" 
-			    }],
-			    "MgoIsUnique": true
+			"IndexName": "key",
+			"MgoKeySchema": {
+				"MgoIndexKeys": [{
+					"Name": "key",
+					"Direction": "1"
+				}],
+				"MgoIsUnique": true
 			}
-		},{
-			"IndexName": "keyValue",
-			"MgoKeySchema": { 
-			    "MgoIndexKeys": [{
-			        "Name": "keyValue", 
-			        "Direction": "1" 
-			    }],
-			    "MgoIsUnique": true
+		}, {
+			"IndexName": "data",
+			"MgoKeySchema": {
+				"MgoIndexKeys": [{
+					"Name": "data",
+					"Direction": "1"
+				}],
+				"MgoIsUnique": false
 			}
-		},{
+		}, {
 			"IndexName": "expiredTime",
-			"MgoKeySchema": { 
-			    "MgoIndexKeys": [{
-			        "Name": "expiredTime", 
-			        "Direction": "1" 
-			    }],
-			    "MgoIsUnique": true
+			"MgoKeySchema": {
+				"MgoIndexKeys": [{
+					"Name": "expiredTime",
+					"Direction": "1"
+				}],
+				"MgoIsUnique": false
 			}
 		}]
 	}

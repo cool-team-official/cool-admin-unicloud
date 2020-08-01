@@ -5,6 +5,20 @@ const dbCmd = db.command;
 const moment = require('moment');
 module.exports = {
 	/**
+	 * 数据库
+	 */
+	baseDB: db,
+	/**
+	 * 指令
+	 */
+	command: db.command,
+	/**
+	 * 数据表
+	 */
+	collection(table) {
+		return db.collection(table);
+	},
+	/**
 	 * 新增
 	 * @param {Object} table 表
 	 * @param {Object} data 数据
@@ -28,8 +42,8 @@ module.exports = {
 			ids = ids.split(',');
 		}
 		const dbCmd = db.command
-		await collection.where({ _id: dbCmd.in(ids); }).remove()
-	}
+		await collection.where({ _id: dbCmd.in(ids) }).remove()
+	},
 
 	/**
 	 * 更新
@@ -43,13 +57,29 @@ module.exports = {
 		const now = moment().format('YYYY-MM-DD HH:mm:ss');
 		data.updateTime = now;
 		await collection.doc(id).update(data);
-	}
+	},
+
+	// 查询信息
+	async info(table, id) {
+		const collection = db.collection(table);
+		return await collection.doc(id).get();
+	},
+
+	// 查询一个
+	async one(table, condition) {
+		let collection = db.collection(table);
+		for (const key in condition) {
+			collection = collection[key](condition[key]);
+		}
+		const result = await collection.limit(1).get();
+		return result.data.length > 0 ? result.data[0] : null;
+	},
 
 	// 查询所有
 	async list(table) {
 		const collection = db.collection(table);
-		return await db.collection(table).get();
-	}
+		return await collection.get();
+	},
 
 	// 分页查询
 	async page(table, page = 1, size = 15, order = 'createTime', sort = 'desc', condition) {
@@ -60,6 +90,6 @@ module.exports = {
 		collection.skip((page - 1) * size).limit(size).orderBy(order, sort);
 		const list = await collection.get();
 		const total = await collection.count();
-		return { list: pagination: { page, size, total } };
+		return { list, pagination: { page, size, total } };
 	}
 }
