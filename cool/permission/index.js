@@ -1,4 +1,4 @@
-import store from "@/store/index";
+import store from "@/store";
 
 function change(el, binding) {
 	el.style.display = checkPerm(binding.value) ? el.getAttribute("_display") : "none";

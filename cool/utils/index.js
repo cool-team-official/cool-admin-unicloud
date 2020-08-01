@@ -37,26 +37,6 @@ export function firstMenu(list) {
 	return path || "/404"
 }
 
-export function isPc() {
-	const userAgentInfo = navigator.userAgent
-	const Agents = [
-		"Android",
-		"iPhone",
-		"SymbianOS",
-		"Windows Phone",
-		"iPad",
-		"iPod",
-	]
-	let flag = true
-	for (var v = 0; v < Agents.length; v++) {
-		if (userAgentInfo.indexOf(Agents[v]) > 0) {
-			flag = false
-			break
-		}
-	}
-	return flag
-}
-
 export function orderBy(list, key) {
 	return list.sort((a, b) => a[key] - b[key])
 }

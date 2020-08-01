@@ -1,14 +1,10 @@
 {
-	"pages": [
-		{
-			"path": "pages/login/index"
-		}
-	],
-	"subPackages": [
-		{
+	"pages": [{
+		"path": "pages/login/index"
+	}],
+	"subPackages": [{
 			"root": "pages/system",
-			"pages": [
-				{
+			"pages": [{
 					"path": "menu"
 				},
 				{
@@ -16,6 +12,25 @@
 				},
 				{
 					"path": "role"
+				},
+				{
+					"path": "log"
+				}
+			]
+		},
+		{
+			"root": "pages/error-page",
+			"pages": [{
+					"path": "403"
+				},
+				{
+					"path": "404"
+				},
+				{
+					"path": "500"
+				},
+				{
+					"path": "503"
 				}
 			]
 		}
