@@ -1,6 +1,6 @@
 <template>
 	<cl-layout>
-		<cl-crud @load="onLoad">
+		<cl-crud @load="onCrudLoad">
 			<template #slot-content="{ scope }">
 				<div class="editor" v-for="(item, index) in tab.list" :key="index">
 					<template v-if="tab.index === index">
@@ -163,7 +163,7 @@ export default {
 	},
 
 	methods: {
-		onLoad({ ctx, app }) {
+		onCrudLoad({ ctx, app }) {
 			ctx.service(this.$service.system.param).done();
 			app.refresh();
 		},

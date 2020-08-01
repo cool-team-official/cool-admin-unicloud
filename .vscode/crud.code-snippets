@@ -3,7 +3,7 @@
 		"prefix": "cl-crud",
 		"body": [
 			"<template>",
-			"	<cl-crud ref=\"crud\" @load=\"onLoad\">",
+			"	<cl-crud ref=\"crud\" @load=\"onCrudLoad\">",
 			"		<el-row type=\"flex\" align=\"middle\">",
 			"			<!-- 刷新按钮 -->",
 			"			<cl-refresh-btn />",
@@ -50,7 +50,7 @@
 			"		}",
 			"	},",
 			"	methods: {",
-			"		onLoad({ ctx, app }) {",
+			"		onCrudLoad({ ctx, app }) {",
 			"			ctx.service(${1}).done();",
 			"			app.refresh();",
 			"		}",

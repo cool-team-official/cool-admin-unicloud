@@ -1,6 +1,6 @@
 <template>
 	<cl-layout>
-		<cl-crud @load="onLoad">
+		<cl-crud @load="onCrudLoad">
 			<el-row type="flex">
 				<cl-refresh-btn></cl-refresh-btn>
 		
@@ -121,7 +121,7 @@ export default {
 	},
 
 	methods: {
-		onLoad({ ctx, app }) {
+		onCrudLoad({ ctx, app }) {
 			ctx.service(this.$service.system.log).done();
 
 			app.refresh();
