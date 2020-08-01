@@ -2,7 +2,7 @@
 const routerMode = "history"
 
 // 请求地址
-const baseUrl = "/nw/admin"
+const baseUrl = "/admin"
 
 // 阿里字体图标库 https://at.alicdn.com/t/**.css
 const iconfontUrl = ``
