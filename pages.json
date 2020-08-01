@@ -1,10 +1,17 @@
 {
-	"pages": [{
-		"path": "pages/login/index"
-	}],
-	"subPackages": [{
+	"pages": [
+		{
+			"path": "pages/index/index"
+		},
+		{
+			"path": "pages/login/index"
+		}
+	],
+	"subPackages": [
+		{
 			"root": "pages/system",
-			"pages": [{
+			"pages": [
+				{
 					"path": "menu"
 				},
 				{
@@ -20,7 +27,8 @@
 		},
 		{
 			"root": "pages/error-page",
-			"pages": [{
+			"pages": [
+				{
 					"path": "403"
 				},
 				{

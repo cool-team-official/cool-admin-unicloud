@@ -296,7 +296,11 @@ export default {
 	methods: {
 		onCrudLoad({ ctx, app }) {
 			ctx.service(this.$service.system.menu)
-				.set("dict", { api: { page: "list" } })
+				.set("dict", {
+					api: {
+						page: "list"
+					}
+				})
 				.done();
 
 			app.refresh();
