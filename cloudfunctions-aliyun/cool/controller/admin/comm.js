@@ -1,4 +1,7 @@
 'use strict';
+/**
+ * 通用
+ */
 module.exports = {
 	/**
 	 * 验证码
@@ -39,6 +42,6 @@ module.exports = {
 	 * 权限菜单
 	 */
 	async permmenu() {
-		this.res({ data: await this.service.sys.perms.permmenu(this.ctx.decoded.roleIds) });
+		return await this.ctx.services.sys.perms.permmenu();
 	}
 }

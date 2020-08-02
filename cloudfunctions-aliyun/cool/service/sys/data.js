@@ -1,4 +1,7 @@
 'use strict';
+/**
+ * 系统数据
+ */
 module.exports = {
 	/**
 	 * 设置数据
@@ -8,11 +11,18 @@ module.exports = {
 	 */
 	async set(key, data, expiredTime) {
 		const { db } = this.ctx;
-		const nowTime = Date.parse(new Date())/1000;
+		const nowTime = Date.parse(new Date()) / 1000;
 		if (!expiredTime) {
 			expiredTime = 10000000000;
 		}
-		await db.add('sys_data', { key, data, expiredTime: nowTime + expiredTime });
+		const check = await db.one('sys_data', {
+			where: { key }
+		})
+		if (check) {
+			await db.update('sys_data', { _id: check._id, key, data, expiredTime: nowTime + expiredTime });
+		} else {
+			await db.add('sys_data', { key, data, expiredTime: nowTime + expiredTime });
+		}
 	},
 
 	/**
@@ -23,7 +33,7 @@ module.exports = {
 		const { db, utils } = this.ctx;
 		const result = await db.collection('sys_data').where({
 			key,
-			expiredTime: db.command.gte(Date.parse(new Date())/1000)
+			expiredTime: db.command.gte(Date.parse(new Date()) / 1000)
 		}).limit(1).get();
 		if (!utils.lodash.isEmpty(result.data)) {
 			return result.data[0].data;

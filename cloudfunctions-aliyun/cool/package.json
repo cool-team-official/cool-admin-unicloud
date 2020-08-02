@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "crud": "file:../common/crud",
     "db": "file:../common/db",
     "require-all": "^3.0.0",
     "require-dir": "^1.2.0",
