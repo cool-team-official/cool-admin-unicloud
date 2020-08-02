@@ -1,7 +1,6 @@
 export default function (options) {
 	return new Promise((resolve, reject) => {
-		const token =
-			"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlSWRzIjpbIjEiXSwidXNlcklkIjoiMSIsInBhc3N3b3JkVmVyc2lvbiI6MSwiaWF0IjoxNTk1NzcyMTg3LCJleHAiOjE1OTYzNzY5ODd9.O0pUalttg5NctMP8xQCdhYr9o2EgQPEA-rt6ERzuDbk";
+		const token = uni.getStorageSync("token") || '';
 
 		// if (!options.method || options.method == "GET") {
 		// 	options.data = options.params;
