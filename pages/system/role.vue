@@ -1,23 +1,23 @@
 <template>
-	<cl-layout>
-		<cl-crud @load="onCrudLoad">
-			<el-row type="flex">
-				<cl-refresh-btn />
-				<cl-add-btn />
-				<cl-multi-delete-btn />
-				<cl-flex1 />
-				<cl-search-key />
-			</el-row>
+    <cl-layout>
+        <cl-crud @load="onCrudLoad">
+            <el-row type="flex">
+                <cl-refresh-btn />
+                <cl-add-btn />
+                <cl-multi-delete-btn />
+                <cl-flex1 />
+                <cl-search-key />
+            </el-row>
 
-			<el-row>
-				<cl-table
-					:props="{
+            <el-row>
+                <cl-table
+                    :props="{
 						'default-sort': {
 							prop: 'createTime',
 							order: 'descending'
 						}
 					}"
-					:columns="[
+                    :columns="[
 						{
 							type: 'selection',
 							align: 'center',
@@ -42,13 +42,15 @@
 							prop: 'createTime',
 							label: '创建时间',
 							align: 'center',
-							sortable: true
+							sortable: 'custom',
+							'min-width': 150
 						},
 						{
 							prop: 'updateTime',
 							label: '更新时间',
 							align: 'center',
-							sortable: true
+							sortable: 'custom',
+							'min-width': 150
 						},
 						{
 							label: '操作',
@@ -56,20 +58,20 @@
 							type: 'op'
 						}
 					]"
-				>
-				</cl-table>
-			</el-row>
+                >
+                </cl-table>
+            </el-row>
 
-			<el-row type="flex">
-				<cl-flex1 />
-				<cl-pagination />
-			</el-row>
+            <el-row type="flex">
+                <cl-flex1 />
+                <cl-pagination />
+            </el-row>
 
-			<cl-upsert
-				:props="{
+            <cl-upsert
+                :props="{
 					width: '800px'
 				}"
-				:items="[
+                :items="[
 					{
 						prop: 'name',
 						label: '名称',
@@ -136,9 +138,9 @@
 						}
 					}
 				]"
-			></cl-upsert>
-		</cl-crud>
-	</cl-layout>
+            ></cl-upsert>
+        </cl-crud>
+    </cl-layout>
 </template>
 
 <script>

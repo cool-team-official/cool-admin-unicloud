@@ -13,7 +13,7 @@
             <cl-table
                 ref="table"
                 :props="{
-					'row-key': '_id'
+					'row-key': 'id'
 				}"
                 :on="{
 					'row-click': this.onRowClick,
@@ -58,29 +58,22 @@
 						'min-width': 160
 					},
 					{
-						prop: 'keepAlive',
-						label: '路由缓存',
+						prop: 'orderNum',
+						label: '排序号',
 						align: 'center',
-						width: 100
+						width: 90
 					},
 					{
-						prop: 'viewPath',
-						label: '文件路径',
+						prop: 'isShow',
+						label: '是否显示',
 						align: 'center',
-						'min-width': 200,
-						'show-overflow-tooltip': true
+						width: 90
 					},
 					{
 						prop: 'perms',
 						label: '权限',
 						'header-align': 'center',
 						'min-width': 300
-					},
-					{
-						prop: 'orderNum',
-						label: '排序号',
-						align: 'center',
-						width: 90
 					},
 					{
 						prop: 'updateTime',
@@ -128,18 +121,15 @@
                     <span v-else>{{ scope.row.router }}</span>
                 </template>
 
-                <!-- 路由缓存 -->
-                <template #column-keepAlive="{scope}">
-                    <template v-if="scope.row.type == 1">
-                        <i
-                            class="el-icon-check"
-                            v-if="scope.row.keepAlive"
-                        ></i>
-                        <i
-                            class="el-icon-close"
-                            v-else
-                        ></i>
-                    </template>
+                <template #column-isShow="{scope}">
+                    <i
+                        class="el-icon-check"
+                        v-if="scope.row.isShow"
+                    ></i>
+                    <i
+                        class="el-icon-close"
+                        v-else
+                    ></i>
                 </template>
 
                 <!-- 行新增 -->
@@ -225,25 +215,6 @@
 						}
 					},
 					{
-						prop: 'keepAlive',
-						value: true,
-						label: '路由缓存',
-						span: 24,
-						component: {
-							name: 'el-radio-group',
-							options: [
-								{
-									label: '开启',
-									value: true
-								},
-								{
-									label: '关闭',
-									value: false
-								}
-							]
-						}
-					},
-					{
 						prop: 'isShow',
 						label: '是否显示',
 						span: 24,
@@ -251,15 +222,6 @@
 						hidden: false,
 						component: {
 							name: 'el-switch'
-						}
-					},
-					{
-						prop: 'viewPath',
-						label: '文件路径',
-						span: 24,
-						hidden: true,
-						component: {
-							name: 'cl-menu-file-path'
 						}
 					},
 					{
@@ -399,8 +361,6 @@ export default {
 		changeType(index) {
 			const { toggleItem } = this.$refs["upsert"];
 			toggleItem("router", index != 1);
-			toggleItem("viewPath", index != 1);
-			toggleItem("keepAlive", index != 1);
 			toggleItem("icon", index == 2);
 			toggleItem("perms", index != 2);
 			toggleItem("isShow", index == 2);

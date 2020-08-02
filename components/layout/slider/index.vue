@@ -1,14 +1,24 @@
 <template>
-	<div class="app-slider">
-		<div class="logo">
-			<a href="https://cool-admin.com/">
-				<img class="c" src="@/static/icon/logo/silder.png" v-if="!menuCollapse" />
-				<img class="z" src="@/static/icon/logo/silder-simple.png" v-else />
-			</a>
-		</div>
+    <div class="app-slider">
+        <div class="logo">
+            <a href="https://cool-admin.com/">
+                <img
+                    class="c"
+                    src="@/static/icon/logo/silder.png"
+                    v-if="!menuCollapse"
+                />
+                <img
+                    class="z"
+                    src="@/static/icon/logo/silder-simple.png"
+                    v-else
+                />
+            </a>
+        </div>
 
-		<div class="menu"><deep-menu></deep-menu></div>
-	</div>
+        <div class="menu">
+            <deep-menu></deep-menu>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -59,7 +69,7 @@ export default {
 						}
 					}
 
-					return ids;
+					return ids.map(String);
 				}
 			},
 
@@ -74,7 +84,7 @@ export default {
 			render() {
 				const fn = (list) => {
 					return list
-						.filter((e) => e.isShow !== 0)
+						.filter((e) => e.isShow)
 						.map((e) => {
 							let html = null;
 
