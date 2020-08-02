@@ -1,21 +1,25 @@
 <template>
-	<cl-layout>
-		<cl-crud ref="crud" @load="onCrudLoad" :on-refresh="onRefresh">
-			<el-row type="flex">
-				<cl-refresh-btn />
-				<cl-add-btn />
-			</el-row>
+    <cl-layout>
+        <cl-crud
+            ref="crud"
+            @load="onCrudLoad"
+            :on-refresh="onRefresh"
+        >
+            <el-row type="flex">
+                <cl-refresh-btn />
+                <cl-add-btn />
+            </el-row>
 
-			<cl-table
-				ref="table"
-				:props="{
-					'row-key': 'id'
+            <cl-table
+                ref="table"
+                :props="{
+					'row-key': '_id'
 				}"
-				:on="{
+                :on="{
 					'row-click': this.onRowClick,
 					'row-contextmenu': this.onRowContextMenu
 				}"
-				:columns="[
+                :columns="[
 					{
 						prop: 'name',
 						label: '名称',
@@ -92,59 +96,70 @@
 						layout: ['slot-add', 'edit', 'delete']
 					}
 				]"
-			>
-				<!-- 图标 -->
-				<template #column-icon="{scope}">
-					<icon-svg :name="scope.row.icon" style="margin-top: 5px;"></icon-svg>
-				</template>
+            >
+                <!-- 图标 -->
+                <template #column-icon="{scope}">
+                    <icon-svg
+                        :name="scope.row.icon"
+                        style="margin-top: 5px;"
+                    ></icon-svg>
+                </template>
 
-				<!-- 权限 -->
-				<template #column-perms="{scope}">
-					<el-tag
-						v-for="(item, index) in scope.row.permList"
-						:key="index"
-						size="mini"
-						effect="dark"
-						style="margin: 2px; letter-spacing: 0.5px;"
-						>{{ item }}</el-tag
-					>
-				</template>
+                <!-- 权限 -->
+                <template #column-perms="{scope}">
+                    <el-tag
+                        v-for="(item, index) in scope.row.permList"
+                        :key="index"
+                        size="mini"
+                        effect="dark"
+                        style="margin: 2px; letter-spacing: 0.5px;"
+                    >{{ item }}</el-tag>
+                </template>
 
-				<!-- 路由 -->
-				<template #column-router="{scope}">
-					<el-link type="primary" :href="scope.row.router" v-if="scope.row.type == 1">{{
+                <!-- 路由 -->
+                <template #column-router="{scope}">
+                    <el-link
+                        type="primary"
+                        :href="scope.row.router"
+                        v-if="scope.row.type == 1"
+                    >{{
 						scope.row.router
 					}}</el-link>
-					<span v-else>{{ scope.row.router }}</span>
-				</template>
+                    <span v-else>{{ scope.row.router }}</span>
+                </template>
 
-				<!-- 路由缓存 -->
-				<template #column-keepAlive="{scope}">
-					<template v-if="scope.row.type == 1">
-						<i class="el-icon-check" v-if="scope.row.keepAlive"></i>
-						<i class="el-icon-close" v-else></i>
-					</template>
-				</template>
+                <!-- 路由缓存 -->
+                <template #column-keepAlive="{scope}">
+                    <template v-if="scope.row.type == 1">
+                        <i
+                            class="el-icon-check"
+                            v-if="scope.row.keepAlive"
+                        ></i>
+                        <i
+                            class="el-icon-close"
+                            v-else
+                        ></i>
+                    </template>
+                </template>
 
-				<!-- 行新增 -->
-				<template #slot-add="{scope}">
-					<el-button
-						type="text"
-						size="mini"
-						@click="upsertAppend(scope.row)"
-						v-if="scope.row.type != 2"
-						>新增</el-button
-					>
-				</template>
-			</cl-table>
+                <!-- 行新增 -->
+                <template #slot-add="{scope}">
+                    <el-button
+                        type="text"
+                        size="mini"
+                        @click="upsertAppend(scope.row)"
+                        v-if="scope.row.type != 2"
+                    >新增</el-button>
+                </template>
+            </cl-table>
 
-			<!-- 编辑 -->
-			<cl-upsert
-				ref="upsert"
-				:props="{
+            <!-- 编辑 -->
+            <cl-upsert
+                ref="upsert"
+                :props="{
 					width: '800px'
 				}"
-				:items="[
+                :items="[
 					{
 						prop: 'type',
 						value: 0,
@@ -280,13 +295,13 @@
 						}
 					}
 				]"
-				@open="onUpsertOpen"
-			></cl-upsert>
-		</cl-crud>
+                @open="onUpsertOpen"
+            ></cl-upsert>
+        </cl-crud>
 
-		<!-- 右键菜单 -->
-		<cl-context-menu ref="context-menu"></cl-context-menu>
-	</cl-layout>
+        <!-- 右键菜单 -->
+        <cl-context-menu ref="context-menu"></cl-context-menu>
+    </cl-layout>
 </template>
 
 <script>
@@ -310,6 +325,7 @@ export default {
 			this.$service.system.menu.list().then((list) => {
 				list.map((e) => {
 					e.permList = e.perms ? e.perms.split(",") : [];
+					e.id = e._id;
 				});
 
 				render(deepTree(list));
