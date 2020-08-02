@@ -73,6 +73,10 @@ export class BaseService {
 	}
 
 	info(params) {
+		if (params.id) {
+			params._id = params.id;
+		}
+
 		return this.request({
 			url: "/info",
 			params: {
@@ -82,6 +86,10 @@ export class BaseService {
 	}
 
 	update(params) {
+		if (params.id) {
+			params._id = params.id;
+		}
+
 		return this.request({
 			url: "/update",
 			method: "POST",
