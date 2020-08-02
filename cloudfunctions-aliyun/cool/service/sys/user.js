@@ -1,4 +1,7 @@
 'use strict';
+/**
+ * 用户
+ */
 module.exports = {
 	/**
 	 * 个人信息

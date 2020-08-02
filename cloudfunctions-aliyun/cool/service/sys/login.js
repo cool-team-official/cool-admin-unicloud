@@ -1,4 +1,7 @@
 'use strict';
+/**
+ * 登录
+ */
 module.exports = {
 	/**
 	 * 登录
@@ -9,7 +12,6 @@ module.exports = {
 		const checkV = await this.ctx.services.comm.verify.check(captchaId, verifyCode);
 		if (checkV) {
 			const user = await db.one('sys_user', { where: { username } });
-			console.log('获得用户信息', user);
 			if (user) {
 				if (user.status === 0 || user.password !== utils.md5(password)) {
 					throw new Error('账户或密码不正确~');
@@ -24,11 +26,12 @@ module.exports = {
 				expire: config.tokenExpires,
 				token: this.generateToken(user),
 			};
-			// const perms = await this.ctx.service.sys.menu.getPerms(roleIds);
-			// const departments = await this.ctx.service.sys.department.getByRoleIds(roleIds);
-			// await this.app.redisSet(`admin:department:${ user.id }`, JSON.stringify(departments), this.app.config.token.expires);
-			// await this.app.redisSet(`admin:perms:${ user.id }`, JSON.stringify(perms), this.app.config.token.expires);
-			// await this.app.redisSet(`admin:token:${ user.id }`, result.token, this.app.config.token.expires);
+			const isAdmin = username == 'admin' ? true : false;
+			const { roles, perms } = await this.ctx.services.sys.menu.getPerms(user.roleIds, isAdmin);
+			const departments = await this.ctx.services.sys.department.getByRoleIds(roles, isAdmin);
+			await this.ctx.services.sys.data.set(`admin:department:${ user.id }`, JSON.stringify(departments), config.tokenExpires);
+			await this.ctx.services.sys.data.set(`admin:perms:${ user.id }`, JSON.stringify(perms), config.tokenExpires);
+			await this.ctx.services.sys.data.set(`admin:token:${ user.id }`, result.token, config.tokenExpires);
 			return result;
 		} else {
 			throw new Error('验证码不正确~');
@@ -43,7 +46,8 @@ module.exports = {
 		const { utils, config } = this.ctx;
 		const tokenInfo = {
 			roleIds: user.roleIds,
-			userId: user.id,
+			userId: user._id,
+			username: user.username,
 			passwordVersion: user.passwordV,
 		};
 		return utils.jwt.sign(tokenInfo,

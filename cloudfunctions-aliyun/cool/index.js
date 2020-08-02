@@ -16,18 +16,19 @@ const middlewares = requireDir('/middleware');
 exports.main = async (event, context) => {
 	try {
 		// url 调用函数地址 param 参数 token 令牌
-		//const { url, params, token } = event;
-		const {
-			url = "/admin/comm/person",
-				params = {
-					username: "admin",
-					password: "123456",
-					captchaId: "44588c49-c30d-4c28-a25e-945cbec1678f",
-					verifyCode: "4966"
-				},
-				token =
-				"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlSWRzIjpbIjYxZDE0ZDc0ZjE3ZDQyMjg4MzAxZTllZDc5ODk0OWU5IiwiOTc0YjRkNzFmODkyNDY1MzkyMjcxMDNmY2RiZjIxMDAiXSwidXNlcklkIjoiZGM0ODU0OWI4MDc4NGU2NmIyZWRlOTM0MjcxMzI5Y2EiLCJwYXNzd29yZFZlcnNpb24iOjEsImlhdCI6MTU5NjI5OTYyNSwiZXhwIjoxNTk2OTA0NDI1fQ.mZPxkuEZBRA28uKJdgLc1XfKp-rMuw9Yp3rQ_BCegdw",
-		} = event;
+		const { url, params, token } = event; 
+		//  const {
+		// 	url = "/admin/sys/user/page",
+		// 		params = {
+		// 			username: "admin",
+		// 			// password: "123456",
+		// 			// captchaId: "099a47b1-c579-4633-93a8-15b24f9735c6",
+		// 			// verifyCode: "8624",
+		// 			// keyWord: "admin"
+		// 		},
+		// 		token =
+		// 		"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlSWRzIjpbIjYxZDE0ZDc0ZjE3ZDQyMjg4MzAxZTllZDc5ODk0OWU5IiwiOTc0YjRkNzFmODkyNDY1MzkyMjcxMDNmY2RiZjIxMDAiXSwidXNlcklkIjoiZGM0ODU0OWI4MDc4NGU2NmIyZWRlOTM0MjcxMzI5Y2EiLCJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmRWZXJzaW9uIjoxLCJpYXQiOjE1OTYzNjA4MjgsImV4cCI6MTU5Njk2NTYyOH0.dANYIadoCmTx1AWLbF3DhtVpdmD8H0WmjCPtlR6Fcug",
+		// } = event;
 
 		const {
 			cPath,
@@ -51,11 +52,11 @@ exports.main = async (event, context) => {
 		controller['ctx'] = ctx;
 
 		// 中间件
-		for (const middleware in middlewares) {
-			await middlewares[middleware](url, token, ctx).catch(err => {
-				throw new Error(err);
-			});
-		}
+		// for (const middleware in middlewares) {
+		// 	await middlewares[middleware](url, token, ctx).catch(err => {
+		// 		throw new Error(err);
+		// 	});
+		// }
 
 		return {
 			code: 1000,

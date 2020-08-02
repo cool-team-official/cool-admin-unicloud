@@ -52,17 +52,18 @@ module.exports = {
 	 */
 	async update(table, data) {
 		const collection = db.collection(table);
-		const id = data.id;
-		delete data.id;
 		const now = moment().format('YYYY-MM-DD HH:mm:ss');
 		data.updateTime = now;
-		await collection.doc(id).update(data);
+		const _id = data._id;
+		delete data._id;
+		await collection.doc(_id).update(data);
 	},
 
 	// 查询信息
 	async info(table, id) {
 		const collection = db.collection(table);
-		return await collection.doc(id).get();
+		const result = await collection.doc(id).get();
+		return result.data.length > 0 ? result.data[0] : null;
 	},
 
 	// 查询一个
@@ -78,18 +79,19 @@ module.exports = {
 	// 查询所有
 	async list(table) {
 		const collection = db.collection(table);
-		return await collection.get();
+		const reslut = await collection.get();
+		return reslut.data;
 	},
 
 	// 分页查询
-	async page(table, page = 1, size = 15, order = 'createTime', sort = 'desc', condition) {
-		const collection = db.collection(table);
+	async page(table, condition = {}, page = 1, size = 15, order = 'createTime', sort = 'desc') {
+		let collection = db.collection(table);
 		for (const key in condition) {
-			collection[key](condition[key]);
+			collection = collection[key](condition[key]);
 		}
-		collection.skip((page - 1) * size).limit(size).orderBy(order, sort);
-		const list = await collection.get();
-		const total = await collection.count();
-		return { list, pagination: { page, size, total } };
+		const totalResult = await collection.where({_id: dbCmd.exists(true)}).count();
+		collection = collection.skip((page - 1) * size).limit(size).orderBy(order, sort);
+		const listResult = await collection.get();
+		return { list: listResult.data, pagination: { page, size, total: totalResult.total } };
 	}
 }
