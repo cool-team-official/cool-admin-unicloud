@@ -29,23 +29,19 @@ module.exports = {
 	 */
 	async info(table, id) {
 		const { db } = this.ctx;
-		await db.info(table, id);
+		return await db.info(table, id);
 	},
 	/**
 	 * 所有
 	 */
 	async list(table) {
 		const { db } = this.ctx;
-		await db.list(table);
+		return await db.list(table);
 	},
 	/**
 	 * 分页查询
 	 */
 	async page(table, pageOption = {}) {
-		pageOption = {
-			keyWordLikeFields: ['username'],
-			fieldEq: ['username']
-		}
 		const { db, params } = this.ctx;
 		const dbCmd = db.command;
 		const dbCmds = [];
@@ -73,7 +69,6 @@ module.exports = {
 		}
 		const condition = {};
 		if (dbCmds.length > 0) {
-			console.log('>>>>>>>', JSON.stringify(dbCmds))
 			condition.where = dbCmd.and(dbCmds);
 		}
 		return await db.page(table, condition);

@@ -29,9 +29,9 @@ module.exports = {
 			const isAdmin = username == 'admin' ? true : false;
 			const { roles, perms } = await this.ctx.services.sys.menu.getPerms(user.roleIds, isAdmin);
 			const departments = await this.ctx.services.sys.department.getByRoleIds(roles, isAdmin);
-			await this.ctx.services.sys.data.set(`admin:department:${ user.id }`, JSON.stringify(departments), config.tokenExpires);
-			await this.ctx.services.sys.data.set(`admin:perms:${ user.id }`, JSON.stringify(perms), config.tokenExpires);
-			await this.ctx.services.sys.data.set(`admin:token:${ user.id }`, result.token, config.tokenExpires);
+			await this.ctx.services.sys.data.set(`admin:department:${ user._id }`, JSON.stringify(departments), config.tokenExpires);
+			await this.ctx.services.sys.data.set(`admin:perms:${ user._id }`, JSON.stringify(perms), config.tokenExpires);
+			await this.ctx.services.sys.data.set(`admin:token:${ user._id }`, result.token, config.tokenExpires);
 			return result;
 		} else {
 			throw new Error('验证码不正确~');

@@ -25,7 +25,7 @@ module.exports = (url, token, ctx) => {
 				if (rToken !== token && config.SSO) {
 					reject(tips);
 				} else {
-					let perms = await ctx.services.sys.data.get(`admin:perms:${ ctx.decoded.userId }`);
+					let perms = await ctx.services.sys.data.get(`admin:perms:${ currentUser.userId }`);
 					if (!utils.lodash.isEmpty(perms)) {
 						perms = JSON.parse(perms).map(e => {
 							return e.replace(/:/g, '/');
@@ -38,7 +38,9 @@ module.exports = (url, token, ctx) => {
 					}
 				}
 			}
+			reslove(true);
 		} catch (err) {
+			console.log(err)
 			reject(tips);
 		}
 	})
