@@ -40,7 +40,9 @@
 			"userId": "dc48549b80784e66b2ede934271329ca",
 			"remark": "超管角色",
 			"menuIds": [1, 2, 8],
-			"departmentIds": [1, 10]
+			"departmentIds": [1, 10],
+			"createTime": "2019-11-18 14:56:19",
+			"updateTime": "2019-11-19 00:00:54"
 		}, {
 			"_id": "974b4d71f89246539227103fcdbf2100",
 			"name": "测试角色",
@@ -48,7 +50,9 @@
 			"userId": "dc48549b80784e66b2ede934271329ca",
 			"remark": "测试角色",
 			"menuIds": [10],
-			"departmentIds": [1, 11]
+			"departmentIds": [1, 11],
+			"createTime": "2019-11-18 14:56:19",
+			"updateTime": "2019-11-19 00:00:54"
 		}],
 		"index": [{
 			"IndexName": "name",
@@ -157,8 +161,6 @@
 				"type": 0,
 				"icon": "icon-gongzuotai",
 				"orderNum": 1,
-				"viewPath": null,
-				"keepAlive": 1,
 				"isShow": 1
 			},
 			{
@@ -172,8 +174,6 @@
 				"type": 0,
 				"icon": "icon-systemfill",
 				"orderNum": 2,
-				"viewPath": null,
-				"keepAlive": 1,
 				"isShow": 1
 			},
 			{
@@ -187,8 +187,6 @@
 				"type": 1,
 				"icon": "icon-menu",
 				"orderNum": 2,
-				"viewPath": "views/system/menu/index.vue",
-				"keepAlive": 1,
 				"isShow": 1
 			},
 			{
@@ -202,8 +200,6 @@
 				"type": 2,
 				"icon": null,
 				"orderNum": 1,
-				"viewPath": null,
-				"keepAlive": 0,
 				"isShow": 1
 			},
 			{
@@ -217,8 +213,6 @@
 				"type": 2,
 				"icon": null,
 				"orderNum": 2,
-				"viewPath": null,
-				"keepAlive": 0,
 				"isShow": 1
 			},
 			{
@@ -232,8 +226,6 @@
 				"type": 2,
 				"icon": null,
 				"orderNum": 3,
-				"viewPath": null,
-				"keepAlive": 0,
 				"isShow": 1
 			},
 			{
@@ -247,8 +239,6 @@
 				"type": 2,
 				"icon": null,
 				"orderNum": 4,
-				"viewPath": null,
-				"keepAlive": 0,
 				"isShow": 1
 			},
 			{
@@ -262,8 +252,6 @@
 				"type": 1,
 				"icon": "icon-user",
 				"orderNum": 1,
-				"viewPath": "views/system/user/index.vue",
-				"keepAlive": 1,
 				"isShow": 1
 			},
 			{
@@ -277,8 +265,6 @@
 				"type": 2,
 				"icon": null,
 				"orderNum": 1,
-				"viewPath": null,
-				"keepAlive": 0,
 				"isShow": 1
 			},
 			{
@@ -292,8 +278,6 @@
 				"type": 2,
 				"icon": null,
 				"orderNum": 2,
-				"viewPath": null,
-				"keepAlive": 0,
 				"isShow": 1
 			},
 			{
@@ -307,8 +291,6 @@
 				"type": 2,
 				"icon": null,
 				"orderNum": 3,
-				"viewPath": null,
-				"keepAlive": 0,
 				"isShow": 1
 			},
 			{
@@ -322,8 +304,6 @@
 				"type": 2,
 				"icon": null,
 				"orderNum": 4,
-				"viewPath": null,
-				"keepAlive": 0,
 				"isShow": 1
 			},
 			{
@@ -337,8 +317,6 @@
 				"type": 1,
 				"icon": "icon-role",
 				"orderNum": 3,
-				"viewPath": "views/system/role/index.vue",
-				"keepAlive": 1,
 				"isShow": 1
 			},
 			{
@@ -352,8 +330,6 @@
 				"type": 2,
 				"icon": null,
 				"orderNum": 1,
-				"viewPath": null,
-				"keepAlive": 0,
 				"isShow": 1
 			},
 			{
@@ -367,8 +343,6 @@
 				"type": 2,
 				"icon": null,
 				"orderNum": 2,
-				"viewPath": null,
-				"keepAlive": 0,
 				"isShow": 1
 			},
 			{
@@ -382,8 +356,6 @@
 				"type": 2,
 				"icon": null,
 				"orderNum": 3,
-				"viewPath": null,
-				"keepAlive": 0,
 				"isShow": 1
 			},
 			{
@@ -397,8 +369,6 @@
 				"type": 2,
 				"icon": null,
 				"orderNum": 4,
-				"viewPath": null,
-				"keepAlive": 0,
 				"isShow": 1
 			},
 			{
@@ -412,8 +382,6 @@
 				"type": 0,
 				"icon": "icon-permission",
 				"orderNum": 1,
-				"viewPath": null,
-				"keepAlive": 0,
 				"isShow": 1
 			},
 			{
@@ -427,8 +395,6 @@
 				"type": 0,
 				"icon": "icon-monitor",
 				"orderNum": 2,
-				"viewPath": null,
-				"keepAlive": 0,
 				"isShow": 1
 			},
 			{
@@ -442,8 +408,6 @@
 				"type": 1,
 				"icon": "icon-log",
 				"orderNum": 1,
-				"viewPath": "views/system/log/index.vue",
-				"keepAlive": 0,
 				"isShow": 1
 			},
 			{
@@ -457,8 +421,6 @@
 				"type": 2,
 				"icon": null,
 				"orderNum": 1,
-				"viewPath": null,
-				"keepAlive": 0,
 				"isShow": 1
 			},
 			{
@@ -472,8 +434,6 @@
 				"type": 1,
 				"icon": "icon-radioboxfill",
 				"orderNum": 1,
-				"viewPath": "views/test/crud.vue",
-				"keepAlive": 1,
 				"isShow": 1
 			},
 			{
@@ -487,8 +447,6 @@
 				"type": 0,
 				"icon": "icon-activityfill",
 				"orderNum": 2,
-				"viewPath": null,
-				"keepAlive": 1,
 				"isShow": 1
 			},
 			{
@@ -502,8 +460,6 @@
 				"type": 0,
 				"icon": "icon-weibiaoti4",
 				"orderNum": 3,
-				"viewPath": null,
-				"keepAlive": 1,
 				"isShow": 1
 			},
 			{
@@ -517,8 +473,6 @@
 				"type": 1,
 				"icon": "icon-favorfill",
 				"orderNum": 0,
-				"viewPath": "https://docs-admin-pro.cool-js.com",
-				"keepAlive": 1,
 				"isShow": 1
 			},
 			{
@@ -532,8 +486,6 @@
 				"type": 1,
 				"icon": "icon-radioboxfill",
 				"orderNum": 3,
-				"viewPath": "views/test/editor-quill.vue",
-				"keepAlive": 1,
 				"isShow": 1
 			},
 			{
@@ -547,8 +499,6 @@
 				"type": 1,
 				"icon": "icon-activityfill",
 				"orderNum": 1,
-				"viewPath": "views/workbench/ui-components",
-				"keepAlive": 1,
 				"isShow": 1
 			},
 			{
@@ -562,8 +512,6 @@
 				"type": 2,
 				"icon": null,
 				"orderNum": 0,
-				"viewPath": null,
-				"keepAlive": 1,
 				"isShow": 1
 			},
 			{
@@ -577,8 +525,6 @@
 				"type": 2,
 				"icon": null,
 				"orderNum": 0,
-				"viewPath": null,
-				"keepAlive": 1,
 				"isShow": 1
 			},
 			{
@@ -592,8 +538,6 @@
 				"type": 2,
 				"icon": null,
 				"orderNum": 0,
-				"viewPath": null,
-				"keepAlive": 1,
 				"isShow": 1
 			},
 			{
@@ -607,8 +551,6 @@
 				"type": 2,
 				"icon": null,
 				"orderNum": 0,
-				"viewPath": null,
-				"keepAlive": 1,
 				"isShow": 1
 			},
 			{
@@ -622,8 +564,6 @@
 				"type": 2,
 				"icon": null,
 				"orderNum": 0,
-				"viewPath": null,
-				"keepAlive": 1,
 				"isShow": 1
 			},
 			{
@@ -637,8 +577,6 @@
 				"type": 2,
 				"icon": null,
 				"orderNum": 0,
-				"viewPath": null,
-				"keepAlive": 1,
 				"isShow": 1
 			},
 			{
@@ -652,8 +590,6 @@
 				"type": 1,
 				"icon": "icon-monitor",
 				"orderNum": 2,
-				"viewPath": "views/system/perf/index.vue",
-				"keepAlive": 0,
 				"isShow": 1
 			},
 			{
@@ -667,8 +603,6 @@
 				"type": 2,
 				"icon": null,
 				"orderNum": 0,
-				"viewPath": null,
-				"keepAlive": 1,
 				"isShow": 1
 			},
 			{
@@ -682,8 +616,6 @@
 				"type": 0,
 				"icon": "icon-weibiaoti4",
 				"orderNum": 3,
-				"viewPath": null,
-				"keepAlive": 1,
 				"isShow": 1
 			},
 			{
@@ -697,8 +629,6 @@
 				"type": 1,
 				"icon": "icon-radioboxfill",
 				"orderNum": 1,
-				"viewPath": "views/system/task/index.vue",
-				"keepAlive": 1,
 				"isShow": 1
 			},
 			{
@@ -712,8 +642,6 @@
 				"type": 2,
 				"icon": null,
 				"orderNum": 0,
-				"viewPath": null,
-				"keepAlive": 1,
 				"isShow": 1
 			},
 			{
@@ -727,8 +655,6 @@
 				"type": 2,
 				"icon": null,
 				"orderNum": 0,
-				"viewPath": null,
-				"keepAlive": 1,
 				"isShow": 1
 			},
 			{
@@ -742,8 +668,6 @@
 				"type": 2,
 				"icon": null,
 				"orderNum": 0,
-				"viewPath": null,
-				"keepAlive": 1,
 				"isShow": 1
 			},
 			{
@@ -757,8 +681,6 @@
 				"type": 2,
 				"icon": null,
 				"orderNum": 0,
-				"viewPath": null,
-				"keepAlive": 1,
 				"isShow": 1
 			},
 			{
@@ -772,8 +694,6 @@
 				"type": 2,
 				"icon": null,
 				"orderNum": 0,
-				"viewPath": null,
-				"keepAlive": 1,
 				"isShow": 1
 			},
 			{
@@ -787,8 +707,6 @@
 				"type": 2,
 				"icon": null,
 				"orderNum": 0,
-				"viewPath": null,
-				"keepAlive": 1,
 				"isShow": 1
 			},
 			{
@@ -802,8 +720,6 @@
 				"type": 2,
 				"icon": null,
 				"orderNum": 0,
-				"viewPath": null,
-				"keepAlive": 1,
 				"isShow": 1
 			},
 			{
@@ -817,8 +733,6 @@
 				"type": 0,
 				"icon": "icon-repairfill",
 				"orderNum": 4,
-				"viewPath": null,
-				"keepAlive": 1,
 				"isShow": 1
 			},
 			{
@@ -832,8 +746,6 @@
 				"type": 1,
 				"icon": "icon-menu",
 				"orderNum": 0,
-				"viewPath": "views/system/param/index.vue",
-				"keepAlive": 1,
 				"isShow": 1
 			},
 			{
@@ -847,8 +759,6 @@
 				"type": 2,
 				"icon": null,
 				"orderNum": 0,
-				"viewPath": null,
-				"keepAlive": 1,
 				"isShow": 1
 			},
 			{
@@ -862,8 +772,6 @@
 				"type": 2,
 				"icon": null,
 				"orderNum": 0,
-				"viewPath": null,
-				"keepAlive": 1,
 				"isShow": 1
 			},
 			{
@@ -877,8 +785,6 @@
 				"type": 2,
 				"icon": null,
 				"orderNum": 0,
-				"viewPath": null,
-				"keepAlive": 1,
 				"isShow": 1
 			},
 			{
@@ -892,8 +798,6 @@
 				"type": 2,
 				"icon": null,
 				"orderNum": 0,
-				"viewPath": null,
-				"keepAlive": 1,
 				"isShow": 1
 			},
 			{
@@ -907,8 +811,6 @@
 				"type": 0,
 				"icon": "icon-radioboxfill",
 				"orderNum": 99,
-				"viewPath": null,
-				"keepAlive": 1,
 				"isShow": 0
 			},
 			{
@@ -922,8 +824,6 @@
 				"type": 2,
 				"icon": null,
 				"orderNum": 1,
-				"viewPath": null,
-				"keepAlive": 1,
 				"isShow": 1
 			}
 		],
