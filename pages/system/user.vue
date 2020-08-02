@@ -64,9 +64,12 @@
                             :allow-drop="deptAllowDrop"
                             :expand-on-click-node="false"
                             v-loading="dept.loading"
-                            @node-contextmenu="deptCM"
                             @node-click="deptClick"
-                        ></el-tree>
+                        >
+                            <span slot-scope="{ node, data }">
+                                <dept-label :item="data" />
+                            </span>
+                        </el-tree>
                     </div>
                 </div>
 
@@ -476,6 +479,24 @@ export default {
 
 	created() {
 		this.deptRefresh();
+	},
+
+	components: {
+		deptLabel: {
+			props: {
+				item: Object
+			},
+
+			methods: {
+				onContextMenu(e) {
+					this.$parent.deptCM(e, this.item);
+				}
+			},
+
+			render() {
+				return <div on-contextmenu={this.onContextMenu}>{this.item.name}</div>;
+			}
+		}
 	},
 
 	methods: {
@@ -919,6 +940,22 @@ export default {
 
 		/deep/.el-tree-node__content {
 			height: 36px;
+
+			span {
+				&:nth-child(2) {
+					display: block;
+					height: 100%;
+					width: 100%;
+
+					div {
+						display: flex;
+						align-items: center;
+						height: 100%;
+						width: 100%;
+						font-size: 13px;
+					}
+				}
+			}
 		}
 
 		ul {
