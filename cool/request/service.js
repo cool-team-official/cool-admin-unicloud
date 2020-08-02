@@ -50,7 +50,6 @@ export class BaseService {
 			options.url = path + options.url;
 		}
 
-		console.log(`[${options.method || "GET"}]`, options.url);
 		return request(options);
 	}
 

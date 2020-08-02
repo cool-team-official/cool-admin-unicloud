@@ -1,6 +1,6 @@
 export default function (options) {
 	return new Promise((resolve, reject) => {
-		const token = uni.getStorageSync("token") || '';
+		const token = uni.getStorageSync("token") || "";
 
 		// if (!options.method || options.method == "GET") {
 		// 	options.data = options.params;
@@ -24,6 +24,8 @@ export default function (options) {
 		if (options.method == "POST") {
 			options.params = options.data;
 		}
+
+		console.log(options.url, options.params);
 
 		uniCloud
 			.callFunction({
