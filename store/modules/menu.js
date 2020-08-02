@@ -42,9 +42,9 @@ export default {
 							.filter((e) => e.type != 2)
 							.map((e) => {
 								return {
-									id: e.id,
+									id: e._id,
 									parentId: e.parentId,
-									path: revisePath(e.router || e.id),
+									path: revisePath(e.router || e._id),
 									viewPath: e.viewPath,
 									type: e.type,
 									name: e.name,

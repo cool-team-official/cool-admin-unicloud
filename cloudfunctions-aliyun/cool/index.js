@@ -18,7 +18,7 @@ exports.main = async (event, context) => {
 		// url 调用函数地址 param 参数 token 令牌
 		const { url, params, token } = event; 
 		//  const {
-		// 	url = "/admin/sys/user/page",
+		// 	url = "/admin/comm/person",
 		// 		params = {
 		// 			username: "admin",
 		// 			// password: "123456",
@@ -27,7 +27,7 @@ exports.main = async (event, context) => {
 		// 			// keyWord: "admin"
 		// 		},
 		// 		token =
-		// 		"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlSWRzIjpbIjYxZDE0ZDc0ZjE3ZDQyMjg4MzAxZTllZDc5ODk0OWU5IiwiOTc0YjRkNzFmODkyNDY1MzkyMjcxMDNmY2RiZjIxMDAiXSwidXNlcklkIjoiZGM0ODU0OWI4MDc4NGU2NmIyZWRlOTM0MjcxMzI5Y2EiLCJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmRWZXJzaW9uIjoxLCJpYXQiOjE1OTYzNjA4MjgsImV4cCI6MTU5Njk2NTYyOH0.dANYIadoCmTx1AWLbF3DhtVpdmD8H0WmjCPtlR6Fcug",
+		// 		"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlSWRzIjpbIjYxZDE0ZDc0ZjE3ZDQyMjg4MzAxZTllZDc5ODk0OWU5IiwiOTc0YjRkNzFmODkyNDY1MzkyMjcxMDNmY2RiZjIxMDAiXSwidXNlcklkIjoiZGM0ODU0OWI4MDc4NGU2NmIyZWRlOTM0MjcxMzI5Y2EiLCJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmRWZXJzaW9uIjoxLCJpYXQiOjE1OTYzNzQ4NjUsImV4cCI6MTU5Njk3OTY2NX0.ep39I3uwL1mOSWSZYirGPeBpGUbRCShUX-tP5g5DqBU",
 		// } = event;
 
 		const {
@@ -52,11 +52,11 @@ exports.main = async (event, context) => {
 		controller['ctx'] = ctx;
 
 		// 中间件
-		// for (const middleware in middlewares) {
-		// 	await middlewares[middleware](url, token, ctx).catch(err => {
-		// 		throw new Error(err);
-		// 	});
-		// }
+		for (const middleware in middlewares) {
+			await middlewares[middleware](url, token, ctx).catch(err => {
+				throw new Error(err);
+			});
+		}
 
 		return {
 			code: 1000,
