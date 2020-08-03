@@ -1,134 +1,103 @@
 <template>
-    <cl-layout>
-        <div class="system-user">
-            <div class="pane">
-                <!-- 组织架构 -->
-                <div
-                    class="dept scroller1"
-                    :class="[dept.expand ? '_expand' : '_collapse']"
-                >
-                    <div class="header">
-                        <div>组织架构</div>
+	<cl-layout>
+		<div class="system-user">
+			<div class="pane">
+				<!-- 组织架构 -->
+				<div class="dept scroller1" :class="[dept.expand ? '_expand' : '_collapse']">
+					<div class="header">
+						<div>组织架构</div>
 
-                        <ul>
-                            <li>
-                                <el-tooltip content="刷新">
-                                    <i
-                                        class="el-icon-refresh"
-                                        @click="deptRefresh()"
-                                    ></i>
-                                </el-tooltip>
-                            </li>
+						<ul>
+							<li>
+								<el-tooltip content="刷新">
+									<i class="el-icon-refresh" @click="deptRefresh()"></i>
+								</el-tooltip>
+							</li>
 
-                            <li>
-                                <el-tooltip content="拖动排序">
-                                    <i
-                                        class="el-icon-s-operation"
-                                        @click="dept.isDrag = true"
-                                    ></i>
-                                </el-tooltip>
-                            </li>
+							<li>
+								<el-tooltip content="拖动排序">
+									<i class="el-icon-s-operation" @click="dept.isDrag = true"></i>
+								</el-tooltip>
+							</li>
 
-                            <li
-                                class="no"
-                                v-show="dept.isDrag"
-                            >
-                                <el-button
-                                    type="text"
-                                    size="mini"
-                                    @click="deptOrder(true)"
-                                >保存</el-button>
-                                <el-button
-                                    type="text"
-                                    size="mini"
-                                    @click="deptOrder(false)"
-                                >取消</el-button>
-                            </li>
-                        </ul>
-                    </div>
+							<li class="no" v-show="dept.isDrag">
+								<el-button type="text" size="mini" @click="deptOrder(true)"
+									>保存</el-button
+								>
+								<el-button type="text" size="mini" @click="deptOrder(false)"
+									>取消</el-button
+								>
+							</li>
+						</ul>
+					</div>
 
-                    <div
-                        class="container"
-                        @contextmenu.prevent="deptCM"
-                    >
-                        <el-tree
-                            node-key="id"
-                            highlight-current
-                            default-expand-all
-                            :data="dept.list"
-                            :props="{
+					<div class="container" @contextmenu.prevent="deptCM">
+						<el-tree
+							node-key="id"
+							highlight-current
+							default-expand-all
+							:data="dept.list"
+							:props="{
 								label: 'name'
 							}"
-                            :draggable="dept.isDrag"
-                            :allow-drag="deptAllowDrag"
-                            :allow-drop="deptAllowDrop"
-                            :expand-on-click-node="false"
-                            v-loading="dept.loading"
-                            @node-click="deptClick"
-                        >
-                            <span slot-scope="{ node, data }">
-                                <dept-label :item="data" />
-                            </span>
-                        </el-tree>
-                    </div>
-                </div>
+							:draggable="dept.isDrag"
+							:allow-drag="deptAllowDrag"
+							:allow-drop="deptAllowDrop"
+							:expand-on-click-node="false"
+							v-loading="dept.loading"
+							@node-click="deptClick"
+						>
+							<span slot-scope="{ node, data }">
+								<dept-label :item="data" />
+							</span>
+						</el-tree>
+					</div>
+				</div>
 
-                <!-- 成员列表 -->
-                <div class="user">
-                    <div class="header">
-                        <div
-                            class="icon"
-                            @click="deptExpand"
-                        >
-                            <i
-                                class="el-icon-arrow-left"
-                                v-if="dept.expand"
-                            ></i>
-                            <i
-                                class="el-icon-arrow-right"
-                                v-else
-                            ></i>
-                        </div>
+				<!-- 成员列表 -->
+				<div class="user">
+					<div class="header">
+						<div class="icon" @click="deptExpand">
+							<i class="el-icon-arrow-left" v-if="dept.expand"></i>
+							<i class="el-icon-arrow-right" v-else></i>
+						</div>
 
-                        <span>成员列表</span>
-                    </div>
+						<span>成员列表</span>
+					</div>
 
-                    <div class="container">
-                        <cl-crud
-                            ref="crud"
-                            @load="onCrudLoad"
-                            :on-refresh="onRefresh"
-                        >
-                            <el-row type="flex">
-                                <cl-refresh-btn></cl-refresh-btn>
-                                <cl-add-btn></cl-add-btn>
-                                <cl-multi-delete-btn></cl-multi-delete-btn>
-                                <el-button
-                                    v-permission="$service.system.user.permission.move"
-                                    size="mini"
-                                    type="success"
-                                    :disabled="selects.ids.length == 0"
-                                    @click="toMove()"
-                                >转移</el-button>
-                                <cl-flex1></cl-flex1>
-                                <cl-search-key></cl-search-key>
-                            </el-row>
+					<div class="container">
+						<cl-crud ref="crud" @load="onCrudLoad" :on-refresh="onRefresh">
+							<el-row type="flex">
+								<cl-refresh-btn></cl-refresh-btn>
+								<cl-add-btn></cl-add-btn>
+								<cl-multi-delete-btn></cl-multi-delete-btn>
+								<el-button
+									v-permission="$service.system.user.permission.move"
+									size="mini"
+									type="success"
+									:disabled="selects.ids.length == 0"
+									@click="toMove()"
+									>转移</el-button
+								>
+								<cl-flex1></cl-flex1>
+								<cl-search-key></cl-search-key>
+							</el-row>
 
-                            <el-row>
-                                <cl-table
-                                    ref="table"
-                                    :props="{
+							<el-row>
+								<cl-table
+									ref="table"
+									:props="{
 										'default-sort': {
 											prop: 'createTime',
 											order: 'descending'
 										}
 									}"
-                                    :on="{
+									:on="{
 										'selection-change': (selection) => {
 											this.selects.ids = selection.map((e) => e.id);
 										}
 									}"
-                                    :columns="[
+									:columns="[
 										{
 											type: 'selection',
 											align: 'center',
@@ -208,101 +177,92 @@
 											width: '160px'
 										}
 									]"
-                                >
-                                    <!-- 头像 -->
-                                    <template #column-headImg="{scope}">
-                                        <cl-avatar
-                                            shape="square"
-                                            size="medium"
-                                            :src="scope.row.headImg | default_avatar"
-                                            :style="{ margin: 'auto' }"
-                                        >
-                                        </cl-avatar>
-                                    </template>
+								>
+									<!-- 头像 -->
+									<template #column-headImg="{scope}">
+										<cl-avatar
+											shape="square"
+											size="medium"
+											:src="scope.row.headImg | default_avatar"
+											:style="{ margin: 'auto' }"
+										>
+										</cl-avatar>
+									</template>
 
-                                    <!-- 状态 -->
-                                    <template #column-status="{scope}">
-                                        <el-tag
-                                            v-if="scope.row.status == 1"
-                                            size="small"
-                                            effect="dark"
-                                            type="success"
-                                        >启用</el-tag>
-                                        <el-tag
-                                            v-else
-                                            size="small"
-                                            effect="dark"
-                                            type="danger"
-                                        >禁用</el-tag>
-                                    </template>
+									<!-- 状态 -->
+									<template #column-status="{scope}">
+										<el-tag
+											v-if="scope.row.status == 1"
+											size="small"
+											effect="dark"
+											type="success"
+											>启用</el-tag
+										>
+										<el-tag v-else size="small" effect="dark" type="danger"
+											>禁用</el-tag
+										>
+									</template>
 
-                                    <!-- 权限 -->
-                                    <template #column-roleName="{scope}">
-                                        <el-tag
-                                            v-for="(item, index) in scope.row.roleNameList"
-                                            :key="index"
-                                            disable-transitions
-                                            size="small"
-                                            effect="dark"
-                                            style="margin: 2px;"
-                                        >{{ item }}</el-tag>
-                                    </template>
+									<!-- 权限 -->
+									<template #column-roleName="{scope}">
+										<el-tag
+											v-for="(item, index) in scope.row.roleNameList"
+											:key="index"
+											disable-transitions
+											size="small"
+											effect="dark"
+											style="margin: 2px;"
+											>{{ item }}</el-tag
+										>
+									</template>
 
-                                    <!-- 单个转移 -->
-                                    <template #slot-move-btn="{ scope }">
-                                        <el-button
-                                            v-permission="$service.system.user.permission.move"
-                                            type="text"
-                                            size="mini"
-                                            @click="toMove(scope.row)"
-                                        >转移</el-button>
-                                    </template>
-                                </cl-table>
-                            </el-row>
+									<!-- 单个转移 -->
+									<template #slot-move-btn="{ scope }">
+										<el-button
+											v-permission="$service.system.user.permission.move"
+											type="text"
+											size="mini"
+											@click="toMove(scope.row)"
+											>转移</el-button
+										>
+									</template>
+								</cl-table>
+							</el-row>
 
-                            <el-row type="flex">
-                                <cl-flex1></cl-flex1>
-                                <cl-pagination></cl-pagination>
-                            </el-row>
+							<el-row type="flex">
+								<cl-flex1></cl-flex1>
+								<cl-pagination></cl-pagination>
+							</el-row>
 
-                            <cl-upsert
-                                ref="upsert"
-                                :items="upsert.items"
-                                :on-submit="onUpsertSubmit"
-                                @open="onUpsertOpen"
-                            ></cl-upsert>
-                        </cl-crud>
-                    </div>
-                </div>
-            </div>
+							<cl-upsert
+								ref="upsert"
+								:items="upsert.items"
+								:on-submit="onUpsertSubmit"
+								@open="onUpsertOpen"
+							></cl-upsert>
+						</cl-crud>
+					</div>
+				</div>
+			</div>
 
-            <cl-form ref="cl-form">
-                <!-- 部门转移 -->
-                <template #slot-move-dept>
-                    <div class="system-user-move-dept">
-                        <el-tree
-                            :data="dept.list"
-                            :props="{
-								label: 'name'
-							}"
-                            node-key="id"
-                            highlight-current
-                            @node-click="moveDeptClick"
-                        ></el-tree>
-                    </div>
-                </template>
-            </cl-form>
+			<!-- 部门编辑 -->
+			<cl-form ref="dept-upsert"> </cl-form>
 
-            <!-- 右键按钮 -->
-            <cl-context-menu ref="context-menu"> </cl-context-menu>
-        </div>
-    </cl-layout>
+			<!-- 成员转移 -->
+			<cl-form ref="dept-move"> </cl-form>
+
+			<!-- 右键按钮 -->
+			<cl-context-menu ref="context-menu"> </cl-context-menu>
+		</div>
+	</cl-layout>
 </template>
 
 <script>
 import { deepTree, isArray, revDeepTree } from "@/cool/utils";
 
 export default {
+	componentName: "User",
+
 	data() {
 		return {
 			dept: {
@@ -487,9 +447,24 @@ export default {
 				item: Object
 			},
 
+			computed: {
+				parent() {
+					let parent = this;
+
+					while (parent.$options.componentName != "User") {
+						parent = parent.$parent;
+					}
+
+					return parent;
+				}
+			},
+
 			methods: {
 				onContextMenu(e) {
-					this.$parent.deptCM(e, this.item);
+					this.parent.deptCM(e, this.item);
+					e.stopPropagation();
+					e.preventDefault();
+					return false;
 				}
 			},
 
@@ -518,7 +493,6 @@ export default {
 					this.$set(e, "roleNameList", e.roleName.split(","));
 				}
 
-				e.id = e._id;
 				e.status = Boolean(e.status);
 			});
 
@@ -551,12 +525,7 @@ export default {
 			this.$service.system.dept
 				.list()
 				.then((res) => {
-					this.dept.list = deepTree(
-						res.map((e) => {
-							e.id = e._id;
-							return e;
-						})
-					);
+					this.dept.list = deepTree(res);
 				})
 				.done(() => {
 					this.dept.loading = false;
@@ -643,7 +612,7 @@ export default {
 		deptEdit(e) {
 			const method = e.id ? "update" : "add";
 
-			this.$refs["cl-form"].open({
+			this.$refs["dept-upsert"].open({
 				props: {
 					title: "编辑部门",
 					width: "550px",
@@ -795,7 +764,7 @@ export default {
 			}
 		},
 
-		async toMove(e) {
+		toMove(e) {
 			let ids = [];
 
 			if (!e) {
@@ -806,7 +775,7 @@ export default {
 
 			let that = this;
 
-			this.$refs["cl-form"].open({
+			this.$refs["dept-move"].open({
 				props: {
 					title: "部门转移",
 					width: "600px",
@@ -817,7 +786,7 @@ export default {
 						label: "选择部门",
 						prop: "dept",
 						component: {
-							name: "system-user-move-dept",
+							name: "system-user__dept-move",
 
 							methods: {
 								selectRow(e) {
@@ -827,7 +796,12 @@ export default {
 
 							render() {
 								return (
-									<div class="system-user-move-dept">
+									<div
+										style={{
+											border: "1px solid #eee",
+											"border-radius": "3px",
+											padding: " 2px"
+										}}>
 										<el-tree
 											data={that.dept.list}
 											{...{
@@ -847,7 +821,7 @@ export default {
 					}
 				],
 				on: {
-					submit: ({ data, done, close }) => {
+					submit: (data, { done, close }) => {
 						if (!data.dept) {
 							this.$message.warning("请选择部门");
 							return done();
@@ -882,17 +856,6 @@ export default {
 	}
 };
 </script>
-
-<style lang="scss">
-.system-user-move-dept {
-	border: 1px solid #eee;
-	margin-top: 5px;
-	padding: 5px;
-	border-radius: 3px;
-	position: relative;
-	top: -8px;
-}
-</style>
 
 <style lang="scss" scoped>
 .system-user {
