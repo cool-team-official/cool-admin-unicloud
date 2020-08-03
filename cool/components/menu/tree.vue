@@ -1,40 +1,51 @@
 <template>
-	<div class="cl-menu-tree">
-		<el-popover
-			ref="popover"
-			placement="bottom-start"
-			trigger="click"
-			popper-class="popper-menu-tree"
-		>
-			<el-input size="small" v-model="filterValue">
-				<i slot="prefix" class="el-input__icon el-icon-search"></i>
-			</el-input>
+    <div class="cl-menu-tree">
+        <el-popover
+            ref="popover"
+            placement="bottom-start"
+            trigger="click"
+            popper-class="popper-menu-tree"
+        >
+            <el-input
+                size="small"
+                v-model="filterValue"
+            >
+                <i
+                    slot="prefix"
+                    class="el-input__icon el-icon-search"
+                ></i>
+            </el-input>
 
-			<el-tree
-				ref="tree"
-				node-key="menuId"
-				:data="treeList"
-				:props="props"
-				:highlight-current="true"
-				:expand-on-click-node="false"
-				:default-expanded-keys="expandedKeys"
-				:filter-node-method="filterNode"
-				@current-change="currentChange"
-			>
-			</el-tree>
-		</el-popover>
-		<el-input v-model="name" v-popover:popover readonly placeholder="请选择"></el-input>
-	</div>
+            <el-tree
+                ref="tree"
+                node-key="menuId"
+                :data="treeList"
+                :props="props"
+                :highlight-current="true"
+                :expand-on-click-node="false"
+                :default-expanded-keys="expandedKeys"
+                :filter-node-method="filterNode"
+                @current-change="currentChange"
+            >
+            </el-tree>
+        </el-popover>
+        <el-input
+            v-model="name"
+            v-popover:popover
+            readonly
+            placeholder="请选择"
+        ></el-input>
+    </div>
 </template>
 
 <script>
-import { deepTree } from "../../utils/index";
+import { deepTree } from "../../utils";
 
 export default {
 	name: "cl-menu-tree",
 
 	props: {
-		value: String
+		value: [Number, String]
 	},
 
 	data() {
