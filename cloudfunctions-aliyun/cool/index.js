@@ -15,6 +15,12 @@ const config = myRequire('/config');
 const middlewares = requireDir('/middleware');
 exports.main = async (event, context) => {
 	try {
+		
+		// const c = await db.collection('sys_menu').get();
+		// console.log(JSON.stringify(c.data.map(e=>{
+		// 	e._id = e._id + ''
+		// 	return e;
+		// })))
 		// url 调用函数地址 param 参数 token 令牌
 		//const { url, params, token } = event; 
 		 const {
