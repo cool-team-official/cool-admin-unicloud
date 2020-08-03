@@ -17,26 +17,26 @@ exports.main = async (event, context) => {
 	try {
 		// url 调用函数地址 param 参数 token 令牌
 		//const { url, params, token } = event; 
-		 const {
-			url = "/admin/sys/menu/info",
+		let {
+			url = "/admin/sys/user/move",
 				params = {
-					_id: 2
+					//ids: "5f27aae8272f640001d76040"
+					//departmentIds: "11,2",
 					//username: "admin",
 					// password: "123456",
 					// captchaId: "099a47b1-c579-4633-93a8-15b24f9735c6",
 					// verifyCode: "8624",
-					// keyWord: "admin"
+					// keyWord: "1801"
 				},
 				token =
 				"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlSWRzIjpbIjYxZDE0ZDc0ZjE3ZDQyMjg4MzAxZTllZDc5ODk0OWU5IiwiOTc0YjRkNzFmODkyNDY1MzkyMjcxMDNmY2RiZjIxMDAiXSwidXNlcklkIjoiZGM0ODU0OWI4MDc4NGU2NmIyZWRlOTM0MjcxMzI5Y2EiLCJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmRWZXJzaW9uIjoxLCJpYXQiOjE1OTYzNzQ4NjUsImV4cCI6MTU5Njk3OTY2NX0.ep39I3uwL1mOSWSZYirGPeBpGUbRCShUX-tP5g5DqBU",
 		} = event;
-
 		const {
 			cPath,
 			method
 		} = utils.parseUrl(url);
 		const controller = myRequire(cPath);
-
+	
 		// 上下文对象
 		let ctx = {
 			currentUser: {},
@@ -51,13 +51,14 @@ exports.main = async (event, context) => {
 		utils.serviceCtx(ctx.services, ctx);
 		// controller 注入ctx
 		controller['ctx'] = ctx;
-
+    
 		// 中间件
 		for (const middleware in middlewares) {
 			await middlewares[middleware](url, token, ctx).catch(err => {
 				throw new Error(err);
 			});
 		}
+	
 
 		return {
 			code: 1000,

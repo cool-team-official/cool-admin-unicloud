@@ -13,8 +13,6 @@
     "crud": "file:../common/crud",
     "db": "file:../common/db",
     "require-all": "^3.0.0",
-    "require-dir": "^1.2.0",
-    "require-dir-all": "^0.4.15",
     "utils": "file:../common/utils",
     "verify": "file:../common/verify"
   }
