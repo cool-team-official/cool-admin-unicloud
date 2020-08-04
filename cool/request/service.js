@@ -54,20 +54,44 @@ export class BaseService {
 	}
 
 	list(params) {
-		return this.request({
-			url: "/list",
-			params: {
-				...params
-			}
+		return new Promise((resolve, reject) => {
+			this.request({
+				url: "/list",
+				params: {
+					...params
+				}
+			})
+				.then((res) => {
+					res.map((e) => {
+						e.id = e._id;
+					});
+
+					resolve(res);
+				})
+				.catch((err) => {
+					reject(err);
+				});
 		});
 	}
 
 	page(params) {
-		return this.request({
-			url: "/page",
-			params: {
-				...params
-			}
+		return new Promise((resolve, reject) => {
+			this.request({
+				url: "/page",
+				params: {
+					...params
+				}
+			})
+				.then((res) => {
+					res.list.map((e) => {
+						e.id = e._id;
+					});
+
+					resolve(res);
+				})
+				.catch((err) => {
+					reject(err);
+				});
 		});
 	}
 

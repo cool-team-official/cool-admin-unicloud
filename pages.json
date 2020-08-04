@@ -41,6 +41,17 @@
 					"path": "503"
 				}
 			]
+		},
+		{
+			"root": "pages/demo",
+			"pages": [
+				{
+					"path": "index"
+				},
+				{
+					"path": "crud"
+				}
+			]
 		}
 	],
 	"globalStyle": {

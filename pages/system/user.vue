@@ -160,20 +160,6 @@
 											'min-width': 150
 										},
 										{
-											prop: 'departmentName',
-											label: '部门名称',
-											align: 'center',
-											emptyText: '无',
-											'min-width': 150
-										},
-										{
-											prop: 'roleName',
-											label: '角色',
-											'header-align': 'center',
-											emptyText: '无',
-											'min-width': 200
-										},
-										{
 											prop: 'phone',
 											label: '手机号码',
 											align: 'center',
@@ -236,18 +222,6 @@
                                         >禁用</el-tag>
                                     </template>
 
-                                    <!-- 权限 -->
-                                    <template #column-roleName="{scope}">
-                                        <el-tag
-                                            v-for="(item, index) in scope.row.roleNameList"
-                                            :key="index"
-                                            disable-transitions
-                                            size="small"
-                                            effect="dark"
-                                            style="margin: 2px;"
-                                        >{{ item }}</el-tag>
-                                    </template>
-
                                     <!-- 单个转移 -->
                                     <template #slot-move-btn="{ scope }">
                                         <el-button
@@ -276,22 +250,11 @@
                 </div>
             </div>
 
-            <cl-form ref="cl-form">
-                <!-- 部门转移 -->
-                <template #slot-move-dept>
-                    <div class="system-user-move-dept">
-                        <el-tree
-                            :data="dept.list"
-                            :props="{
-								label: 'name'
-							}"
-                            node-key="id"
-                            highlight-current
-                            @node-click="moveDeptClick"
-                        ></el-tree>
-                    </div>
-                </template>
-            </cl-form>
+            <!-- 部门编辑 -->
+            <cl-form ref="dept-upsert"> </cl-form>
+
+            <!-- 成员转移 -->
+            <cl-form ref="dept-move"> </cl-form>
 
             <!-- 右键按钮 -->
             <cl-context-menu ref="context-menu"> </cl-context-menu>
@@ -303,6 +266,8 @@
 import { deepTree, isArray, revDeepTree } from "@/cool/utils";
 
 export default {
+	componentName: "User",
+
 	data() {
 		return {
 			dept: {
@@ -331,7 +296,7 @@ export default {
 						span: 24,
 						component: {
 							name: "el-input",
-							props: {
+							attrs: {
 								placeholder: "请填写姓名"
 							}
 						},
@@ -346,7 +311,7 @@ export default {
 						span: 12,
 						component: {
 							name: "el-input",
-							props: {
+							attrs: {
 								placeholder: "请填写昵称"
 							}
 						},
@@ -361,7 +326,7 @@ export default {
 						span: 12,
 						component: {
 							name: "el-input",
-							props: {
+							attrs: {
 								placeholder: "请填写用户名"
 							}
 						},
@@ -379,8 +344,10 @@ export default {
 						hidden: true,
 						component: {
 							name: "el-input",
+							attrs: {
+								placeholder: "请填写密码"
+							},
 							props: {
-								placeholder: "请填写密码",
 								type: "password"
 							}
 						},
@@ -416,7 +383,7 @@ export default {
 						span: 12,
 						component: {
 							name: "el-input",
-							props: {
+							attrs: {
 								placeholder: "请填写手机号码"
 							}
 						}
@@ -427,7 +394,7 @@ export default {
 						span: 12,
 						component: {
 							name: "el-input",
-							props: {
+							attrs: {
 								placeholder: "请填写邮箱"
 							}
 						}
@@ -487,9 +454,24 @@ export default {
 				item: Object
 			},
 
+			computed: {
+				parent() {
+					let parent = this;
+
+					while (parent.$options.componentName != "User") {
+						parent = parent.$parent;
+					}
+
+					return parent;
+				}
+			},
+
 			methods: {
 				onContextMenu(e) {
-					this.$parent.deptCM(e, this.item);
+					this.parent.deptCM(e, this.item);
+					e.stopPropagation();
+					e.preventDefault();
+					return false;
 				}
 			},
 
@@ -518,7 +500,6 @@ export default {
 					this.$set(e, "roleNameList", e.roleName.split(","));
 				}
 
-				e.id = e._id;
 				e.status = Boolean(e.status);
 			});
 
@@ -551,12 +532,7 @@ export default {
 			this.$service.system.dept
 				.list()
 				.then((res) => {
-					this.dept.list = deepTree(
-						res.map((e) => {
-							e.id = e._id;
-							return e;
-						})
-					);
+					this.dept.list = deepTree(res);
 				})
 				.done(() => {
 					this.dept.loading = false;
@@ -643,7 +619,7 @@ export default {
 		deptEdit(e) {
 			const method = e.id ? "update" : "add";
 
-			this.$refs["cl-form"].open({
+			this.$refs["dept-upsert"].open({
 				props: {
 					title: "编辑部门",
 					width: "550px",
@@ -795,7 +771,7 @@ export default {
 			}
 		},
 
-		async toMove(e) {
+		toMove(e) {
 			let ids = [];
 
 			if (!e) {
@@ -806,7 +782,7 @@ export default {
 
 			let that = this;
 
-			this.$refs["cl-form"].open({
+			this.$refs["dept-move"].open({
 				props: {
 					title: "部门转移",
 					width: "600px",
@@ -817,7 +793,7 @@ export default {
 						label: "选择部门",
 						prop: "dept",
 						component: {
-							name: "system-user-move-dept",
+							name: "system-user__dept-move",
 
 							methods: {
 								selectRow(e) {
@@ -827,7 +803,12 @@ export default {
 
 							render() {
 								return (
-									<div class="system-user-move-dept">
+									<div
+										style={{
+											border: "1px solid #eee",
+											"border-radius": "3px",
+											padding: " 2px"
+										}}>
 										<el-tree
 											data={that.dept.list}
 											{...{
@@ -847,7 +828,7 @@ export default {
 					}
 				],
 				on: {
-					submit: ({ data, done, close }) => {
+					submit: (data, { done, close }) => {
 						if (!data.dept) {
 							this.$message.warning("请选择部门");
 							return done();
@@ -882,17 +863,6 @@ export default {
 	}
 };
 </script>
-
-<style lang="scss">
-.system-user-move-dept {
-	border: 1px solid #eee;
-	margin-top: 5px;
-	padding: 5px;
-	border-radius: 3px;
-	position: relative;
-	top: -8px;
-}
-</style>
 
 <style lang="scss" scoped>
 .system-user {

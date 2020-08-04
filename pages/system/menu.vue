@@ -64,12 +64,6 @@
 						width: 90
 					},
 					{
-						prop: 'isShow',
-						label: '是否显示',
-						align: 'center',
-						width: 90
-					},
-					{
 						prop: 'perms',
 						label: '权限',
 						'header-align': 'center',
@@ -90,6 +84,18 @@
 					}
 				]"
             >
+                <!-- 名称 -->
+                <template #column-name="{scope}">
+                    <span>{{ scope.row.name }}</span>
+                    <el-tag
+                        size="mini"
+                        effect="dark"
+                        type="danger"
+                        v-if="!scope.row.isShow"
+                        style="margin-left: 10px;"
+                    >隐藏</el-tag>
+                </template>
+
                 <!-- 图标 -->
                 <template #column-icon="{scope}">
                     <icon-svg
@@ -113,23 +119,12 @@
                 <template #column-router="{scope}">
                     <el-link
                         type="primary"
-                        :href="scope.row.router"
+                        :href="`#${scope.row.router}`"
                         v-if="scope.row.type == 1"
                     >{{
 						scope.row.router
 					}}</el-link>
                     <span v-else>{{ scope.row.router }}</span>
-                </template>
-
-                <template #column-isShow="{scope}">
-                    <i
-                        class="el-icon-check"
-                        v-if="scope.row.isShow"
-                    ></i>
-                    <i
-                        class="el-icon-close"
-                        v-else
-                    ></i>
                 </template>
 
                 <!-- 行新增 -->
@@ -232,7 +227,6 @@
 							name: 'cl-menu-icons'
 						}
 					},
-
 					{
 						prop: 'orderNum',
 						label: '排序号',
@@ -287,7 +281,6 @@ export default {
 			this.$service.system.menu.list().then((list) => {
 				list.map((e) => {
 					e.permList = e.perms ? e.perms.split(",") : [];
-					e.id = e._id;
 				});
 
 				render(deepTree(list));

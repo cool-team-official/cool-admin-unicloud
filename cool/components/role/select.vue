@@ -2,7 +2,7 @@
 	<el-select v-model="newValue" v-bind="props" v-on="on" multiple>
 		<el-option
 			v-for="(item, index) in list"
-			:value="item.id"
+			:value="item._id"
 			:label="item.name"
 			:key="index"
 		></el-option>

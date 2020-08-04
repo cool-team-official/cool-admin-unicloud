@@ -50,7 +50,8 @@ export default {
 			"user",
 			"log",
 			"workbench",
-			"common"
+			"common",
+			"role"
 		];
 	},
 
