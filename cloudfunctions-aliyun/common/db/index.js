@@ -38,7 +38,7 @@ module.exports = {
 	 */
 	async delete(table, ids) {
 		const collection = db.collection(table);
-		if (ids instanceof String) {
+		if (!(ids instanceof Array)) {
 			ids = ids.split(',');
 		}
 		const dbCmd = db.command
@@ -89,7 +89,7 @@ module.exports = {
 		for (const key in condition) {
 			collection = collection[key](condition[key]);
 		}
-		const totalResult = await collection.where({_id: dbCmd.exists(true)}).count();
+		const totalResult = await collection.count();
 		collection = collection.skip((page - 1) * size).limit(size).orderBy(order, sort);
 		const listResult = await collection.get();
 		return { list: listResult.data, pagination: { page, size, total: totalResult.total } };

@@ -42,31 +42,39 @@ module.exports = {
 	 * 分页查询
 	 */
 	async page(table, pageOption = {}) {
-		const { db, params } = this.ctx;
+		const { db, params, utils } = this.ctx;
 		const dbCmd = db.command;
 		const dbCmds = [];
 		// 字段全匹配
 		if (pageOption.fieldEq) {
 			for (const key of pageOption.fieldEq) {
-				const condition = {};
-				condition[key] = dbCmd.eq(params[key])
-				dbCmds.push(dbCmd.and(condition))
+				if(params[key]){
+					const condition = {};
+					condition[key] = dbCmd.eq(params[key]);
+					dbCmds.push(condition);
+				}
 			}
 		}
-		// 模糊查询 new RegExp(`/${params.keyWord}/`) 
+		// 模糊查询
 		if (params.keyWord && pageOption.keyWordLikeFields) {
 			const likeDbCmds = [];
 			for (const key of pageOption.keyWordLikeFields) {
-				const condition = {};
-				condition[key] = new RegExp(`.*${params.keyWord}.*`);
-				likeDbCmds.push(dbCmd.or(condition));
+				const conditionLike = {};
+				conditionLike[key] = new RegExp(`.*${params.keyWord}.*`);
+				likeDbCmds.push((conditionLike));
 			}
-			dbCmds.push(dbCmd.and(likeDbCmds));
+			dbCmds.push(dbCmd.or(likeDbCmds));
 		}
 		// 其他where 条件
 		if (pageOption.where) {
-			dbCmds.push(where);
+			for (const key in pageOption.where) {
+				if(utils.lodash.isEmpty(pageOption.where[key])){
+					delete pageOption.where[key];
+				}
+			}
+			dbCmds.push(pageOption.where);
 		}
+		dbCmds.push({_id: dbCmd.exists(true)})
 		const condition = {};
 		if (dbCmds.length > 0) {
 			condition.where = dbCmd.and(dbCmds);

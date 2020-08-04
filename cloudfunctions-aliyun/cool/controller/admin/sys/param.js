@@ -8,7 +8,7 @@ module.exports = {
     /**
 	 * 初始化
 	 */
-	init() {
+	async init() {
 		return { table: 'sys_param' };
 	}
 }

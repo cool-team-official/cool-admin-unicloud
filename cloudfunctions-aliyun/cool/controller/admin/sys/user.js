@@ -8,14 +8,34 @@ module.exports = {
 	/**
 	 * 初始化
 	 */
-	init() {
-		return { table: 'sys_user' };
+	async init() {
+		const {
+			db,
+			params
+		} = this.ctx;
+		return {
+			table: 'sys_user',
+			pageOption: {
+				keyWordLikeFields: ['username', 'name', 'phone'],
+				where: {
+					departmentId: params.departmentIds ? db.command.in(params.departmentIds.split(',')) : []
+				}
+			}
+		};
 	},
 	/**
 	 * 移动部门
 	 */
 	async move() {
-		await this.OpService.move(this.getBody());
-		this.res();
+		const { services, params } = this.ctx;
+		const { departmentId, userIds } = this.ctx.params;
+		await services.sys.user.move(departmentId, userIds);
+	},
+	/**
+	 * 更新
+	 */
+	async update() {
+		const { services, params } = this.ctx;
+		await services.sys.user.update(params);
 	}
 }

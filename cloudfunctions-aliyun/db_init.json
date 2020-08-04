@@ -17,7 +17,7 @@
 			"createTime": "2019-06-25 10:20:20",
 			"updateTime": "2019-06-25 10:20:20",
 			"phone": "18000000000",
-			"departmentId": 1,
+			"departmentId": "1",
 			"roleIds": ["61d14d74f17d42288301e9ed798949e9", "974b4d71f89246539227103fcdbf2100"]
 		}],
 		"index": [{
@@ -39,8 +39,8 @@
 			"label": "admin",
 			"userId": "dc48549b80784e66b2ede934271329ca",
 			"remark": "超管角色",
-			"menuIds": [1, 2, 8],
-			"departmentIds": [1, 10],
+			"menuIds": ["1", "2", "8"],
+			"departmentIds": ["1", "10"],
 			"createTime": "2019-11-18 14:56:19",
 			"updateTime": "2019-11-19 00:00:54"
 		}, {
@@ -49,8 +49,8 @@
 			"label": "test",
 			"userId": "dc48549b80784e66b2ede934271329ca",
 			"remark": "测试角色",
-			"menuIds": [10],
-			"departmentIds": [1, 11],
+			"menuIds": ["10"],
+			"departmentIds": ["1", "11"],
 			"createTime": "2019-11-18 14:56:19",
 			"updateTime": "2019-11-19 00:00:54"
 		}],
@@ -76,7 +76,7 @@
 	},
 	"sys_department": {
 		"data": [{
-				"_id": 1,
+				"_id": "1",
 				"createTime": "2019-11-18 14:56:19",
 				"updateTime": "2019-11-19 00:00:54",
 				"name": "COOL-ADMIN",
@@ -84,67 +84,67 @@
 				"orderNum": 0
 			},
 			{
-				"_id": 10,
+				"_id": "10",
 				"createTime": "2019-11-18 17:07:06",
 				"updateTime": "2019-11-18 17:56:16",
 				"name": "123123",
-				"parentId": 10,
+				"parentId": "10",
 				"orderNum": 1
 			},
 			{
-				"_id": 11,
+				"_id": "11",
 				"createTime": "2019-11-18 17:07:10",
 				"updateTime": "2019-11-18 17:56:17",
 				"name": "3333",
-				"parentId": 11,
+				"parentId": "11",
 				"orderNum": 3
 			},
 			{
-				"_id": 12,
+				"_id": "12",
 				"createTime": "2019-11-18 17:20:28",
 				"updateTime": "2019-11-18 17:56:16",
 				"name": "123123123",
-				"parentId": 12,
+				"parentId": "12",
 				"orderNum": 2
 			},
 			{
-				"_id": 13,
+				"_id": "13",
 				"createTime": "2019-11-18 17:58:57",
 				"updateTime": "2019-11-19 00:40:44",
 				"name": "部门1",
-				"parentId": 1,
+				"parentId": "1",
 				"orderNum": 1
 			},
 			{
-				"_id": 14,
+				"_id": "14",
 				"createTime": "2019-11-18 17:59:04",
 				"updateTime": "2019-11-19 00:40:55",
 				"name": "小组1",
-				"parentId": 13,
+				"parentId": "13",
 				"orderNum": 2
 			},
 			{
-				"_id": 15,
+				"_id": "15",
 				"createTime": "2019-11-18 17:59:07",
 				"updateTime": "2019-11-19 00:40:49",
 				"name": "部门2",
-				"parentId": 1,
+				"parentId": "1",
 				"orderNum": 3
 			},
 			{
-				"_id": 16,
+				"_id": "16",
 				"createTime": "2019-11-18 17:59:12",
 				"updateTime": "2019-11-19 00:41:01",
 				"name": "小组2",
-				"parentId": 15,
+				"parentId": "15",
 				"orderNum": 4
 			},
 			{
-				"_id": 17,
+				"_id": "17",
 				"createTime": "2019-11-19 00:41:19",
 				"updateTime": "2019-11-19 00:41:19",
 				"name": "小组1",
-				"parentId": 15,
+				"parentId": "15",
 				"orderNum": 0
 			}
 		]

@@ -8,14 +8,22 @@ module.exports = {
 	/**
 	 * 初始化
 	 */
-	init() {
-		return { table: 'sys_log' };
+	async init() {
+		const { params } = this.ctx;
+		return {
+			table: 'sys_log',
+			pageOption: {
+				keyWordLikeFields: ['action', 'name', 'phone'],
+				where: {
+					departmentId: params.departmentIds ? db.command.in(params.departmentIds.split(',')) : []
+				}
+			}
+		};
 	},
 	/**
 	 * 清空日志
 	 */
 	async clear() {
-		await this.OpService.clear(true);
-		this.res();
+		await this.ctx.services.sys.log.clear();
 	}
 }
