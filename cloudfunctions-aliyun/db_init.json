@@ -39,8 +39,8 @@
 			"label": "admin",
 			"userId": "dc48549b80784e66b2ede934271329ca",
 			"remark": "超管角色",
-			"menuIds": [1, 2, 8],
-			"departmentIds": [1, 10],
+			"menuIds": ["1", "2", "8"],
+			"departmentIds": ["1", "10"],
 			"createTime": "2019-11-18 14:56:19",
 			"updateTime": "2019-11-19 00:00:54"
 		}, {
@@ -49,8 +49,8 @@
 			"label": "test",
 			"userId": "dc48549b80784e66b2ede934271329ca",
 			"remark": "测试角色",
-			"menuIds": [10],
-			"departmentIds": [1, 11],
+			"menuIds": ["10"],
+			"departmentIds": ["1", "11"],
 			"createTime": "2019-11-18 14:56:19",
 			"updateTime": "2019-11-19 00:00:54"
 		}],
