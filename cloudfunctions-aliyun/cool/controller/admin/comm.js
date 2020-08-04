@@ -21,7 +21,8 @@ module.exports = {
 	 * 退出登录
 	 */
 	async logout() {
-		return await this.ctx.services.sys.logout();
+		const { currentUser } = this.ctx;
+		return await this.ctx.services.sys.logout(currentUser.userId);
 	},
 
 	/**
@@ -35,7 +36,9 @@ module.exports = {
 	 * 修改个人信息
 	 */
 	async personUpdate() {
-		this.res({ data: await this.service.sys.user.personUpdate(this.getBody()) });
+		const { params, currentUser } = this.ctx;
+		params._id = currentUser.userId;
+		await this.ctx.services.sys.user.personUpdate(params);
 	},
 
 	/**

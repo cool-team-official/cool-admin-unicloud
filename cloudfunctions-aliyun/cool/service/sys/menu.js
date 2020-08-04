@@ -9,7 +9,6 @@ module.exports = {
 	 * @param {Boolean} isAdmin 是否是超管
 	 */
 	async getPerms(roleIds, isAdmin) {
-		console.log(roleIds, isAdmin);
 		const { db, utils } = this.ctx;
 		const _ = utils.lodash;
 		let perms = [];
@@ -39,5 +38,27 @@ module.exports = {
 			return !_.isEmpty(n);
 		});
 		return { roles, perms, menus: menusResult.data };
+	},
+	/**
+	 * 列表
+	 * @param {Object} roleIds
+	 * @param {Object} isAdmin
+	 */
+	async list(roleIds, isAdmin) {
+		const { utils } = this.ctx;
+		const { menus } = await this.getPerms(roleIds, isAdmin);
+		if (!utils.lodash.isEmpty(menus)) {
+			menus.forEach(e => {
+				const parentMenu = menus.filter(m => {
+					if (e.parentId === m.id) {
+						return m.name;
+					}
+				});
+				if (!utils.lodash.isEmpty(parentMenu)) {
+					e.parentName = parentMenu[0].name;
+				}
+			});
+		}
+		return menus;
 	}
 }

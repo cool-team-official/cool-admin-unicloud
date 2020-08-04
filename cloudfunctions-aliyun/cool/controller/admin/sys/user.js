@@ -26,23 +26,16 @@ module.exports = {
 	/**
 	 * 移动部门
 	 */
-	// async move() {
-	// 	await this.OpService.move(this.getBody());
-	// 	this.res();
-	// },
-	
 	async move() {
-		
-	// 	const {db} = this.ctx;
-		
-	// 	const startTime = new Date().getTime();
-	// 	console.log("开始", startTime)
-	
-	// 	const dbCmd = db.command;
-	// 	await db.collection('sys_user').where({_id: dbCmd.exists(true)}).count();
-	// 	await db.list('sys_user')
-		
-	// 	const endTime = new Date().getTime();
-	// 	console.log("耗时", endTime-startTime)
+		const { services, params } = this.ctx;
+		const { departmentId, userIds } = this.ctx.params;
+		await services.sys.user.move(departmentId, userIds);
+	},
+	/**
+	 * 更新
+	 */
+	async update() {
+		const { services, params } = this.ctx;
+		await services.sys.user.update(params);
 	}
 }

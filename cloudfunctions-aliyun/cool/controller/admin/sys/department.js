@@ -8,13 +8,20 @@ module.exports = {
 	/**
 	 * 初始化
 	 */
-	init() {
+	async init() {
 		return { table: 'sys_department' };
+	},
+	/**
+	 * 列表
+	 */
+	async list(){
+		return this.ctx.services.sys.department.list();
 	},
 	/**
 	 * 部门排序
 	 */
 	async order() {
-		await this.OpService.order(this.getBody());
+		const { services, params } = this.ctx;
+		await this.ctx.services.sys.department.order(params);
 	}
 }

@@ -88,7 +88,7 @@
 				"createTime": "2019-11-18 17:07:06",
 				"updateTime": "2019-11-18 17:56:16",
 				"name": "123123",
-				"parentId": 10,
+				"parentId": "10",
 				"orderNum": 1
 			},
 			{
@@ -96,7 +96,7 @@
 				"createTime": "2019-11-18 17:07:10",
 				"updateTime": "2019-11-18 17:56:17",
 				"name": "3333",
-				"parentId": 11,
+				"parentId": "11",
 				"orderNum": 3
 			},
 			{
@@ -104,7 +104,7 @@
 				"createTime": "2019-11-18 17:20:28",
 				"updateTime": "2019-11-18 17:56:16",
 				"name": "123123123",
-				"parentId": 12,
+				"parentId": "12",
 				"orderNum": 2
 			},
 			{
@@ -112,7 +112,7 @@
 				"createTime": "2019-11-18 17:58:57",
 				"updateTime": "2019-11-19 00:40:44",
 				"name": "部门1",
-				"parentId": 1,
+				"parentId": "1",
 				"orderNum": 1
 			},
 			{
@@ -120,7 +120,7 @@
 				"createTime": "2019-11-18 17:59:04",
 				"updateTime": "2019-11-19 00:40:55",
 				"name": "小组1",
-				"parentId": 13,
+				"parentId": "13",
 				"orderNum": 2
 			},
 			{
@@ -128,7 +128,7 @@
 				"createTime": "2019-11-18 17:59:07",
 				"updateTime": "2019-11-19 00:40:49",
 				"name": "部门2",
-				"parentId": 1,
+				"parentId": "1",
 				"orderNum": 3
 			},
 			{
@@ -136,7 +136,7 @@
 				"createTime": "2019-11-18 17:59:12",
 				"updateTime": "2019-11-19 00:41:01",
 				"name": "小组2",
-				"parentId": 15,
+				"parentId": "15",
 				"orderNum": 4
 			},
 			{
@@ -144,7 +144,7 @@
 				"createTime": "2019-11-19 00:41:19",
 				"updateTime": "2019-11-19 00:41:19",
 				"name": "小组1",
-				"parentId": 15,
+				"parentId": "15",
 				"orderNum": 0
 			}
 		]
