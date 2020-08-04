@@ -66,5 +66,22 @@ module.exports = {
 		}
 		await db.update('sys_user', param);
 		//await this.updateUserRole(param);
+	},
+
+	/**
+	 * 更新用户角色关系
+	 * @param user
+	 */
+	async updateUserRole(user) {
+		if (user.id === 1) {
+			throw new Error('非法操作~');
+		}
+		await this.getRepo().sys.User_role.delete({ userId: user.id });
+		if (user.roleIdList) {
+			for (const roleId of user.roleIdList) {
+				await this.getRepo().sys.User_role.save({ userId: user.id, roleId });
+			}
+		}
+		await this.service.sys.perms.refreshPerms(user.id);
 	}
 }
