@@ -19,7 +19,12 @@
 			</div>
 		</el-popover>
 
-		<el-input v-model="value" v-popover:iconPopover readonly placeholder="请选择"></el-input>
+		<el-input
+			v-model="icon"
+			@change="onSelect"
+			v-popover:iconPopover
+			placeholder="请选择"
+		></el-input>
 	</div>
 </template>
 
@@ -33,25 +38,46 @@ export default {
 
 	data() {
 		return {
-			list: []
+			list: [],
+			icon: ""
 		};
+	},
+
+	watch: {
+		value: {
+			immediate: true,
+			handler(val) {
+				this.icon = val;
+			}
+		}
 	},
 
 	mounted() {
 		this.list = [
-			"refresh",
+			"comment",
+			"community",
+			"order",
+			"2bei",
+			"vip",
+			"trend",
+			"cycle",
+			"role",
 			"schedule",
 			"cpu",
 			"network",
 			"storage",
 			"system",
 			"menu",
-			"permission",
 			"user",
 			"log",
 			"workbench",
 			"common",
-			"role"
+			"friend",
+			"clock",
+			"app",
+			"safe",
+			"hotel",
+			"feedback"
 		];
 	},
 
@@ -63,7 +89,6 @@ export default {
 };
 </script>
 
-.
 <style lang="scss">
 .popper-menu-icon {
 	box-sizing: border-box;
@@ -82,12 +107,12 @@ export default {
 		width: 40px;
 		padding: 0;
 
-		&:nth-child(11n) {
+		&:nth-child(10n + 1) {
 			margin-left: 0;
 		}
 
 		.icon-svg {
-			color: #444;
+			color: #000;
 		}
 	}
 }
