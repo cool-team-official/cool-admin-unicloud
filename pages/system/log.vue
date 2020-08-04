@@ -1,31 +1,34 @@
 <template>
-	<cl-layout>
-		<cl-crud @load="onCrudLoad">
-			<el-row type="flex">
-				<cl-refresh-btn></cl-refresh-btn>
+    <cl-layout>
+        <cl-crud
+            ref="crud"
+            @load="onCrudLoad"
+        >
+            <el-row type="flex">
+                <cl-refresh-btn></cl-refresh-btn>
 
-				<el-button
-					v-permission="$service.system.log.permission.clear"
-					size="mini"
-					type="danger"
-					@click="clear"
-				>
-					清空
-				</el-button>
+                <el-button
+                    v-permission="$service.system.log.permission.clear"
+                    size="mini"
+                    type="danger"
+                    @click="clear"
+                >
+                    清空
+                </el-button>
 
-				<cl-flex1 />
-				<cl-search-key placeholder="请输入请求地址, 参数，ip地址"></cl-search-key>
-			</el-row>
+                <cl-flex1 />
+                <cl-search-key placeholder="请输入请求地址, 参数，ip地址"></cl-search-key>
+            </el-row>
 
-			<el-row>
-				<cl-table
-					:props="{
+            <el-row>
+                <cl-table
+                    :props="{
 						'default-sort': {
 							prop: 'createTime',
 							order: 'descending'
 						}
 					}"
-					:columns="[
+                    :columns="[
 						{
 							type: 'index',
 							label: '#',
@@ -72,14 +75,17 @@
 							sortable: true
 						}
 					]"
-				></cl-table>
-			</el-row>
+                ></cl-table>
+            </el-row>
 
-			<el-row type="flex" justify="end">
-				<cl-pagination></cl-pagination>
-			</el-row>
-		</cl-crud>
-	</cl-layout>
+            <el-row
+                type="flex"
+                justify="end"
+            >
+                <cl-pagination></cl-pagination>
+            </el-row>
+        </cl-crud>
+    </cl-layout>
 </template>
 
 <script>

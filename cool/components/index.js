@@ -1,5 +1,6 @@
 import Vue from "vue";
 
+Vue.component("cl-editor-tinymce", () => import("./editor/tinymce/index.vue"));
 Vue.component("cl-upload", () => import("./upload/index.vue"));
 Vue.component("cl-upload-space", () => import("./upload/space.vue"));
 Vue.component("cl-avatar", () => import("./avatar/index.vue"));

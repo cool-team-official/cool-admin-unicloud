@@ -1,38 +1,58 @@
 <template>
-	<div
-		class="cl-upload"
-		:class="{
+    <div
+        class="cl-upload"
+        :class="{
 			'is-multiple': props.multiple
 		}"
-	>
-		<el-input class="cl-upload__hidden" type="hidden" v-model="value"></el-input>
+    >
+        <el-input
+            class="cl-upload__hidden"
+            type="hidden"
+            v-model="value"
+        ></el-input>
 
-		<el-upload
-			v-for="(item, index) in list"
-			:key="index"
-			v-bind="props"
-			accept="image/*, video/*"
-			action=""
-			:headers="{
+        <el-upload
+            v-for="(item, index) in list"
+            :key="index"
+            v-bind="props"
+            accept="image/*, video/*"
+            action=""
+            :headers="{
 				Authorization: token
 			}"
-			:show-file-list="false"
-			:http-request="
+            :show-file-list="false"
+            :http-request="
 				(e) => {
 					httpRequest(e, item);
 				}
 			"
-		>
-			<slot>
-				<div class="cl-upload__wrap" :style="style" v-loading="item.loading">
-					<img class="cl-upload__image" :src="item.url" alt="" v-if="item.url" />
-					<i class="el-icon-picture avatar-uploader-icon" v-else></i>
+        >
+            <slot>
+                <div
+                    class="cl-upload__wrap"
+                    :style="style"
+                    v-loading="item.loading"
+                >
+                    <img
+                        class="cl-upload__image"
+                        :src="item.url"
+                        alt=""
+                        v-if="item.url"
+                    />
+                    <i
+                        class="el-icon-picture avatar-uploader-icon"
+                        v-else
+                    ></i>
 
-					<i class="el-icon-close" v-if="item.url" @click.stop="removeFile(index)"></i>
-				</div>
-			</slot>
-		</el-upload>
-	</div>
+                    <i
+                        class="el-icon-close"
+                        v-if="item.url"
+                        @click.stop="removeFile(index)"
+                    ></i>
+                </div>
+            </slot>
+        </el-upload>
+    </div>
 </template>
 
 <script>

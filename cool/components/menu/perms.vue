@@ -1,13 +1,13 @@
 <template>
-	<el-cascader
-		:options="options"
-		:props="{ multiple: true }"
-		separator=":"
-		clearable
-		filterable
-		v-model="newValue"
-		@change="onChange"
-	></el-cascader>
+    <el-cascader
+        :options="options"
+        :props="{ multiple: true }"
+        separator=":"
+        clearable
+        filterable
+        v-model="newValue"
+        @change="onChange"
+    ></el-cascader>
 </template>
 
 <script>
@@ -95,5 +95,3 @@ export default {
 	}
 };
 </script>
-
-<style lang="scss" scoped></style>

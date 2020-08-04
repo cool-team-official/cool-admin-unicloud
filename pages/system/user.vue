@@ -488,7 +488,6 @@ export default {
 
 		onCrudLoad({ ctx, app }) {
 			ctx.service(this.$service.system.user).done();
-
 			app.refresh();
 		},
 
@@ -748,7 +747,7 @@ export default {
 							.order(
 								ids.map((e, i) => {
 									return {
-										id: e.id,
+										_id: e.id,
 										parentId: e.parentId,
 										orderNum: i
 									};
@@ -777,7 +776,7 @@ export default {
 			if (!e) {
 				ids = this.selects.ids;
 			} else {
-				ids = [e.id];
+				ids = [e._id];
 			}
 
 			let that = this;

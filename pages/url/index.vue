@@ -1,16 +1,18 @@
 <template>
-	<cl-layout>
-		<div class="page-url" v-loading="loading" element-loading-text="拼命加载中">
-			<iframe :src="url" frameborder="0"></iframe>
-		</div>
-	</cl-layout>
+    <cl-layout>
+        <div class="page-url">
+            <iframe
+                :src="url"
+                frameborder="0"
+            ></iframe>
+        </div>
+    </cl-layout>
 </template>
 
 <script>
 export default {
 	data() {
 		return {
-			loading: false,
 			url: ""
 		};
 	},
@@ -18,19 +20,10 @@ export default {
 	watch: {
 		$route: {
 			immediate: true,
-			handler({ meta }) {
-				this.url = meta.iframeUrl;
+			handler({ query }) {
+				this.url = query.url;
 			}
 		}
-	},
-
-	mounted() {
-		const iframe = this.$el.querySelector("iframe");
-		this.loading = true;
-
-		iframe.onload = () => {
-			this.loading = false;
-		};
 	}
 };
 </script>

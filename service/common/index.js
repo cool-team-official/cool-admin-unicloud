@@ -23,39 +23,27 @@ export default class extends BaseService {
 	 */
 	ossUpload(file) {
 		return new Promise((resolve, reject) => {
-			this.request({
-				url: "/comm/ossSign"
-			})
-				.then((res) => {
-					let data = new FormData();
+			uni.chooseImage({
+				count: 1,
+				async success(res) {
+					console.log(res);
+					if (res.tempFilePaths.length > 0) {
+						let filePath = res.tempFilePaths[0];
 
-					for (let i in res) {
-						if (i != "host") {
-							data.append(i, res[i]);
-						}
-					}
-
-					data.append("key", `app/${file.name}`);
-					data.append("file", file);
-
-					this.request({
-						url: res.host,
-						method: "POST",
-						headers: {
-							"Content-Type": "multipart/form-data"
-						},
-						data
-					})
-						.then(() => {
-							resolve(`${res.host}/app/${file.name}`);
-						})
-						.catch((err) => {
-							reject(err);
+						// promise
+						const result = await uniCloud.uploadFile({
+							filePath: filePath,
+							cloudPath: file.name,
+							onUploadProgress: function (progressEvent) {
+								console.log(progressEvent);
+								var percentCompleted = Math.round(
+									(progressEvent.loaded * 100) / progressEvent.total
+								);
+							}
 						});
-				})
-				.catch((err) => {
-					reject(err);
-				});
+					}
+				}
+			});
 		});
 	}
 

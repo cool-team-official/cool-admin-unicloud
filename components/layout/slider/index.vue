@@ -182,16 +182,6 @@ export default {
 				}
 			}
 
-			.el-submenu {
-				&.is-opened {
-					background-color: #2b3043;
-
-					.el-menu {
-						background-color: #2b3043;
-					}
-				}
-			}
-
 			.el-submenu__title,
 			&-item,
 			&__title {
@@ -213,8 +203,20 @@ export default {
 				}
 			}
 
+			.el-submenu {
+				&.is-opened {
+					background-color: #2b3043;
+
+					.el-menu {
+						background-color: #2b3043;
+					}
+				}
+			}
+
 			&--collapse {
 				.el-submenu__title {
+					line-height: 34px;
+
 					.icon-svg {
 						margin-left: 2px;
 						height: 19px;

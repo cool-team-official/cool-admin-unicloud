@@ -1,24 +1,31 @@
 <template>
-	<div class="cl-role-tree" v-loading="loading">
-		<p>{{ title }}</p>
+    <div
+        class="cl-role-tree"
+        v-loading="loading"
+    >
+        <p>{{ title }}</p>
 
-		<el-input placeholder="输入关键字进行过滤" v-model="keyword" size="small"> </el-input>
+        <el-input
+            placeholder="输入关键字进行过滤"
+            v-model="keyword"
+            size="small"
+        > </el-input>
 
-		<div class="scroller">
-			<el-tree
-				:data="list"
-				:props="props"
-				:default-checked-keys="checked"
-				:filter-node-method="filterNode"
-				highlight-current
-				node-key="id"
-				show-checkbox
-				ref="tree"
-				@check-change="save"
-			>
-			</el-tree>
-		</div>
-	</div>
+        <div class="scroller">
+            <el-tree
+                ref="tree"
+                :data="list"
+                :props="props"
+                :default-checked-keys="checked"
+                :filter-node-method="filterNode"
+                highlight-current
+                node-key="_id"
+                show-checkbox
+                @check-change="save"
+            >
+            </el-tree>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -71,7 +78,7 @@ export default {
 					if (e.children) {
 						fn(e.children);
 					} else {
-						ids.push(Number(e.id));
+						ids.push(e._id);
 					}
 				});
 			};
@@ -86,7 +93,6 @@ export default {
 				.list()
 				.then((res) => {
 					this.list = deepTree(res);
-
 					this.refreshTree(this.value);
 				})
 				.catch((err) => {

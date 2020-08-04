@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@tinymce/tinymce-vue@^3.2.2":
+  version "3.2.2"
+  resolved "https://registry.npm.taobao.org/@tinymce/tinymce-vue/download/@tinymce/tinymce-vue-3.2.2.tgz?cache=0&sync_timestamp=1590127322483&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40tinymce%2Ftinymce-vue%2Fdownload%2F%40tinymce%2Ftinymce-vue-3.2.2.tgz#a16500fbeebfec4ae43f4e9fe5bd739aeb66a3d6"
+  integrity sha1-oWUA++6/7ErkP06f5b1zmutmo9Y=
+
 array.prototype.flat@^1.2.3:
   version "1.2.3"
   resolved "https://registry.npm.taobao.org/array.prototype.flat/download/array.prototype.flat-1.2.3.tgz#0de82b426b0318dbfdb940089e38b043d37f6c7b"
@@ -285,6 +290,11 @@ tiny-emitter@^2.0.0:
   version "2.1.0"
   resolved "https://registry.npm.taobao.org/tiny-emitter/download/tiny-emitter-2.1.0.tgz#1d1a56edfc51c43e863cbb5382a72330e3555423"
   integrity sha1-HRpW7fxRxD6GPLtTgqcjMONVVCM=
+
+tinymce@^5.4.1:
+  version "5.4.1"
+  resolved "https://registry.npm.taobao.org/tinymce/download/tinymce-5.4.1.tgz#4c101e78cbd22c148d6013f7c66eb0cb480723db"
+  integrity sha1-TBAeeMvSLBSNYBP3xm6wy0gHI9s=
 
 vue-echarts@^5.0.0-beta.0:
   version "5.0.0-beta.0"

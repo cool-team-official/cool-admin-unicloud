@@ -1,28 +1,16 @@
 <template>
-	<cl-layout>
-		<cl-crud @load="onCrudLoad">
-			<template #slot-content="{ scope }">
-				<div class="editor" v-for="(item, index) in tab.list" :key="index">
-					<template v-if="tab.index === index">
-						<el-button class="change-btn" size="mini" @click="changeTab(item.to)">{{
-							item.label
-						}}</el-button>
-						<component :is="item.component" height="300px" v-model="scope.data"></component>
-					</template>
-				</div>
-			</template>
-		
-			<el-row type="flex">
-				<cl-refresh-btn></cl-refresh-btn>
-				<cl-add-btn></cl-add-btn>
-				<cl-multi-delete-btn></cl-multi-delete-btn>
-				<cl-flex1></cl-flex1>
-				<cl-search-key></cl-search-key>
-			</el-row>
-		
-			<el-row>
-				<cl-table
-					:columns="[
+    <cl-layout>
+        <cl-crud @load="onCrudLoad">
+            <el-row type="flex">
+                <cl-refresh-btn></cl-refresh-btn>
+                <cl-add-btn></cl-add-btn>
+                <cl-multi-delete-btn></cl-multi-delete-btn>
+                <cl-flex1></cl-flex1>
+                <cl-search-key></cl-search-key>
+            </el-row>
+
+            <el-row>
+                <cl-table :columns="[
 						{
 							type: 'selection',
 							align: 'center',
@@ -54,18 +42,17 @@
 							align: 'center',
 							type: 'op'
 						}
-					]"
-				></cl-table>
-			</el-row>
-		
-			<el-row type="flex">
-				<cl-flex1></cl-flex1>
-				<cl-pagination></cl-pagination>
-			</el-row>
-		
-			<cl-upsert
-				ref="upsert"
-				:items="[
+					]"></cl-table>
+            </el-row>
+
+            <el-row type="flex">
+                <cl-flex1></cl-flex1>
+                <cl-pagination></cl-pagination>
+            </el-row>
+
+            <cl-upsert
+                ref="upsert"
+                :items="[
 					{
 						prop: 'name',
 						label: '名称',
@@ -118,25 +105,33 @@
 						}
 					}
 				]"
-				@open="onUpsertOpen"
-			>
-				<template #slot-content="{ scope }">
-					<div class="editor" v-for="(item, index) in tab.list" :key="index">
-						<template v-if="tab.index === index">
-							<el-button class="change-btn" size="mini" @click="changeTab(item.to)">{{
+                @open="onUpsertOpen"
+            >
+                <template #slot-content="{ scope }">
+                    <div
+                        class="editor"
+                        v-for="(item, index) in tab.list"
+                        :key="index"
+                    >
+                        <template v-if="tab.index === index">
+                            <el-button
+                                class="change-btn"
+                                size="mini"
+                                @click="changeTab(item.to)"
+                            >{{
 								item.label
 							}}</el-button>
-							<component
-								:is="item.component"
-								height="300px"
-								v-model="scope.data"
-							></component>
-						</template>
-					</div>
-				</template>
-			</cl-upsert>
-		</cl-crud>
-	</cl-layout>
+                            <component
+                                :is="item.component"
+                                height="300px"
+                                v-model="scope.data"
+                            ></component>
+                        </template>
+                    </div>
+                </template>
+            </cl-upsert>
+        </cl-crud>
+    </cl-layout>
 </template>
 
 <script>
@@ -165,7 +160,10 @@ export default {
 	methods: {
 		onCrudLoad({ ctx, app }) {
 			ctx.service(this.$service.system.param).done();
-			app.refresh();
+			app.refresh({
+				prop: "createTime",
+				order: "desc"
+			});
 		},
 
 		changeTab(i) {

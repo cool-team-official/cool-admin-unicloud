@@ -30,7 +30,7 @@ export default function (options) {
 		uniCloud
 			.callFunction({
 				name: "cool",
-				data: { ...options, token }
+				data: { ...options, token, data: undefined, method: undefined }
 			})
 			.then((res) => {
 				const { code, data, message } = res.result;

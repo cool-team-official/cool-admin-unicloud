@@ -1,13 +1,19 @@
 <template>
-	<cl-layout>
-		<cl-crud @load="onLoad">
-			<el-row type="flex" align="middle">
-				<cl-refresh-btn></cl-refresh-btn>
-				<cl-add-btn></cl-add-btn>
-				<cl-multi-delete-btn></cl-multi-delete-btn>
-				<cl-query
-					:value="1"
-					:list="[
+    <cl-layout>
+        <cl-crud
+            ref="crud"
+            @load="onCrudLoad"
+        >
+            <el-row
+                type="flex"
+                align="middle"
+            >
+                <cl-refresh-btn></cl-refresh-btn>
+                <cl-add-btn></cl-add-btn>
+                <cl-multi-delete-btn></cl-multi-delete-btn>
+                <cl-query
+                    :value="1"
+                    :list="[
 						{
 							label: '上行',
 							value: 0
@@ -17,12 +23,15 @@
 							value: 1
 						}
 					]"
-				></cl-query>
-				<el-button size="mini" @click="openForm">自定义表单</el-button>
-				<cl-flex1></cl-flex1>
-				<cl-search-key
-					field="name"
-					:field-list="[
+                ></cl-query>
+                <el-button
+                    size="mini"
+                    @click="openForm"
+                >自定义表单</el-button>
+                <cl-flex1></cl-flex1>
+                <cl-search-key
+                    field="name"
+                    :field-list="[
 						{
 							label: '姓名',
 							value: 'name'
@@ -32,13 +41,12 @@
 							value: 'id'
 						}
 					]"
-				></cl-search-key>
-				<cl-adv-btn></cl-adv-btn>
-			</el-row>
+                ></cl-search-key>
+                <cl-adv-btn></cl-adv-btn>
+            </el-row>
 
-			<el-row>
-				<cl-table
-					:columns="[
+            <el-row>
+                <cl-table :columns="[
 						{
 							type: 'selection'
 						},
@@ -55,30 +63,102 @@
 							label: '操作',
 							type: 'op'
 						}
-					]"
-				>
-				</cl-table>
-			</el-row>
+					]">
+                </cl-table>
+            </el-row>
 
-			<el-row type="flex">
-				<cl-flex1></cl-flex1>
-				<cl-pagination></cl-pagination>
-			</el-row>
+            <el-row type="flex">
+                <cl-flex1></cl-flex1>
+                <cl-pagination></cl-pagination>
+            </el-row>
 
-			<!-- 高级搜索 -->
-			<cl-adv-search ref="adv-search" v-bind="advSearch.props" v-on="advSearch.on">
-			</cl-adv-search>
+            <!-- 高级搜索 -->
+            <cl-adv-search
+                ref="adv-search"
+                v-bind="advSearch.props"
+                v-on="advSearch.on"
+            >
+            </cl-adv-search>
 
-			<!-- 编辑、新增 -->
-			<cl-upsert ref="upsert" v-bind="upsert.props" v-on="upsert.on"></cl-upsert>
+            <!-- 编辑、新增 -->
+            <cl-upsert
+                ref="upsert"
+                v-bind="upsert.props"
+                v-on="upsert.on"
+            ></cl-upsert>
 
-			<!-- 自定义表单 -->
-			<cl-form ref="form"></cl-form>
-		</cl-crud>
-	</cl-layout>
+            <!-- 自定义表单 -->
+            <cl-form ref="form"></cl-form>
+        </cl-crud>
+    </cl-layout>
 </template>
 
 <script>
+const userList = [
+	{
+		id: 1,
+		name: "刘一",
+		process: 42.2,
+		endTime: "2019年09月02日",
+		price: 75.99,
+		salesRate: 52.2,
+		salesStatus: 1,
+		images: ["https://cool-comm.oss-cn-shenzhen.aliyuncs.com/show/imgs/chat/avatar/1.jpg"],
+		children: [
+			{
+				id: 6,
+				name: "刘一儿子",
+				process: 35.2,
+				endTime: "2019年09月05日",
+				price: 242.1,
+				salesRate: 72.1,
+				salesStatus: 1,
+				images: []
+			}
+		]
+	},
+	{
+		id: 2,
+		name: "陈二",
+		process: 35.2,
+		endTime: "2019年09月05日",
+		price: 242.1,
+		salesRate: 72.1,
+		salesStatus: 1,
+		images: ["https://cool-comm.oss-cn-shenzhen.aliyuncs.com/show/imgs/chat/avatar/2.jpg"]
+	},
+	{
+		id: 3,
+		name: "张三",
+		process: 10.2,
+		endTime: "2019年09月12日",
+		price: 74.11,
+		salesRate: 23.9,
+		salesStatus: 0,
+		images: ["https://cool-comm.oss-cn-shenzhen.aliyuncs.com/show/imgs/chat/avatar/3.jpg"]
+	},
+	{
+		id: 4,
+		name: "李四",
+		process: 75.5,
+		endTime: "2019年09月13日",
+		price: 276.64,
+		salesRate: 47.2,
+		salesStatus: 0,
+		images: ["https://cool-comm.oss-cn-shenzhen.aliyuncs.com/show/imgs/chat/avatar/4.jpg"]
+	},
+	{
+		id: 5,
+		name: "王五",
+		process: 25.4,
+		endTime: "2019年09月18日",
+		price: 160.23,
+		salesRate: 28.3,
+		salesStatus: 1,
+		images: ["https://cool-comm.oss-cn-shenzhen.aliyuncs.com/show/imgs/chat/avatar/5.jpg"]
+	}
+];
+
 export default {
 	data() {
 		return {
@@ -302,7 +382,7 @@ export default {
 				}
 			});
 		},
-		onLoad({ ctx, app }) {
+		onCrudLoad({ ctx, app }) {
 			ctx.service({
 				page: (p) => {
 					console.log("GET[page]", p);
