@@ -79,6 +79,7 @@ module.exports = {
 		if (dbCmds.length > 0) {
 			condition.where = dbCmd.and(dbCmds);
 		}
-		return await db.page(table, condition);
+		const { page = 1, size = 15, order = 'createTime', sort = 'desc' } = params;
+		return await db.page(table, condition, page, size, order, sort);
 	}
 }

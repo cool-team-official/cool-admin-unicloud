@@ -18,10 +18,18 @@ module.exports = {
 			pageOption: {
 				keyWordLikeFields: ['username', 'name', 'phone'],
 				where: {
+					username: db.command.neq('admin'),
 					departmentId: params.departmentIds ? db.command.in(params.departmentIds.split(',')) : []
 				}
 			}
 		};
+	},
+	/**
+	 * 新增
+	 */
+	async add(){
+		const { services, params } = this.ctx;
+		await services.sys.user.add(params);
 	},
 	/**
 	 * 移动部门
@@ -37,5 +45,14 @@ module.exports = {
 	async update() {
 		const { services, params } = this.ctx;
 		await services.sys.user.update(params);
+	},
+	/**
+	 * 详情
+	 */
+	async info() {
+		const { db, params } = this.ctx;
+		const info = await db.info('sys_user', params._id);
+		delete info.password;
+		return info;
 	}
 }

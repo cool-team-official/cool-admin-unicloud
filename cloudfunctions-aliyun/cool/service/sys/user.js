@@ -4,6 +4,23 @@
  */
 module.exports = {
 	/**
+	 * 新增
+	 * @param {Object} params
+	 */
+	async add(params) {
+		const { db, utils } = this.ctx;
+		params.roleIds = params.roleIdList;
+		delete params.roleIdList;
+		const exists = await db.one('sys_user', {
+			where: { username: params.username }
+		})
+		if (!utils.lodash.isEmpty(exists)) {
+			throw new Error('用户名已经存在~');
+		}
+		params.password = utils.md5('123456'); // 默认密码  建议未改密码不能登陆
+		await db.add('sys_user', params);
+	},
+	/**
 	 * 个人信息
 	 */
 	async person() {
@@ -47,6 +64,8 @@ module.exports = {
 	 */
 	async update(param) {
 		const { db, utils } = this.ctx;
+		param.roleIds = param.roleIdList;
+		delete param.roleIdList;
 		if (param.username && param.username == 'admin') {
 			throw new Error('非法操作~');
 		}
@@ -65,23 +84,9 @@ module.exports = {
 			await this.ctx.services.sys.data.del(`admin:token:${userId}`);
 		}
 		await db.update('sys_user', param);
-		//await this.updateUserRole(param);
+		await this.updateUserRole(param);
+		// 刷新权限
+		this.service.sys.perms.refreshPerms(param);
 	},
 
-	/**
-	 * 更新用户角色关系
-	 * @param user
-	 */
-	async updateUserRole(user) {
-		if (user.id === 1) {
-			throw new Error('非法操作~');
-		}
-		await this.getRepo().sys.User_role.delete({ userId: user.id });
-		if (user.roleIdList) {
-			for (const roleId of user.roleIdList) {
-				await this.getRepo().sys.User_role.save({ userId: user.id, roleId });
-			}
-		}
-		await this.service.sys.perms.refreshPerms(user.id);
-	}
 }

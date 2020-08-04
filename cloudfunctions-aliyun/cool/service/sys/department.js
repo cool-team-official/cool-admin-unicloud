@@ -12,12 +12,11 @@ module.exports = {
 		const { db, utils } = this.ctx;
 		const _ = utils.lodash;
 		let departmentIds = [];
-		// 得到角色列表
 		if (!isAdmin) {
-			roles.data.forEach(e => {
+			roles.forEach(e => {
 				departmentIds.push(...e.departmentIds);
 			})
-			return _.uniq(menuIds);
+			return _.uniq(departmentIds);
 		} else {
 			const departmentResult = await db.collection('sys_department').get();
 			return departmentResult.data.map(e => {

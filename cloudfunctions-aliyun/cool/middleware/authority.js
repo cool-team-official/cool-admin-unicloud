@@ -40,7 +40,6 @@ module.exports = (url, token, ctx) => {
 			}
 			reslove(true);
 		} catch (err) {
-			console.log(err)
 			reject(tips);
 		}
 	})

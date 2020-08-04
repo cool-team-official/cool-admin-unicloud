@@ -24,7 +24,7 @@ module.exports = {
 			}
 			const result = {
 				expire: config.tokenExpires,
-				token: this.generateToken(user),
+				token: await this.generateToken(user),
 			};
 			const isAdmin = username == 'admin' ? true : false;
 			const { roles, perms } = await this.ctx.services.sys.menu.getPerms(user.roleIds, isAdmin);
@@ -45,13 +45,13 @@ module.exports = {
 		await this.ctx.services.sys.data.del(`admin:perms:${ userId }`);
 		await this.ctx.services.sys.data.del(`admin:token:${ userId }`);
 		await this.ctx.services.sys.data.del(`admin:department:${ userId }`);
-	}
+	},
 	/**
 	 * 生成token
 	 * @param user 用户对象
 	 * @param expires
 	 */
-	generateToken(user, expires) {
+	async generateToken(user, expires) {
 		await this.ctx.services.sys.data.set(`admin:passwordVersion:${ user._id }`, user.passwordV);
 		const { utils, config } = this.ctx;
 		const tokenInfo = {

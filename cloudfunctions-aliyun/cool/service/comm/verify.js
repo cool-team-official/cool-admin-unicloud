@@ -25,7 +25,7 @@ module.exports = {
 		if (!rv || !value || value.toLowerCase() !== rv) {
 			return false;
 		} else {
-			//await services.sys.data.del(`verify:img:${captchaId}`);
+			await services.sys.data.del(`verify:img:${captchaId}`);
 			return true;
 		}
 	}

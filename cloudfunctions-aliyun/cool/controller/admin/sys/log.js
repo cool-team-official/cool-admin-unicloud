@@ -13,7 +13,7 @@ module.exports = {
 		return {
 			table: 'sys_log',
 			pageOption: {
-				keyWordLikeFields: ['action', 'name', 'phone'],
+				keyWordLikeFields: ['action', 'name', 'ipAddr'],
 				where: {
 					departmentId: params.departmentIds ? db.command.in(params.departmentIds.split(',')) : []
 				}

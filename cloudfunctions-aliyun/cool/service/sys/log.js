@@ -23,7 +23,7 @@ module.exports = {
 	/**
 	 * 清空日志
 	 */
-	async log() {
+	async clear() {
 		const { db } = this.ctx;
 		const dbCmd = db.command;
 		await this.ctx.db.collection('sys_log').where({

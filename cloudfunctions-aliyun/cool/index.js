@@ -15,28 +15,10 @@ const config = myRequire('/config');
 const middlewares = requireDir('/middleware');
 exports.main = async (event, context) => {
 	try {
-
-		// const c = await db.collection('sys_menu').get();
-		// console.log(JSON.stringify(c.data.map(e=>{
-		// 	e._id = e._id + ''
-		// 	return e;
-		// })))
 		// url 调用函数地址 param 参数 token 令牌
 		const { url, params, token } = event; 
-		// let {
-		// 	url = "/admin/sys/menu/list",
-		// 		params = {
-		// 			//ids: "5f27aae8272f640001d76040"
-		// 			//departmentIds: "11,2",
-		// 			//username: "admin",
-		// 			// password: "123456",
-		// 			// captchaId: "099a47b1-c579-4633-93a8-15b24f9735c6",
-		// 			// verifyCode: "8624",
-		// 			// keyWord: "1801"
-		// 		},
-		// 		token =
-		// 		"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlSWRzIjpbIjYxZDE0ZDc0ZjE3ZDQyMjg4MzAxZTllZDc5ODk0OWU5IiwiOTc0YjRkNzFmODkyNDY1MzkyMjcxMDNmY2RiZjIxMDAiXSwidXNlcklkIjoiZGM0ODU0OWI4MDc4NGU2NmIyZWRlOTM0MjcxMzI5Y2EiLCJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmRWZXJzaW9uIjoxLCJpYXQiOjE1OTYzNzQ4NjUsImV4cCI6MTU5Njk3OTY2NX0.ep39I3uwL1mOSWSZYirGPeBpGUbRCShUX-tP5g5DqBU",
-		// } = event;
+		
+		// 解析路由
 		const {
 			cPath,
 			method
