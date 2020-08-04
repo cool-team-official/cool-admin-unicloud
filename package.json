@@ -2,7 +2,7 @@
 	"name": "cool-admin-cloud",
 	"version": "0.0.1",
 	"dependencies": {
-		"cl-crud2": "^0.0.12",
+		"cl-crud2": "^0.0.17",
 		"clipboard": "^2.0.6",
 		"core-js": "2.0.0",
 		"echarts": "^4.8.0",

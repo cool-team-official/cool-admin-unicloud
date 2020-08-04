@@ -22,6 +22,9 @@
 				},
 				{
 					"path": "log"
+				},
+				{
+					"path": "param"
 				}
 			]
 		},
@@ -50,6 +53,14 @@
 				},
 				{
 					"path": "crud"
+				}
+			]
+		},
+		{
+			"root": "pages/url",
+			"pages": [
+				{
+					"path": "index"
 				}
 			]
 		}

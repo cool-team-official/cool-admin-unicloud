@@ -3,7 +3,7 @@
 		<cl-crud @load="onCrudLoad">
 			<el-row type="flex">
 				<cl-refresh-btn></cl-refresh-btn>
-		
+
 				<el-button
 					v-permission="$service.system.log.permission.clear"
 					size="mini"
@@ -12,24 +12,11 @@
 				>
 					清空
 				</el-button>
-		
-				<div class="keep-day">
-					<span>日志保存天数</span>
-		
-					<el-input-number
-						controls-position="right"
-						size="mini"
-						:max="10000"
-						:min="1"
-						v-model="day"
-						@blur="saveDay"
-					></el-input-number>
-				</div>
-		
+
 				<cl-flex1 />
 				<cl-search-key placeholder="请输入请求地址, 参数，ip地址"></cl-search-key>
 			</el-row>
-		
+
 			<el-row>
 				<cl-table
 					:props="{
@@ -46,13 +33,8 @@
 							width: 60
 						},
 						{
-							prop: 'userId',
-							label: '用户ID',
-							align: 'center'
-						},
-						{
 							prop: 'name',
-							label: '昵称',
+							label: '用户名',
 							align: 'center',
 							minWidth: '150'
 						},
@@ -92,7 +74,7 @@
 					]"
 				></cl-table>
 			</el-row>
-		
+
 			<el-row type="flex" justify="end">
 				<cl-pagination></cl-pagination>
 			</el-row>
@@ -104,16 +86,6 @@
 import { mapGetters } from "vuex";
 
 export default {
-	data() {
-		return {
-			day: 1
-		};
-	},
-
-	computed: {
-		...mapGetters(["permission"])
-	},
-
 	created() {
 		this.$service.system.log.getKeep().then((res) => {
 			this.day = res;
@@ -123,14 +95,7 @@ export default {
 	methods: {
 		onCrudLoad({ ctx, app }) {
 			ctx.service(this.$service.system.log).done();
-
 			app.refresh();
-		},
-
-		saveDay() {
-			this.$service.system.log.setKeep(this.day).then(() => {
-				this.$message.success("保存成功");
-			});
 		},
 
 		clear() {
@@ -153,16 +118,3 @@ export default {
 	}
 };
 </script>
-
-<style lang="scss" scoped>
-.keep-day {
-	span {
-		font-size: 12px;
-		margin: 0 10px;
-	}
-
-	.el-input-number {
-		margin-right: 10px;
-	}
-}
-</style>
