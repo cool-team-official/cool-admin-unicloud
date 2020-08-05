@@ -109,6 +109,8 @@
 }
 
 .el-pagination {
+	line-height: 0;
+
 	.btn-prev,
 	.btn-next {
 		display: inline-block;
@@ -129,4 +131,8 @@
 			margin-left: 10px;
 		}
 	}
+}
+
+.cl-adv-btn {
+	line-height: 0;
 }

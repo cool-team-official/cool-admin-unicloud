@@ -1,0 +1,1058 @@
+// 在本文件中可配置云数据库初始化，数据格式见：https://uniapp.dcloud.io/uniCloud/cf-database?id=db_init
+// 编写完毕后对本文件点右键，可按配置规则创建表和添加数据
+{
+	// 系统-用户
+	"sys_user": {
+		"data": [{
+				"_id": "dc48549b80784e66b2ede934271329ca",
+				"createTime": "2019-06-25 10:20:20",
+				"departmentId": "1",
+				"email": "123456@cool-js.com",
+				"headImg": "https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cool-admin/73cde11e-6956-48e6-b2af-498594c5e068.png",
+				"menuIds": [
+					"1",
+					"2"
+				],
+				"name": "超管",
+				"nickName": "超级管理员",
+				"password": "e10adc3949ba59abbe56e057f20f883e",
+				"passwordV": 31,
+				"phone": "18000000000",
+				"remark": "备注",
+				"roleIds": [
+					"61d14d74f17d42288301e9ed798949e9",
+					"974b4d71f89246539227103fcdbf2100"
+				],
+				"status": 1,
+				"updateTime": "2020-08-05 15:37:05",
+				"username": "admin"
+			},
+			{
+				"_id": "5f2992fefda33b0001976538",
+				"name": "啊平",
+				"nickName": "啊平",
+				"username": "ap",
+				"remark": "",
+				"status": 1,
+				"departmentId": "1",
+				"roleIds": [
+					"5f2990d8c9f11100014a08cb",
+					"5f2990f7fff71800018b3859",
+					"5f29909cfda33b00019763c5"
+				],
+				"password": "e10adc3949ba59abbe56e057f20f883e",
+				"createTime": "2020-08-04 16:55:26",
+				"updateTime": "2020-08-04 16:55:26"
+			},
+			{
+				"_id": "5f299435fff71800018b3a28",
+				"name": "测试",
+				"nickName": "测试",
+				"username": "test",
+				"status": 1,
+				"departmentId": "14",
+				"roleIds": [
+					"5f2990f7fff71800018b3859"
+				],
+				"password": "e10adc3949ba59abbe56e057f20f883e",
+				"createTime": "2020-08-04 17:00:37",
+				"updateTime": "2020-08-05 15:35:11"
+			},
+			{
+				"_id": "5f2a5f665ff5d7000148bad2",
+				"name": "江帅",
+				"nickName": "icssoa",
+				"username": "icssoa",
+				"status": 1,
+				"departmentId": "1",
+				"passwordV": 1,
+				"roleIds": [
+					"5f2a5f4fe7a2d20001591330",
+					"5f2990f7fff71800018b3859"
+				],
+				"password": "e10adc3949ba59abbe56e057f20f883e",
+				"createTime": "2020-08-05 07:27:34",
+				"updateTime": "2020-08-05 14:15:58",
+				"headImg": "https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cool-admin/fa938ed9-762c-4c3e-8545-3aeeb514fcd9.png"
+			}
+		],
+		"index": [{
+			"IndexName": "username",
+			"MgoKeySchema": {
+				"MgoIndexKeys": [{
+					"Name": "username",
+					"Direction": "1"
+				}],
+				"MgoIsUnique": true
+			}
+		}]
+	},
+	// 系统-角色
+	"sys_role": {
+		"data": [{
+				"_id": "61d14d74f17d42288301e9ed798949e9",
+				"createTime": "2019-11-18 14:56:19",
+				"departmentIds": [
+					"1",
+					"10"
+				],
+				"label": "admin",
+				"menuIds": [
+					1,
+					2,
+					8
+				],
+				"name": "超管",
+				"remark": "超管角色",
+				"updateTime": "2019-11-19 00:00:54",
+				"userId": "dc48549b80784e66b2ede934271329ca"
+			},
+			{
+				"_id": "5f29909cfda33b00019763c5",
+				"name": "主管",
+				"label": "supervisor",
+				"menuIds": [
+					"1",
+					"53",
+					"45",
+					"43",
+					"2",
+					"17",
+					"59",
+					"60",
+					"61",
+					"62",
+					"63",
+					"65",
+					"18",
+					"19",
+					"20",
+					"21",
+					"8",
+					"10",
+					"11",
+					"12",
+					"13",
+					"22",
+					"23",
+					"24",
+					"25",
+					"26",
+					"29",
+					"30",
+					"79",
+					"80",
+					"81",
+					"82",
+					"83"
+				],
+				"departmentIds": [
+					"13",
+					"14",
+					"1"
+				],
+				"createTime": "2020-08-04 16:45:16",
+				"updateTime": "2020-08-04 16:45:35",
+				"remark": "这是个主管",
+				"departmentIdList": [
+					"13",
+					"14",
+					"1"
+				]
+			},
+			{
+				"_id": "5f2990d8c9f11100014a08cb",
+				"name": "组长",
+				"label": "group",
+				"remark": "这是个组长",
+				"menuIds": [
+					"2",
+					"17",
+					"59",
+					"60",
+					"61",
+					"62",
+					"63",
+					"65",
+					"18",
+					"19",
+					"20",
+					"21",
+					"8",
+					"10",
+					"11",
+					"12",
+					"13",
+					"22",
+					"23",
+					"24",
+					"25",
+					"26",
+					"29",
+					"30",
+					"79",
+					"80",
+					"81",
+					"82",
+					"83"
+				],
+				"departmentIds": [
+					"17",
+					"1",
+					"15"
+				],
+				"createTime": "2020-08-04 16:46:16",
+				"updateTime": "2020-08-04 16:46:16"
+			},
+			{
+				"_id": "5f2990f7fff71800018b3859",
+				"name": "组员",
+				"label": "members",
+				"remark": "这是个组员",
+				"menuIds": [
+					"59",
+					"60",
+					"61",
+					"62",
+					"63",
+					"65",
+					"21",
+					"2",
+					"17"
+				],
+				"departmentIds": [],
+				"createTime": "2020-08-04 16:46:47",
+				"updateTime": "2020-08-05 15:36:01",
+				"departmentIdList": []
+			},
+			{
+				"_id": "5f2a5f4fe7a2d20001591330",
+				"name": "只有教程",
+				"label": "jc",
+				"menuIds": [
+					"47",
+					"48"
+				],
+				"departmentIds": [
+					"1",
+					"13",
+					"14",
+					"15",
+					"17",
+					"16"
+				],
+				"createTime": "2020-08-05 07:27:11",
+				"updateTime": "2020-08-05 08:25:27",
+				"departmentIdList": [
+					"1",
+					"13",
+					"14",
+					"15",
+					"17",
+					"16"
+				]
+			}
+		],
+		"index": [{
+			"IndexName": "name",
+			"MgoKeySchema": {
+				"MgoIndexKeys": [{
+					"Name": "name",
+					"Direction": "1"
+				}],
+				"MgoIsUnique": true
+			}
+		}, {
+			"IndexName": "label",
+			"MgoKeySchema": {
+				"MgoIndexKeys": [{
+					"Name": "label",
+					"Direction": "1"
+				}],
+				"MgoIsUnique": true
+			}
+		}]
+	},
+	"sys_department": {
+		"data": [{
+				"_id": "1",
+				"createTime": "2019-11-18 14:56:19",
+				"name": "COOL-ADMIN",
+				"orderNum": 0,
+				"updateTime": "2020-08-04 16:18:28"
+			},
+			{
+				"_id": "10",
+				"createTime": "2019-11-18 17:07:06",
+				"name": "123123",
+				"orderNum": 1,
+				"parentId": "10",
+				"updateTime": "2019-11-18 17:56:16"
+			},
+			{
+				"_id": "11",
+				"createTime": "2019-11-18 17:07:10",
+				"name": "3333",
+				"orderNum": 3,
+				"parentId": "11",
+				"updateTime": "2019-11-18 17:56:17"
+			},
+			{
+				"_id": "12",
+				"createTime": "2019-11-18 17:20:28",
+				"name": "123123123",
+				"orderNum": 2,
+				"parentId": "12",
+				"updateTime": "2019-11-18 17:56:16"
+			},
+			{
+				"_id": "13",
+				"createTime": "2019-11-18 17:58:57",
+				"name": "部门1",
+				"orderNum": 1,
+				"parentId": "1",
+				"updateTime": "2020-08-04 16:18:28"
+			},
+			{
+				"_id": "14",
+				"createTime": "2019-11-18 17:59:04",
+				"name": "小组1",
+				"orderNum": 2,
+				"parentId": "13",
+				"updateTime": "2020-08-04 16:18:28"
+			},
+			{
+				"_id": "15",
+				"createTime": "2019-11-18 17:59:07",
+				"name": "部门2",
+				"orderNum": 3,
+				"parentId": "1",
+				"updateTime": "2020-08-04 16:18:28"
+			},
+			{
+				"_id": "16",
+				"createTime": "2019-11-18 17:59:12",
+				"name": "小组2",
+				"orderNum": 5,
+				"parentId": "15",
+				"updateTime": "2020-08-04 16:18:29"
+			},
+			{
+				"_id": "17",
+				"createTime": "2019-11-19 00:41:19",
+				"name": "小组1",
+				"orderNum": 4,
+				"parentId": "15",
+				"updateTime": "2020-08-04 16:18:29"
+			}
+		]
+	},
+	"sys_menu": {
+		"data": [{
+				"_id": "1",
+				"createTime": "2019-09-11 11:14:44",
+				"icon": "workbench",
+				"isShow": true,
+				"keepAlive": 1,
+				"name": "工作台",
+				"orderNum": 1,
+				"router": [],
+				"type": 0,
+				"updateTime": "2020-08-03 14:32:37"
+			},
+			{
+				"_id": "2",
+				"createTime": "2019-09-11 11:14:47",
+				"icon": "system",
+				"isShow": true,
+				"keepAlive": 1,
+				"name": "系统",
+				"orderNum": 2,
+				"router": "/sys",
+				"type": 0,
+				"updateTime": "2020-08-05 15:42:01"
+			},
+			{
+				"_id": "8",
+				"createTime": "2019-09-11 23:19:57",
+				"icon": "menu",
+				"isShow": true,
+				"keepAlive": 1,
+				"name": "菜单列表",
+				"orderNum": 2,
+				"parentId": "2",
+				"router": "/pages/system/menu",
+				"type": 1,
+				"updateTime": "2020-08-03 14:31:15",
+				"viewPath": "views/system/menu/index.vue"
+			},
+			{
+				"_id": "10",
+				"createTime": "2019-09-12 00:19:27",
+				"isShow": 1,
+				"keepAlive": 0,
+				"name": "新增",
+				"orderNum": 1,
+				"parentId": 8,
+				"perms": "sys:menu:add",
+				"type": 2,
+				"updateTime": "2019-09-12 00:19:27"
+			},
+			{
+				"_id": "11",
+				"createTime": "2019-09-12 00:19:51",
+				"isShow": 1,
+				"keepAlive": 0,
+				"name": "删除",
+				"orderNum": 2,
+				"parentId": 8,
+				"perms": "sys:menu:delete",
+				"type": 2,
+				"updateTime": "2019-09-12 00:19:51"
+			},
+			{
+				"_id": "12",
+				"createTime": "2019-09-12 00:20:05",
+				"isShow": 1,
+				"keepAlive": 0,
+				"name": "修改",
+				"orderNum": 3,
+				"parentId": 8,
+				"perms": "sys:menu:update",
+				"type": 2,
+				"updateTime": "2019-09-12 00:20:05"
+			},
+			{
+				"_id": "13",
+				"createTime": "2019-09-12 00:20:19",
+				"isShow": 1,
+				"keepAlive": 0,
+				"name": "查询",
+				"orderNum": 4,
+				"parentId": 8,
+				"perms": "sys:menu:page,sys:menu:list,sys:menu:info",
+				"type": 2,
+				"updateTime": "2019-09-12 00:20:19"
+			},
+			{
+				"_id": "17",
+				"createTime": "2019-09-12 00:31:25",
+				"icon": "user",
+				"isShow": true,
+				"keepAlive": true,
+				"name": "用户列表",
+				"orderNum": 1,
+				"parentId": "2",
+				"router": "/pages/system/user",
+				"type": 1,
+				"updateTime": "2020-08-03 13:59:46",
+				"viewPath": "views/system/user/index.vue"
+			},
+			{
+				"_id": "18",
+				"createTime": "2019-09-12 00:32:21",
+				"isShow": 1,
+				"keepAlive": 0,
+				"name": "新增",
+				"orderNum": 1,
+				"parentId": 17,
+				"perms": "sys:user:add",
+				"type": 2,
+				"updateTime": "2019-11-09 22:22:19"
+			},
+			{
+				"_id": "19",
+				"createTime": "2019-09-12 00:32:34",
+				"isShow": 1,
+				"keepAlive": 0,
+				"name": "删除",
+				"orderNum": 2,
+				"parentId": 17,
+				"perms": "sys:user:delete",
+				"type": 2,
+				"updateTime": "2019-09-12 00:32:34"
+			},
+			{
+				"_id": "20",
+				"createTime": "2019-09-12 00:32:47",
+				"isShow": 1,
+				"keepAlive": 0,
+				"name": "修改",
+				"orderNum": 3,
+				"parentId": 17,
+				"perms": "sys:user:update",
+				"type": 2,
+				"updateTime": "2019-09-12 00:32:47"
+			},
+			{
+				"_id": "21",
+				"createTime": "2019-09-12 00:33:00",
+				"isShow": 1,
+				"keepAlive": 0,
+				"name": "查询",
+				"orderNum": 4,
+				"parentId": 17,
+				"perms": "sys:user:page,sys:user:list,sys:user:info",
+				"type": 2,
+				"updateTime": "2019-09-12 00:33:00"
+			},
+			{
+				"_id": "22",
+				"createTime": "2019-09-12 00:34:01",
+				"icon": "role",
+				"isShow": true,
+				"keepAlive": 1,
+				"name": "角色列表",
+				"orderNum": 3,
+				"parentId": "2",
+				"router": "/pages/system/role",
+				"type": 1,
+				"updateTime": "2020-08-03 14:31:06",
+				"viewPath": "views/system/role/index.vue"
+			},
+			{
+				"_id": "23",
+				"createTime": "2019-09-12 00:34:23",
+				"isShow": 1,
+				"keepAlive": 0,
+				"name": "新增",
+				"orderNum": 1,
+				"parentId": 22,
+				"perms": "sys:role:add",
+				"type": 2,
+				"updateTime": "2019-09-12 00:34:23"
+			},
+			{
+				"_id": "24",
+				"createTime": "2019-09-12 00:34:40",
+				"isShow": 1,
+				"keepAlive": 0,
+				"name": "删除",
+				"orderNum": 2,
+				"parentId": 22,
+				"perms": "sys:role:delete",
+				"type": 2,
+				"updateTime": "2019-09-12 00:34:40"
+			},
+			{
+				"_id": "25",
+				"createTime": "2019-09-12 00:34:53",
+				"isShow": 1,
+				"keepAlive": 0,
+				"name": "修改",
+				"orderNum": 3,
+				"parentId": 22,
+				"perms": "sys:role:update",
+				"type": 2,
+				"updateTime": "2019-09-12 00:34:53"
+			},
+			{
+				"_id": "26",
+				"createTime": "2019-09-12 00:35:05",
+				"isShow": 1,
+				"keepAlive": 0,
+				"name": "查询",
+				"orderNum": 4,
+				"parentId": 22,
+				"perms": "sys:role:page,sys:role:list,sys:role:info",
+				"type": 2,
+				"updateTime": "2019-09-12 00:35:05"
+			},
+			{
+				"_id": "29",
+				"createTime": "2019-09-12 17:35:51",
+				"icon": "log",
+				"isShow": true,
+				"keepAlive": 0,
+				"name": "请求日志",
+				"orderNum": 4,
+				"parentId": "2",
+				"perms": "",
+				"router": "/pages/system/log",
+				"type": 1,
+				"updateTime": "2020-08-03 14:00:22",
+				"viewPath": "views/system/log/index.vue"
+			},
+			{
+				"_id": "30",
+				"createTime": "2019-09-12 17:37:03",
+				"isShow": 1,
+				"keepAlive": 0,
+				"name": "权限",
+				"orderNum": 1,
+				"parentId": 29,
+				"perms": "sys:log:page,sys:log:clear,sys:log:get-keep,sys:log:set-keep",
+				"type": 2,
+				"updateTime": "2019-11-18 14:20:27"
+			},
+			{
+				"_id": "43",
+				"createTime": "2019-11-07 14:22:34",
+				"icon": "workbench",
+				"isShow": true,
+				"keepAlive": 1,
+				"name": "crud 示例",
+				"orderNum": 1,
+				"parentId": 45,
+				"router": "/pages/demo/crud",
+				"type": 1,
+				"updateTime": "2020-08-04 16:11:35",
+				"viewPath": "views/test/crud.vue"
+			},
+			{
+				"_id": "45",
+				"createTime": "2019-11-07 22:36:57",
+				"icon": "app",
+				"isShow": 1,
+				"keepAlive": 1,
+				"name": "组件库",
+				"orderNum": 2,
+				"parentId": 1,
+				"router": "/ui-lib",
+				"type": 0,
+				"updateTime": "2020-08-04 02:35:35"
+			},
+			{
+				"_id": "47",
+				"createTime": "2019-11-08 09:35:08",
+				"icon": "network",
+				"isShow": true,
+				"keepAlive": 1,
+				"name": "教程",
+				"orderNum": 3,
+				"router": "/tutorial",
+				"type": 0,
+				"updateTime": "2020-08-03 14:42:10"
+			},
+			{
+				"_id": "48",
+				"createTime": "2019-11-08 09:35:53",
+				"icon": "order",
+				"isShow": true,
+				"keepAlive": 1,
+				"name": "文档",
+				"orderNum": 0,
+				"parentId": 47,
+				"router": "/pages/url/index?url=https://docs-admin-cloud.cool-js.com",
+				"type": 1,
+				"updateTime": "2020-08-05 15:49:28",
+				"viewPath": "https://docs-admin-pro.cool-js.com"
+			},
+			{
+				"_id": "53",
+				"createTime": "2019-11-11 15:21:00",
+				"icon": "common",
+				"isShow": true,
+				"keepAlive": 1,
+				"name": "组件预览",
+				"orderNum": 1,
+				"parentId": 1,
+				"router": "/pages/demo/index",
+				"type": 1,
+				"updateTime": "2020-08-03 14:39:30",
+				"viewPath": "views/workbench/ui-components"
+			},
+			{
+				"_id": "59",
+				"createTime": "2019-11-18 16:50:27",
+				"isShow": 1,
+				"keepAlive": 1,
+				"name": "部门列表",
+				"orderNum": 0,
+				"parentId": 17,
+				"perms": "sys:department:list",
+				"type": 2,
+				"updateTime": "2019-11-18 16:50:27"
+			},
+			{
+				"_id": "60",
+				"createTime": "2019-11-18 16:50:45",
+				"isShow": 1,
+				"keepAlive": 1,
+				"name": "新增部门",
+				"orderNum": 0,
+				"parentId": 17,
+				"perms": "sys:department:add",
+				"type": 2,
+				"updateTime": "2019-11-18 16:50:45"
+			},
+			{
+				"_id": "61",
+				"createTime": "2019-11-18 16:50:59",
+				"isShow": 1,
+				"keepAlive": 1,
+				"name": "更新部门",
+				"orderNum": 0,
+				"parentId": 17,
+				"perms": "sys:department:update",
+				"type": 2,
+				"updateTime": "2019-11-18 16:50:59"
+			},
+			{
+				"_id": "62",
+				"createTime": "2019-11-18 16:51:13",
+				"isShow": 1,
+				"keepAlive": 1,
+				"name": "删除部门",
+				"orderNum": 0,
+				"parentId": 17,
+				"perms": "sys:department:delete",
+				"type": 2,
+				"updateTime": "2019-11-18 16:51:13"
+			},
+			{
+				"_id": "63",
+				"createTime": "2019-11-18 17:49:35",
+				"isShow": 1,
+				"keepAlive": 1,
+				"name": "部门排序",
+				"orderNum": 0,
+				"parentId": 17,
+				"perms": "sys:department:order",
+				"type": 2,
+				"updateTime": "2019-11-18 17:49:35"
+			},
+			{
+				"_id": "65",
+				"createTime": "2019-11-18 23:59:21",
+				"isShow": 1,
+				"keepAlive": 1,
+				"name": "用户转移",
+				"orderNum": 0,
+				"parentId": 17,
+				"perms": "sys:user:move",
+				"type": 2,
+				"updateTime": "2019-11-18 23:59:21"
+			},
+			{
+				"_id": "67",
+				"createTime": "2019-11-26 23:50:13",
+				"isShow": 1,
+				"keepAlive": 1,
+				"name": "记录",
+				"orderNum": 0,
+				"parentId": 66,
+				"perms": "sys:info:record",
+				"type": 2,
+				"updateTime": "2019-11-26 23:50:13"
+			},
+			{
+				"_id": "70",
+				"createTime": "2019-12-10 13:25:06",
+				"icon": "icon-radioboxfill",
+				"isShow": 1,
+				"keepAlive": 1,
+				"name": "任务列表",
+				"orderNum": 1,
+				"parentId": 69,
+				"router": "/sys/task",
+				"type": 1,
+				"updateTime": "2019-12-10 13:28:53",
+				"viewPath": "views/system/task/index.vue"
+			},
+			{
+				"_id": "71",
+				"createTime": "2019-12-10 13:25:33",
+				"isShow": 1,
+				"keepAlive": 1,
+				"name": "新增",
+				"orderNum": 0,
+				"parentId": 70,
+				"perms": "sys:task:add",
+				"type": 2,
+				"updateTime": "2019-12-10 13:25:33"
+			},
+			{
+				"_id": "72",
+				"createTime": "2019-12-10 13:25:45",
+				"isShow": 1,
+				"keepAlive": 1,
+				"name": "删除",
+				"orderNum": 0,
+				"parentId": 70,
+				"perms": "sys:task:delete",
+				"type": 2,
+				"updateTime": "2019-12-10 13:25:45"
+			},
+			{
+				"_id": "73",
+				"createTime": "2019-12-10 13:26:03",
+				"isShow": 1,
+				"keepAlive": 1,
+				"name": "修改",
+				"orderNum": 0,
+				"parentId": 70,
+				"perms": "sys:task:info,sys:task:update",
+				"type": 2,
+				"updateTime": "2019-12-10 13:26:18"
+			},
+			{
+				"_id": "74",
+				"createTime": "2019-12-10 13:26:49",
+				"isShow": 1,
+				"keepAlive": 1,
+				"name": "查看",
+				"orderNum": 0,
+				"parentId": 70,
+				"perms": "sys:task:page,sys:task:info,sys:task:log",
+				"type": 2,
+				"updateTime": "2019-12-10 13:26:49"
+			},
+			{
+				"_id": "75",
+				"createTime": "2019-12-10 13:27:10",
+				"isShow": 1,
+				"keepAlive": 1,
+				"name": "立即执行",
+				"orderNum": 0,
+				"parentId": 70,
+				"perms": "sys:task:once",
+				"type": 2,
+				"updateTime": "2019-12-10 13:27:10"
+			},
+			{
+				"_id": "76",
+				"createTime": "2019-12-10 13:27:24",
+				"isShow": 1,
+				"keepAlive": 1,
+				"name": "开始",
+				"orderNum": 0,
+				"parentId": 70,
+				"perms": "sys:task:start",
+				"type": 2,
+				"updateTime": "2019-12-10 13:27:24"
+			},
+			{
+				"_id": "77",
+				"createTime": "2019-12-10 13:27:36",
+				"isShow": 1,
+				"keepAlive": 1,
+				"name": "暂停",
+				"orderNum": 0,
+				"parentId": 70,
+				"perms": "sys:task:stop",
+				"type": 2,
+				"updateTime": "2019-12-10 13:27:36"
+			},
+			{
+				"_id": "79",
+				"createTime": "2019-12-10 13:29:33",
+				"icon": "common",
+				"isShow": true,
+				"keepAlive": 1,
+				"name": "参数配置",
+				"orderNum": 5,
+				"parentId": "2",
+				"router": "/pages/system/param",
+				"type": 1,
+				"updateTime": "2020-08-03 14:00:01",
+				"viewPath": "views/system/param/index.vue"
+			},
+			{
+				"_id": "80",
+				"createTime": "2019-12-10 13:29:50",
+				"isShow": 1,
+				"keepAlive": 1,
+				"name": "新增",
+				"orderNum": 0,
+				"parentId": 79,
+				"perms": "sys:param:add",
+				"type": 2,
+				"updateTime": "2019-12-10 13:29:50"
+			},
+			{
+				"_id": "81",
+				"createTime": "2019-12-10 13:30:10",
+				"isShow": 1,
+				"keepAlive": 1,
+				"name": "修改",
+				"orderNum": 0,
+				"parentId": 79,
+				"perms": "sys:param:info,sys:param:update",
+				"type": 2,
+				"updateTime": "2019-12-10 13:30:10"
+			},
+			{
+				"_id": "82",
+				"createTime": "2019-12-10 13:30:25",
+				"isShow": 1,
+				"keepAlive": 1,
+				"name": "删除",
+				"orderNum": 0,
+				"parentId": 79,
+				"perms": "sys:param:delete",
+				"type": 2,
+				"updateTime": "2019-12-10 13:30:25"
+			},
+			{
+				"_id": "83",
+				"createTime": "2019-12-10 13:30:40",
+				"isShow": 1,
+				"keepAlive": 1,
+				"name": "查看",
+				"orderNum": 0,
+				"parentId": 79,
+				"perms": "sys:param:page,sys:param:list,sys:param:info",
+				"type": 2,
+				"updateTime": "2019-12-10 13:30:40"
+			},
+			{
+				"_id": "84",
+				"createTime": "2020-07-25 16:21:30",
+				"icon": "icon-radioboxfill",
+				"isShow": false,
+				"keepAlive": 1,
+				"name": "通用权限",
+				"orderNum": 99,
+				"type": 0,
+				"updateTime": "2020-08-03 14:42:02"
+			},
+			{
+				"_id": "85",
+				"createTime": "2020-07-25 16:22:14",
+				"isShow": 1,
+				"keepAlive": 1,
+				"name": "图片上传",
+				"orderNum": 1,
+				"parentId": 84,
+				"perms": "app:space:info:page,app:space:info:add,app:space:info:delete,app:space:type:list,app:space:type:add,app:space:type:delete,app:space:type:update",
+				"type": 2,
+				"updateTime": "2020-08-05 13:55:36"
+			}
+		],
+		"index": [{
+			"IndexName": "orderNum",
+			"MgoKeySchema": {
+				"MgoIndexKeys": [{
+					"Name": "orderNum",
+					"Direction": "1"
+				}],
+				"MgoIsUnique": false
+			}
+		}]
+	},
+	// 系统-数据
+	"sys_data": {
+		"data": [],
+		"index": [{
+			"IndexName": "key",
+			"MgoKeySchema": {
+				"MgoIndexKeys": [{
+					"Name": "key",
+					"Direction": "1"
+				}],
+				"MgoIsUnique": true
+			}
+		}, {
+			"IndexName": "data",
+			"MgoKeySchema": {
+				"MgoIndexKeys": [{
+					"Name": "data",
+					"Direction": "1"
+				}],
+				"MgoIsUnique": false
+			}
+		}, {
+			"IndexName": "expiredTime",
+			"MgoKeySchema": {
+				"MgoIndexKeys": [{
+					"Name": "expiredTime",
+					"Direction": "1"
+				}],
+				"MgoIsUnique": false
+			}
+		}]
+	},
+	// 系统-日志
+	"sys_log": {
+		"data": [],
+		"index": [{
+			"IndexName": "action",
+			"MgoKeySchema": {
+				"MgoIndexKeys": [{
+					"Name": "action",
+					"Direction": "1"
+				}],
+				"MgoIsUnique": false
+			}
+		}, {
+			"IndexName": "ipAddr",
+			"MgoKeySchema": {
+				"MgoIndexKeys": [{
+					"Name": "ipAddr",
+					"Direction": "1"
+				}],
+				"MgoIsUnique": false
+			}
+		}, {
+			"IndexName": "params",
+			"MgoKeySchema": {
+				"MgoIndexKeys": [{
+					"Name": "params",
+					"Direction": "1"
+				}],
+				"MgoIsUnique": false
+			}
+		}]
+	},
+	// 系统-参数
+	"sys_param": {
+		"data": [],
+		"index": [{
+			"IndexName": "key",
+			"MgoKeySchema": {
+				"MgoIndexKeys": [{
+					"Name": "key",
+					"Direction": "1"
+				}],
+				"MgoIsUnique": true
+			}
+		}, {
+			"IndexName": "name",
+			"MgoKeySchema": {
+				"MgoIndexKeys": [{
+					"Name": "name",
+					"Direction": "1"
+				}],
+				"MgoIsUnique": false
+			}
+		}, {
+			"IndexName": "data",
+			"MgoKeySchema": {
+				"MgoIndexKeys": [{
+					"Name": "data",
+					"Direction": "1"
+				}],
+				"MgoIsUnique": false
+			}
+		}]
+	},
+	// 应用-图片空间
+	"app_space_info": {
+		"data": [],
+		"index": [{
+			"IndexName": "type",
+			"MgoKeySchema": {
+				"MgoIndexKeys": [{
+					"Name": "type",
+					"Direction": "1"
+				}],
+				"MgoIsUnique": false
+			}
+		}]
+	},
+	// 应用-图片空间
+	"app_space_type": {
+		"data": [],
+		"index": [{
+			"IndexName": "name",
+			"MgoKeySchema": {
+				"MgoIndexKeys": [{
+					"Name": "name",
+					"Direction": "1"
+				}],
+				"MgoIsUnique": false
+			}
+		}]
+	}
+}
