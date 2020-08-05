@@ -119,11 +119,10 @@ export default {
 
 				if (!first) {
 					this.$message.error("该账号没有权限");
+					this.saving = false;
 				} else {
-					location.href = '/'
+					location.href = "/";
 				}
-
-				this.saving = false;
 			} catch (err) {
 				this.$refs.captcha.refresh();
 				this.saving = false;
