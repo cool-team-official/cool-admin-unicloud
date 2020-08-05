@@ -52,7 +52,9 @@ module.exports = {
 	async info() {
 		const { db, params } = this.ctx;
 		const info = await db.info('sys_user', params._id);
+		info.roleIdList = info.roleIds;
 		delete info.password;
+		delete info.roleIds;
 		return info;
 	}
 }

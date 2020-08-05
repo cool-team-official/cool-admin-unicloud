@@ -89,9 +89,10 @@ module.exports = {
 		for (const key in condition) {
 			collection = collection[key](condition[key]);
 		}
-		const totalResult = await collection.count();
-		collection = collection.skip((page - 1) * size).limit(size).orderBy(order, sort);
-		const listResult = await collection.get();
-		return { list: listResult.data, pagination: { page, size, total: totalResult.total } };
+		const totalResult = collection.count();
+		collection = collection.orderBy(order, sort).skip((page - 1) * size).limit(size);
+		const listResult = collection.get();
+		const result = await Promise.all([totalResult, listResult]);
+		return { list: result[1].data, pagination: { page, size, total: result[0].total } };
 	}
 }

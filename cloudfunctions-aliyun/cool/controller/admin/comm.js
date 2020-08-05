@@ -22,7 +22,7 @@ module.exports = {
 	 */
 	async logout() {
 		const { currentUser } = this.ctx;
-		return await this.ctx.services.sys.logout(currentUser.userId);
+		return await this.ctx.services.sys.login.logout(currentUser.userId);
 	},
 
 	/**

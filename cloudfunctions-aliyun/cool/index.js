@@ -16,8 +16,9 @@ const middlewares = requireDir('/middleware');
 exports.main = async (event, context) => {
 	try {
 		// url 调用函数地址 param 参数 token 令牌
-		const { url, params, token } = event; 
-		
+		const { url, params, token } = event;
+		// const { url = '/admin/sys/menu/list', params, token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlSWRzIjpbIjYxZDE0ZDc0ZjE3ZDQyMjg4MzAxZTllZDc5ODk0OWU5IiwiOTc0YjRkNzFmODkyNDY1MzkyMjcxMDNmY2RiZjIxMDAiXSwidXNlcklkIjoiZGM0ODU0OWI4MDc4NGU2NmIyZWRlOTM0MjcxMzI5Y2EiLCJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmRWZXJzaW9uIjoxLCJpYXQiOjE1OTY0MzE0NTIsImV4cCI6MTU5NzAzNjI1Mn0.2PDFO8ekz3RCHyYtFF2wDnVPSrUenVLnbkilbhRJLlw' } = event; 
+
 		// 解析路由
 		const {
 			cPath,

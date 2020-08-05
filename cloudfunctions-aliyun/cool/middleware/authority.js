@@ -18,14 +18,15 @@ module.exports = (url, token, ctx) => {
 				if (utils.lodash.startsWith(url, '/admin/comm/')) {
 					reslove(true);
 				}
-				const rToken = await ctx.services.sys.data.get(`admin:token:${ currentUser.userId }`);
+				const rTokenP = ctx.services.sys.data.get(`admin:token:${ currentUser.userId }`);
+				const permsP =  ctx.services.sys.data.get(`admin:perms:${ currentUser.userId }`);
+				let [rToken, perms] = await Promise.all([rTokenP, permsP]);
 				if (!rToken) {
 					reject(tips);
 				}
 				if (rToken !== token && config.SSO) {
 					reject(tips);
 				} else {
-					let perms = await ctx.services.sys.data.get(`admin:perms:${ currentUser.userId }`);
 					if (!utils.lodash.isEmpty(perms)) {
 						perms = JSON.parse(perms).map(e => {
 							return e.replace(/:/g, '/');
