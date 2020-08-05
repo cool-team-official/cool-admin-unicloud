@@ -11,7 +11,7 @@
 				:default-checked-keys="checked"
 				:filter-node-method="filterNode"
 				highlight-current
-				node-key="id"
+				node-key="_id"
 				show-checkbox
 				ref="tree"
 				@check-change="save"
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { deepTree } from "../../utils/index";
+import { deepTree } from "../../utils";
 
 export default {
 	props: {
@@ -71,7 +71,7 @@ export default {
 					if (e.children) {
 						fn(e.children);
 					} else {
-						ids.push(Number(e.id));
+						ids.push(e._id);
 					}
 				});
 			};

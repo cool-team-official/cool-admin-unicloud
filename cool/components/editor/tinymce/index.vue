@@ -40,8 +40,6 @@ export default {
 		content(val) {
 			this.$emit("input", val);
 		}
-	},
-
-	methods: {}
+	}
 };
 </script>

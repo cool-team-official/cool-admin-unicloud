@@ -110,12 +110,10 @@
 						</el-row>
 
 						<div class="cl-upload-space__file-empty" v-else>
-							<el-upload drag v-bind="upload.props">
+							<div class="cl-upload-space__file-drag">
 								<i class="el-icon-upload"></i>
-								<div class="el-upload__text">
-									将文件拖到此处，或<em>点击上传</em>
-								</div>
-							</el-upload>
+								<p>点击上传</p>
+							</div>
 						</div>
 					</div>
 
@@ -573,6 +571,27 @@ export default {
 			align-items: center;
 			justify-content: center;
 			margin-top: 100px;
+		}
+
+		&-drag {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			border: 1px dashed #eee;
+			border-radius: 6px;
+			cursor: pointer;
+			height: 180px;
+			width: 360px;
+
+			i {
+				font-size: 67px;
+				color: #c0c4cc;
+			}
+
+			&:hover {
+				border-color: #409eff;
+			}
 		}
 	}
 }

@@ -2,14 +2,14 @@
 export default {
 	onLaunch: function () {
 		console.log("App Launch");
+	},
+	onShow: function () {
+		console.log("App Show", uni.getStorageSync("token"));
 		if (!uni.getStorageSync("token")) {
 			uni.navigateTo({
 				url: "/pages/login/index"
 			});
 		}
-	},
-	onShow: function () {
-		console.log("App Show");
 	},
 	onHide: function () {
 		console.log("App Hide");

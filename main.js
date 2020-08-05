@@ -12,7 +12,6 @@ import "@/static/css/element-variables.scss";
 
 LoadService({ store });
 
-Vue.config.productionTip = false;
 Vue.component("cl-layout", Layout);
 Vue.use(ElementUI);
 Vue.use(Crud2, {
@@ -38,9 +37,10 @@ Vue.use(Crud2, {
 	}
 });
 
-store.dispatch('appLoad')
+store.dispatch("appLoad");
 
 App.mpType = "app";
+Vue.config.productionTip = false;
 
 const app = new Vue({
 	store,

@@ -89,7 +89,14 @@
 						prop: 'data',
 						label: '数据',
 						component: {
-							name: 'slot-content'
+							name: 'el-input',
+							props: {
+								type: 'textarea'
+							},
+							attrs: {
+								rows: 4,
+								placeholder: '请输入数据值'
+							}
 						}
 					},
 					{
@@ -115,7 +122,11 @@
 							<el-button class="change-btn" size="mini" @click="changeTab(item.to)">{{
 								item.label
 							}}</el-button>
-							<component :is="item.component" v-model="scope.data"></component>
+							<component
+								:is="item.component"
+								v-model="scope.data"
+								v-bind="item.props"
+							></component>
 						</template>
 					</div>
 				</template>
@@ -135,7 +146,11 @@ export default {
 					{
 						label: "切换富文本编辑器",
 						to: 1,
-						component: "cl-code"
+						component: "el-input",
+						props: {
+							type: "textarea",
+							rows: 4
+						}
 					},
 					{
 						label: "切换代码编辑器",

@@ -1,3 +1,9 @@
+import { Message } from "element-ui";
+import Store from "@/store";
+
+// 异常锁
+let lock = false;
+
 export default function (options) {
 	return new Promise((resolve, reject) => {
 		const token = uni.getStorageSync("token") || "";
@@ -16,12 +22,6 @@ export default function (options) {
 			.then((res) => {
 				const { code, data, message } = res.result;
 
-				if (code === 1000) {
-					resolve(data);
-				} else {
-					reject(message);
-				}
-
 				switch (code) {
 					// 成功
 					case 1000:
@@ -29,7 +29,24 @@ export default function (options) {
 						break;
 					// 无权限
 					case 1002:
-						location.href = "#/pages/login/index";
+						if (!lock) {
+							// Start
+							lock = true;
+
+							Message({
+								type: "error",
+								message
+							});
+
+							Store.dispatch("userRemove");
+							uni.navigateTo({
+								url: "/pages/login/index"
+							});
+
+							// Stop
+							lock = false;
+						}
+
 						break;
 					// 失败
 					default:
