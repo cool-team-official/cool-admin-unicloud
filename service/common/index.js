@@ -1,61 +1,6 @@
-import { baseUrl } from "@/config/env";
 import { BaseService } from "@/cool";
-import store from "@/store";
 
 export default class extends BaseService {
-	/**
-	 * 文件上传
-	 *
-	 * @returns
-	 * @memberof CommonService
-	 */
-	upload() {
-		return {
-			url: baseUrl + "/comm/upload",
-			token: store.state.user.token
-		};
-	}
-
-	/**
-	 * oss文件上传
-	 * @param {*} url
-	 * @param {*} params
-	 */
-	ossUpload(file) {
-		return new Promise((resolve, reject) => {
-			uni.chooseImage({
-				count: 1,
-				async success(res) {
-					console.log(res);
-					if (res.tempFilePaths.length > 0) {
-						let filePath = res.tempFilePaths[0];
-
-						// promise
-						const result = await uniCloud.uploadFile({
-							filePath: filePath,
-							cloudPath: file.name,
-							onUploadProgress: function (progressEvent) {
-								console.log(progressEvent);
-								var percentCompleted = Math.round(
-									(progressEvent.loaded * 100) / progressEvent.total
-								);
-							}
-						});
-					}
-				}
-			});
-		});
-	}
-
-	/**
-	 * 获取oss签名
-	 */
-	ossSign() {
-		return this.request({
-			url: "/comm/ossSign"
-		});
-	}
-
 	/**
 	 * 用户登录
 	 *
@@ -107,7 +52,7 @@ export default class extends BaseService {
 	 */
 	userUpdate(params) {
 		return this.request({
-			url: "/comm/person-update",
+			url: "/comm/personUpdate",
 			method: "POST",
 			data: {
 				...params

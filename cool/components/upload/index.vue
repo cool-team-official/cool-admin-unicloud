@@ -1,58 +1,45 @@
 <template>
-    <div
-        class="cl-upload"
-        :class="{
+	<div
+		class="cl-upload"
+		:class="{
 			'is-multiple': props.multiple
 		}"
-    >
-        <el-input
-            class="cl-upload__hidden"
-            type="hidden"
-            v-model="value"
-        ></el-input>
+	>
+		<el-input class="cl-upload__hidden" type="hidden" v-model="value"></el-input>
 
-        <el-upload
-            v-for="(item, index) in list"
-            :key="index"
-            v-bind="props"
-            accept="image/*, video/*"
-            action=""
-            :headers="{
+		<el-upload
+			v-for="(item, index) in list"
+			:key="index"
+			v-bind="props"
+			accept="image/*, video/*"
+			action=""
+			:headers="{
 				Authorization: token
 			}"
-            :show-file-list="false"
-            :http-request="
+			:show-file-list="false"
+			:http-request="
 				(e) => {
 					httpRequest(e, item);
 				}
 			"
-        >
-            <slot>
-                <div
-                    class="cl-upload__wrap"
-                    :style="style"
-                    v-loading="item.loading"
-                >
-                    <img
-                        class="cl-upload__image"
-                        :src="item.url"
-                        alt=""
-                        v-if="item.url"
-                    />
-                    <i
-                        class="el-icon-picture avatar-uploader-icon"
-                        v-else
-                    ></i>
+		>
+			<slot>
+				<div
+					class="cl-upload__wrap"
+					:style="style"
+					v-loading="item.loading"
+					@click="chooseImage(item)"
+				>
+					<img class="cl-upload__image" :src="item.url" alt="" v-if="item.url" />
+					<i class="el-icon-picture avatar-uploader-icon" v-else></i>
 
-                    <i
-                        class="el-icon-close"
-                        v-if="item.url"
-                        @click.stop="removeFile(index)"
-                    ></i>
-                </div>
-            </slot>
-        </el-upload>
-    </div>
+					<i class="el-icon-close" v-if="item.url" @click.stop="removeFile(index)"></i>
+				</div>
+			</slot>
+
+			<div slot="trigger"></div>
+		</el-upload>
+	</div>
 </template>
 
 <script>
@@ -162,7 +149,7 @@ export default {
 		},
 
 		// 上传成功
-		onSuccess(url, file, item) {
+		onUploadSuccess(url, file, item) {
 			const { multiple } = this.props;
 
 			item.loading = false;
@@ -191,7 +178,7 @@ export default {
 		},
 
 		// 上传错误
-		onError(err, file) {
+		onUploadError(err, file) {
 			console.error("upload error", err);
 			this.$message.error(err.toString());
 			this.loading = false;
@@ -220,11 +207,30 @@ export default {
 						});
 					}
 
-					this.onSuccess(url, req.file, item);
+					this.onUploadSuccess(url, req.file, item);
 				})
 				.catch((err) => {
-					this.onError(err, req.file);
+					this.onUploadError(err, req.file);
 				});
+		},
+
+		chooseImage(item) {
+			uni.chooseImage({
+				success: (res) => {
+					res.tempFiles.forEach((e, i) => {
+						uniCloud.uploadFile({
+							filePath: res.tempFilePaths[i],
+							cloudPath: e.name,
+							success: (res) => {
+								this.onUploadSuccess(res.fileID, e, item);
+							},
+							fail: (err) => {
+								this.onUploadError(err, e);
+							}
+						});
+					});
+				}
+			});
 		}
 	}
 };
