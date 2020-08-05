@@ -25,11 +25,16 @@ export default {
 	},
 
 	watch: {
-		value(val) {
-			if (!(val instanceof Array)) {
-				this.newValue = [val];
-			} else {
-				this.newValue = val;
+		value: {
+			immediate: true,
+			handler(val) {
+				if (!(val instanceof Array)) {
+					this.newValue = [val];
+				} else {
+					this.newValue = val;
+				}
+
+				console.log(this.newValue);
 			}
 		},
 
@@ -39,6 +44,7 @@ export default {
 	},
 
 	async created() {
+		console.log(1111111);
 		this.list = await this.$service.system.role.list();
 	}
 };

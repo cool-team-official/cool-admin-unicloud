@@ -109,6 +109,7 @@
 }
 
 .el-pagination {
+	display: flex;
 	line-height: 0;
 
 	.btn-prev,
@@ -134,5 +135,5 @@
 }
 
 .cl-adv-btn {
-	line-height: 0;
+	display: flex;
 }

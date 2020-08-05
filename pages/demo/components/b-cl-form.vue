@@ -1,7 +1,5 @@
 <template>
 	<div class="scope">
-		<cl-form ref="cl-form"></cl-form>
-
 		<div class="h">
 			<span>cl-form</span>
 			自定义表单
@@ -14,14 +12,18 @@
 		<div class="f">
 			<span class="date">2019/10/11</span>
 		</div>
+
+		<cl-form ref="form"></cl-form>
 	</div>
 </template>
 
 <script>
+import "./index.scss";
+
 export default {
 	methods: {
 		openForm() {
-			this.$refs["cl-form"].open({
+			this.$refs["form"].open({
 				props: {
 					title: "填写邀请码",
 					width: "450px"
@@ -46,7 +48,7 @@ export default {
 						},
 						prop: "code",
 						component: {
-							name: "login-invite-code",
+							name: "demo__invite-code",
 
 							data() {
 								return {
@@ -114,8 +116,8 @@ export default {
 				],
 
 				on: {
-					submit: (data, done) => {
-						this.$message.success(data.code);
+					submit: (data, { done }) => {
+						this.$message.success(data.code || "邀请码为空");
 						done();
 					}
 				}
@@ -124,22 +126,3 @@ export default {
 	}
 };
 </script>
-
-<style lang="scss">
-.invite-code {
-	display: flex;
-
-	.el-input {
-		flex: 1;
-		margin: 0 15px;
-
-		input {
-			border: 0;
-			border-radius: 0;
-			border-bottom: 1px solid #000;
-			text-align: center;
-			font-size: 18px;
-		}
-	}
-}
-</style>

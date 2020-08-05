@@ -1,19 +1,13 @@
 <template>
-    <cl-layout>
-        <cl-crud
-            ref="crud"
-            @load="onCrudLoad"
-        >
-            <el-row
-                type="flex"
-                align="middle"
-            >
-                <cl-refresh-btn></cl-refresh-btn>
-                <cl-add-btn></cl-add-btn>
-                <cl-multi-delete-btn></cl-multi-delete-btn>
-                <cl-query
-                    :value="1"
-                    :list="[
+	<cl-layout>
+		<cl-crud ref="crud" @load="onCrudLoad">
+			<el-row type="flex" align="middle">
+				<cl-refresh-btn></cl-refresh-btn>
+				<cl-add-btn></cl-add-btn>
+				<cl-multi-delete-btn></cl-multi-delete-btn>
+				<cl-query
+					:value="1"
+					:list="[
 						{
 							label: '上行',
 							value: 0
@@ -23,15 +17,12 @@
 							value: 1
 						}
 					]"
-                ></cl-query>
-                <el-button
-                    size="mini"
-                    @click="openForm"
-                >自定义表单</el-button>
-                <cl-flex1></cl-flex1>
-                <cl-search-key
-                    field="name"
-                    :field-list="[
+				></cl-query>
+				<el-button size="mini" @click="openForm">自定义表单</el-button>
+				<cl-flex1></cl-flex1>
+				<cl-search-key
+					field="name"
+					:field-list="[
 						{
 							label: '姓名',
 							value: 'name'
@@ -41,12 +32,13 @@
 							value: 'id'
 						}
 					]"
-                ></cl-search-key>
-                <cl-adv-btn></cl-adv-btn>
-            </el-row>
+				></cl-search-key>
+				<cl-adv-btn></cl-adv-btn>
+			</el-row>
 
-            <el-row>
-                <cl-table :columns="[
+			<el-row>
+				<cl-table
+					:columns="[
 						{
 							type: 'selection'
 						},
@@ -63,34 +55,27 @@
 							label: '操作',
 							type: 'op'
 						}
-					]">
-                </cl-table>
-            </el-row>
+					]"
+				>
+				</cl-table>
+			</el-row>
 
-            <el-row type="flex">
-                <cl-flex1></cl-flex1>
-                <cl-pagination></cl-pagination>
-            </el-row>
+			<el-row type="flex">
+				<cl-flex1></cl-flex1>
+				<cl-pagination></cl-pagination>
+			</el-row>
 
-            <!-- 高级搜索 -->
-            <cl-adv-search
-                ref="adv-search"
-                v-bind="advSearch.props"
-                v-on="advSearch.on"
-            >
-            </cl-adv-search>
+			<!-- 高级搜索 -->
+			<cl-adv-search ref="adv-search" v-bind="advSearch.props" v-on="advSearch.on">
+			</cl-adv-search>
 
-            <!-- 编辑、新增 -->
-            <cl-upsert
-                ref="upsert"
-                v-bind="upsert.props"
-                v-on="upsert.on"
-            ></cl-upsert>
+			<!-- 编辑、新增 -->
+			<cl-upsert ref="upsert" v-bind="upsert.props" v-on="upsert.on"></cl-upsert>
 
-            <!-- 自定义表单 -->
-            <cl-form ref="form"></cl-form>
-        </cl-crud>
-    </cl-layout>
+			<!-- 自定义表单 -->
+			<cl-form ref="form"></cl-form>
+		</cl-crud>
+	</cl-layout>
 </template>
 
 <script>

@@ -1,0 +1,16 @@
+.invite-code {
+	display: flex;
+
+	.el-input {
+		flex: 1;
+		margin: 0 15px;
+
+		&__inner {
+			border: 0;
+			border-radius: 0;
+			border-bottom: 1px solid #000;
+			text-align: center;
+			font-size: 18px;
+		}
+	}
+}

@@ -104,7 +104,7 @@ export default {
 				if (!first) {
 					this.$message.error("该账号没有权限");
 				} else {
-					this.$router.push("/pages/system/user");
+					this.$router.push(first.path);
 				}
 
 				this.saving = false;
