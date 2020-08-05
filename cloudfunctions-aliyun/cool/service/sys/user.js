@@ -79,16 +79,16 @@ module.exports = {
 				throw new Error('用户不存在');
 			}
 			param.passwordV = userInfo.passwordV + 1;
-			await this.ctx.services.sys.data.set(`admin:passwordVersion:${param.id}`, param.passwordV);
+			await this.ctx.services.sys.data.set(`admin:passwordVersion:${param._id}`, param.passwordV);
 		} else {
 			delete param.password;
 		}
 		if (param.status === 0) {
-			await this.ctx.services.sys.data.del(`admin:token:${userId}`);
+			await this.ctx.services.sys.data.del(`admin:token:${param._id}`);
 		}
 		await db.update('sys_user', param);
 		// 刷新权限
-		this.services.sys.perms.refreshPerms(param);
+		this.ctx.services.sys.perms.refreshPerms(param);
 	},
 
 }
