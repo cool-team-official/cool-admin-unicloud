@@ -9,8 +9,8 @@ module.exports = {
 	async login() {
 		const { db, utils, config } = this.ctx;
 		const { captchaId, password, username, verifyCode } = this.ctx.params;
-		// const checkV = await this.ctx.services.comm.verify.check(captchaId, verifyCode);
-		if (true) {
+		const checkV = await this.ctx.services.comm.verify.check(captchaId, verifyCode);
+		if (checkV) {
 			const user = await db.one('sys_user', { where: { username } });
 			if (user) {
 				if (user.status === 0 || user.password !== utils.md5(password)) {
