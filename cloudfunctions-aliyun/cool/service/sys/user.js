@@ -9,6 +9,7 @@ module.exports = {
 	 */
 	async add(params) {
 		const { db, utils } = this.ctx;
+		params.passwordV = 1;
 		params.roleIds = params.roleIdList;
 		delete params.roleIdList;
 		const exists = await db.one('sys_user', {
@@ -25,7 +26,9 @@ module.exports = {
 	 */
 	async person() {
 		const { db, currentUser } = this.ctx;
-		return db.info('sys_user', currentUser.userId);
+		const info = await db.info('sys_user', currentUser.userId);
+		delete info.password;
+		return info;
 	},
 	/**
 	 * 移动部门
@@ -52,7 +55,7 @@ module.exports = {
 				throw new Error('用户不存在');
 			}
 			param.passwordV = userInfo.passwordV + 1;
-			await this.ctx.services.sys.data.set(`admin:passwordVersion:${param.id}`, param.passwordV);
+			await this.ctx.services.sys.data.set(`admin:passwordVersion:${param._id}`, param.passwordV);
 		} else {
 			delete param.password;
 		}
@@ -84,7 +87,6 @@ module.exports = {
 			await this.ctx.services.sys.data.del(`admin:token:${userId}`);
 		}
 		await db.update('sys_user', param);
-		await this.updateUserRole(param);
 		// 刷新权限
 		this.service.sys.perms.refreshPerms(param);
 	},

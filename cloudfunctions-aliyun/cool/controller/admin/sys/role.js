@@ -11,15 +11,20 @@ module.exports = {
 	async init() {
 		const {
 			db,
-			params
+			params,
+			currentUser
 		} = this.ctx;
+		const where = {
+			label: db.command.neq('admin'),
+		}
+		if (currentUser.username != 'admin') {
+			where.userId = db.command.eq(currentUser.userId);
+		}
 		return {
 			table: 'sys_role',
 			pageOption: {
 				keyWordLikeFields: ['name', 'label'],
-				where: {
-					label: db.command.neq('admin')
-				}
+				where
 			}
 		};
 	},
