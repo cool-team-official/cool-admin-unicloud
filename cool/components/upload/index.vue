@@ -52,6 +52,7 @@
 <script>
 import { mapGetters } from "vuex";
 import _ from "lodash";
+import { uploadFile } from "../../utils/cloud";
 
 export default {
 	props: {
@@ -206,16 +207,16 @@ export default {
 			uni.chooseImage({
 				success: (res) => {
 					res.tempFiles.forEach((e, i) => {
-						uniCloud.uploadFile({
+						uploadFile({
 							filePath: res.tempFilePaths[i],
-							cloudPath: e.name,
-							success: (res) => {
-								this.onUploadSuccess(res.fileID, e, item);
-							},
-							fail: (err) => {
+							cloudPath: e.name
+						})
+							.then((url) => {
+								this.onUploadSuccess(url, e, item);
+							})
+							.catch((err) => {
 								this.onUploadError(err, e);
-							}
-						});
+							});
 					});
 				}
 			});

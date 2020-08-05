@@ -148,6 +148,7 @@
 <script>
 import { mapGetters } from "vuex";
 import _ from "lodash";
+import { uploadFile } from "../../utils/cloud";
 
 export default {
 	componentName: "UploadSpace",
@@ -300,24 +301,24 @@ export default {
 			uni.chooseImage({
 				success: (res) => {
 					res.tempFiles.forEach((e, i) => {
-						uniCloud.uploadFile({
+						uploadFile({
 							filePath: res.tempFilePaths[i],
-							cloudPath: e.name,
-							success: (res) => {
+							cloudPath: e.name
+						})
+							.then((url) => {
 								this.$service.space.info
 									.add({
-										url: res.fileID,
+										url,
 										type: 0,
 										classifyId: this.category.current.id
 									})
 									.then(() => {
 										this.refreshFile();
 									});
-							},
-							fail: (err) => {
+							})
+							.catch((err) => {
 								this.$message.error(err);
-							}
-						});
+							});
 					});
 				}
 			});

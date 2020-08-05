@@ -1,229 +1,223 @@
 export const revisePath = (path) => {
 	if (!path) {
-		return ""
+		return "";
 	}
 
 	if (path[0] == "/") {
-		return path
+		return path;
 	} else {
-		return `/${path}`
+		return `/${path}`;
 	}
-}
+};
 
 export function getUrlParam(name) {
-	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)")
-	var r = window.location.search.substr(1).match(reg)
-	if (r != null) return decodeURIComponent(r[2])
-	return null
+	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+	var r = window.location.search.substr(1).match(reg);
+	if (r != null) return decodeURIComponent(r[2]);
+	return null;
 }
 
 export function firstMenu(list) {
-	let path = ""
+	let path = "";
 
 	const fn = (arr) => {
 		arr.forEach((e) => {
 			if (e.type == 1) {
 				if (!path) {
-					path = e.path
+					path = e.path;
 				}
 			} else {
-				fn(e.children)
+				fn(e.children);
 			}
-		})
-	}
+		});
+	};
 
-	fn(list)
+	fn(list);
 
-	return path || "/404"
+	return path || "/404";
 }
 
 export function orderBy(list, key) {
-	return list.sort((a, b) => a[key] - b[key])
+	return list.sort((a, b) => a[key] - b[key]);
 }
 
 export function deepTree(list) {
-	let newList = []
-	let map = {}
+	let newList = [];
+	let map = {};
 
-	list.forEach((e) => (map[e.id] = e))
+	list.forEach((e) => (map[e.id] = e));
 
 	list.forEach((e) => {
-		let parent = map[e.parentId]
+		let parent = map[e.parentId];
 
 		if (parent) {
-			;(parent.children || (parent.children = [])).push(e)
+			(parent.children || (parent.children = [])).push(e);
 		} else {
 			if (!e.parentId) {
-				newList.push(e)
+				newList.push(e);
 			}
 		}
-	})
+	});
 
 	const fn = (list) => {
 		list.map((e) => {
 			if (e.children instanceof Array) {
-				e.children = orderBy(e.children, "orderNum")
+				e.children = orderBy(e.children, "orderNum");
 
-				fn(e.children)
+				fn(e.children);
 			}
-		})
-	}
+		});
+	};
 
-	fn(newList)
+	fn(newList);
 
-	return orderBy(newList, "orderNum")
+	return orderBy(newList, "orderNum");
 }
 
 export function revDeepTree(list = []) {
-	let d = []
+	let d = [];
 
 	const deep = (list) => {
 		list.forEach((e) => {
-			d.push(e)
+			d.push(e);
 
 			if (e.children && isArray(e.children)) {
-				deep(e.children)
+				deep(e.children);
 			}
-		})
-	}
+		});
+	};
 
-	deep(list || [])
+	deep(list || []);
 
-	return d
+	return d;
 }
 
 export function debounce(fn, delay) {
-	let timer = null
+	let timer = null;
 
 	return function () {
-		let args = arguments
-		let context = this
+		let args = arguments;
+		let context = this;
 
 		if (timer) {
-			clearTimeout(timer)
+			clearTimeout(timer);
 
 			timer = setTimeout(function () {
-				fn.apply(context, args)
-			}, delay)
+				fn.apply(context, args);
+			}, delay);
 		} else {
 			timer = setTimeout(function () {
-				fn.apply(context, args)
-			}, delay)
+				fn.apply(context, args);
+			}, delay);
 		}
-	}
+	};
 }
 
 export function isArray(value) {
 	if (typeof Array.isArray === "function") {
-		return Array.isArray(value)
+		return Array.isArray(value);
 	} else {
-		return Object.prototype.toString.call(value) === "[object Array]"
+		return Object.prototype.toString.call(value) === "[object Array]";
 	}
 }
 
 export function isObject(value) {
-	return Object.prototype.toString.call(value) === "[object Object]"
+	return Object.prototype.toString.call(value) === "[object Object]";
 }
 
 export function isNumber(value) {
-	return !isNaN(Number(value))
+	return !isNaN(Number(value));
 }
 
 export function isFunction(value) {
-	return typeof value == "function"
+	return typeof value == "function";
 }
 
 export function isString(value) {
-	return typeof value == "string"
+	return typeof value == "string";
 }
 
 export function isEmpty(value) {
 	if (isArray(value)) {
-		return value.length === 0
+		return value.length === 0;
 	}
 
 	if (isObject(value)) {
-		return Object.keys(value).length === 0
+		return Object.keys(value).length === 0;
 	}
 
-	return value === "" || value === undefined || value === null
+	return value === "" || value === undefined || value === null;
 }
 
 export function cloneDeep(obj) {
-	let d = isArray(obj) ? obj : {}
+	let d = isArray(obj) ? obj : {};
 
 	if (isObject(obj)) {
 		for (let key in obj) {
 			if (obj.hasOwnProperty && obj.hasOwnProperty(key)) {
 				if (obj[key] && typeof obj[key] === "object") {
-					d[key] = cloneDeep(obj[key])
+					d[key] = cloneDeep(obj[key]);
 				} else {
-					d[key] = obj[key]
+					d[key] = obj[key];
 				}
 			}
 		}
 	}
 
-	return d
+	return d;
 }
 
 export function clone(obj) {
-	return Object.create(
-		Object.getPrototypeOf(obj),
-		Object.getOwnPropertyDescriptors(obj)
-	)
+	return Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj));
 }
 
 export function certainProperty(obj, keys) {
 	return keys.reduce((result, key) => {
 		if (obj.hasOwnProperty(key)) {
-			result[key] = obj[key]
+			result[key] = obj[key];
 		}
 
-		return result
-	}, {})
+		return result;
+	}, {});
 }
 
 export function deepMerge(a, b) {
-	let k
+	let k;
 	for (k in b) {
 		a[k] =
-			a[k] && a[k].toString() === "[object Object]"
-				? deepMerge(a[k], b[k])
-				: (a[k] = b[k])
+			a[k] && a[k].toString() === "[object Object]" ? deepMerge(a[k], b[k]) : (a[k] = b[k]);
 	}
-	return a
+	return a;
 }
 
 export function contains(parent, node) {
 	if (document.documentElement.contains) {
-		return parent !== node && parent.contains(node)
+		return parent !== node && parent.contains(node);
 	} else {
-		while (node && (node = node.parentNode))
-			if (node === parent) return true
-		return false
+		while (node && (node = node.parentNode)) if (node === parent) return true;
+		return false;
 	}
 }
 
 export function moreList(res, { list, pagination }) {
-	const { page, size } = res.pagination
-	const len = res.list.length
-	const max = list.length
+	const { page, size } = res.pagination;
+	const len = res.list.length;
+	const max = list.length;
 
 	if (page == 1) {
-		list.splice(0, max, ...res.list)
+		list.splice(0, max, ...res.list);
 	} else {
-		let start = max - (max % size)
-		let end = start + len
+		let start = max - (max % size);
+		let end = start + len;
 
-		list.splice(start, end, ...res.list)
+		list.splice(start, end, ...res.list);
 	}
 
 	if (len == size) {
-		res.pagination.page += 1
+		res.pagination.page += 1;
 	}
 
-	Object.assign(pagination, res.pagination)
+	Object.assign(pagination, res.pagination);
 
-	return page != 1
+	return page != 1;
 }
