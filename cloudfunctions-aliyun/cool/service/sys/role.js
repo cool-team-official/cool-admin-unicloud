@@ -11,6 +11,7 @@ module.exports = {
 		const { db } = this.ctx;
 		const dbCmd = db.command;
 		role.menuIds = role.menuIdList;
+		role.departmentIds = role.departmentIdList;
 		delete role.menuIdList;
 		await db.update('sys_role', role);
 		// 获得需要刷新权限的用户并刷新权限
@@ -26,8 +27,9 @@ module.exports = {
 	 * @param {Object} params
 	 */
 	async add(params) {
-		const { db } = this.ctx;
+		const { db, currentUser } = this.ctx;
 		params.menuIds = params.menuIdList;
+		params.userId = currentUser.userId;
 		params.departmentIds = params.departmentIdList;
 		delete params.menuIdList;
 		delete params.departmentIdList;
