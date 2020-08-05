@@ -1,25 +1,31 @@
 <template>
-	<div class="page-layout" :class="{ collapse: menuCollapse }">
-		<div class="page-layout__left">
-			<app-slider></app-slider>
-		</div>
+    <div
+        class="page-layout"
+        :class="{ collapse: menuCollapse }"
+    >
+        <div class="page-layout__left">
+            <app-slider></app-slider>
+        </div>
 
-		<div class="page-layout__right">
-			<div class="page-layout__topbar">
-				<app-topbar></app-topbar>
-			</div>
+        <div class="page-layout__right">
+            <div class="page-layout__topbar">
+                <app-topbar></app-topbar>
+            </div>
 
-			<div class="page-layout__process" v-if="conf.showProcess">
-				<app-process></app-process>
-			</div>
+            <div
+                class="page-layout__process"
+                v-if="conf.showProcess"
+            >
+                <app-process></app-process>
+            </div>
 
-			<div class="page-layout__container">
-				<div class="page-layout__view">
-					<slot></slot>
-				</div>
-			</div>
-		</div>
-	</div>
+            <div class="page-layout__container">
+                <div class="page-layout__view">
+                    <slot></slot>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -36,7 +42,18 @@ export default {
 	},
 
 	computed: {
-		...mapGetters(["menuCollapse", "conf"])
+		...mapGetters(["menuCollapse", "conf", "token"])
+	},
+
+	watch: {
+		$route() {
+			if (!this.token && this.$route.path != "/pages/login/index") {
+				this.$store.dispatch("userRemove");
+				uni.navigateTo({
+					url: "/pages/login/index"
+				});
+			}
+		}
 	}
 };
 </script>
