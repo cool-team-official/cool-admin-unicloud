@@ -88,7 +88,7 @@ module.exports = {
 		}
 		await db.update('sys_user', param);
 		// 刷新权限
-		this.service.sys.perms.refreshPerms(param);
+		this.services.sys.perms.refreshPerms(param);
 	},
 
 }
