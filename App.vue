@@ -1,10 +1,7 @@
 <script>
 export default {
 	onLaunch: function () {
-		console.log("App Launch");
-	},
-	onShow: function () {
-		console.log("App Show", uni.getStorageSync("token"));
+		console.log("App Launch", uni.getStorageSync("token"));
 		if (!uni.getStorageSync("token")) {
 			if (this.$route.path != "/pages/login/index") {
 				uni.navigateTo({
@@ -12,6 +9,9 @@ export default {
 				});
 			}
 		}
+	},
+	onShow: function () {
+		console.log("App Show");
 	},
 	onHide: function () {
 		console.log("App Hide");

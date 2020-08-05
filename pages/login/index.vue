@@ -1,52 +1,68 @@
 <template>
-	<div class="page-login">
-		<div class="box">
-			<img class="logo" src="@/static/icon/logo/login.png" alt="" />
-			<p class="desc">COOL ADMIN是一款快速开发后台权限管理系统</p>
+    <div class="page-login">
+        <div class="box">
+            <img
+                class="logo"
+                src="@/static/icon/logo/login.png"
+                alt=""
+            />
+            <p class="desc">COOL ADMIN是一款快速开发后台权限管理系统</p>
 
-			<el-form ref="form" class="form" size="medium" :disabled="saving">
-				<el-form-item label="用户名">
-					<el-input
-						placeholder="请输入用户名"
-						v-model="form.username"
-						maxlength="20"
-						auto-complete="off"
-					></el-input>
-				</el-form-item>
+            <el-form
+                ref="form"
+                class="form"
+                size="medium"
+                :disabled="saving"
+            >
+                <el-form-item label="用户名">
+                    <el-input
+                        placeholder="请输入用户名"
+                        v-model="form.username"
+                        maxlength="20"
+                        auto-complete="off"
+                    ></el-input>
+                </el-form-item>
 
-				<el-form-item label="密码">
-					<el-input
-						type="password"
-						placeholder="请输入密码"
-						v-model="form.password"
-						maxlength="20"
-						auto-complete="off"
-					></el-input>
-				</el-form-item>
+                <el-form-item label="密码">
+                    <el-input
+                        type="password"
+                        placeholder="请输入密码"
+                        v-model="form.password"
+                        maxlength="20"
+                        auto-complete="off"
+                    ></el-input>
+                </el-form-item>
 
-				<el-form-item label="验证码" class="captcha">
-					<el-input
-						placeholder="请输入图片验证码"
-						maxlength="4"
-						v-model="form.verifyCode"
-						auto-complete="off"
-						@keyup.enter.native="next"
-					></el-input>
+                <el-form-item
+                    label="验证码"
+                    class="captcha"
+                >
+                    <el-input
+                        placeholder="请输入图片验证码"
+                        maxlength="4"
+                        v-model="form.verifyCode"
+                        auto-complete="off"
+                        @keyup.enter.native="next"
+                    ></el-input>
 
-					<captcha
-						ref="captcha"
-						class="value"
-						v-model="form.captchaId"
-						@change="captchaChange"
-					></captcha>
-				</el-form-item>
-			</el-form>
+                    <captcha
+                        ref="captcha"
+                        class="value"
+                        v-model="form.captchaId"
+                        @change="captchaChange"
+                    ></captcha>
+                </el-form-item>
+            </el-form>
 
-			<el-button round size="mini" class="submit-btn" @click="next" :loading="saving"
-				>登录</el-button
-			>
-		</div>
-	</div>
+            <el-button
+                round
+                size="mini"
+                class="submit-btn"
+                @click="next"
+                :loading="saving"
+            >登录</el-button>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -104,7 +120,7 @@ export default {
 				if (!first) {
 					this.$message.error("该账号没有权限");
 				} else {
-					this.$router.push("/");
+					location.href = '/'
 				}
 
 				this.saving = false;
