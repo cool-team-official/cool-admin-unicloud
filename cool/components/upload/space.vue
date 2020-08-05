@@ -1,140 +1,148 @@
 <template>
-	<div class="cl-upload-space__wrap">
-		<slot>
-			<el-button size="mini" @click="open">点击上传</el-button>
-		</slot>
+    <div class="cl-upload-space__wrap">
+        <slot>
+            <el-button
+                size="mini"
+                @click="open"
+            >点击上传</el-button>
+        </slot>
 
-		<!-- 弹框 -->
-		<cl-dialog :visible.sync="visible" v-bind="props">
-			<div class="cl-upload-space">
-				<!-- 类目 -->
-				<div class="cl-upload-space__category">
-					<div class="cl-upload-space__category-search">
-						<el-button type="primary" size="mini" @click="editCategory()"
-							>添加分类</el-button
-						>
-						<el-input
-							v-model="category.keyword"
-							placeholder="输入关键字过滤"
-							size="mini"
-						></el-input>
-					</div>
+        <!-- 弹框 -->
+        <cl-dialog
+            :visible.sync="visible"
+            v-bind="props"
+        >
+            <div class="cl-upload-space">
+                <!-- 类目 -->
+                <div class="cl-upload-space__category">
+                    <div class="cl-upload-space__category-search">
+                        <el-button
+                            type="primary"
+                            size="mini"
+                            @click="editCategory()"
+                        >添加分类</el-button>
+                        <el-input
+                            v-model="category.keyword"
+                            placeholder="输入关键字过滤"
+                            size="mini"
+                        ></el-input>
+                    </div>
 
-					<div class="cl-upload-space__category-list">
-						<ul>
-							<li
-								v-for="(item, index) in categoryList"
-								:key="index"
-								:class="{
-									'is-active': item.id == category.current.id
-								}"
-								@click="selectCategory(item)"
-								@contextmenu.stop.prevent="openCategoryContextMenu($event, item)"
-							>
-								{{ item.name }}
-							</li>
-						</ul>
-					</div>
-				</div>
+                    <div class="cl-upload-space__category-list">
+                        <category-list
+                            :list="categoryList"
+                            :current="category.current.id"
+                        ></category-list>
+                    </div>
+                </div>
 
-				<!-- 内容 -->
-				<div class="cl-upload-space__content">
-					<!-- 操作栏 -->
-					<div class="cl-upload-space__opbar">
-						<el-button
-							type="success"
-							size="mini"
-							:disabled="selection.length === 0"
-							@click="confirmFile()"
-							>使用选中文件</el-button
-						>
-						<el-button
-							type="danger"
-							size="mini"
-							:disabled="selection.length === 0"
-							@click="deleteFile()"
-							>删除选中文件</el-button
-						>
+                <!-- 内容 -->
+                <div class="cl-upload-space__content">
+                    <!-- 操作栏 -->
+                    <div class="cl-upload-space__opbar">
+                        <el-button
+                            type="success"
+                            size="mini"
+                            :disabled="selection.length === 0"
+                            @click="confirmFile()"
+                        >使用选中文件</el-button>
 
-						<el-upload
-							v-bind="upload.props"
-							:style="{
-								'margin-left': '10px'
-							}"
-						>
-							<el-button type="primary" size="mini">上传文件</el-button>
-						</el-upload>
-					</div>
+                        <el-button
+                            type="danger"
+                            size="mini"
+                            :disabled="selection.length === 0"
+                            @click="deleteFile()"
+                        >删除选中文件</el-button>
 
-					<!-- 文件列表 -->
-					<div
-						class="cl-upload-space__file"
-						v-loading="file.loading"
-						element-loading-text="拼命加载中"
-					>
-						<el-row v-if="file.list.length > 0">
-							<el-col :span="6" v-for="(item, index) in file.list" :key="index">
-								<div
-									class="cl-upload-space__file-item"
-									@click.stop.prevent="selectFile(item)"
-									@contextmenu.stop.prevent="openFileContextMenu($event, item)"
-								>
-									<!-- 图片 -->
-									<template v-if="item.type == 0">
-										<el-image
-											class="cl-upload-space__file-image"
-											fit="cover"
-											:src="item.url"
-											lazy
-										></el-image>
-									</template>
+                        <el-button
+                            type="primary"
+                            size="mini"
+                            @click="chooseImage"
+                        >上传文件</el-button>
+                    </div>
 
-									<!-- 视频 -->
-									<template v-else-if="item.type == 1">
-										<video
-											class="cl-upload-space__file-video"
-											controls
-											:src="item.url"
-										></video>
-									</template>
+                    <!-- 文件列表 -->
+                    <div
+                        class="cl-upload-space__file"
+                        v-loading="file.loading"
+                        element-loading-text="拼命加载中"
+                    >
+                        <el-row v-if="file.list.length > 0">
+                            <el-col
+                                :span="6"
+                                v-for="(item, index) in file.list"
+                                :key="index"
+                            >
+                                <div
+                                    class="cl-upload-space__file-item"
+                                    @click.stop.prevent="selectFile(item)"
+                                    @contextmenu.stop.prevent="openFileContextMenu($event, item)"
+                                >
+                                    <!-- 图片 -->
+                                    <template v-if="item.type == 0">
+                                        <el-image
+                                            class="cl-upload-space__file-image"
+                                            fit="cover"
+                                            :src="item.url"
+                                            lazy
+                                        ></el-image>
+                                    </template>
 
-									<!-- 尺寸 -->
-									<div class="cl-upload-space__file-size"></div>
+                                    <!-- 视频 -->
+                                    <template v-else-if="item.type == 1">
+                                        <video
+                                            class="cl-upload-space__file-video"
+                                            controls
+                                            :src="item.url"
+                                        ></video>
+                                    </template>
 
-									<!-- 遮罩层 -->
-									<div class="cl-upload-space__file-mask" v-show="item.selected">
-										<i class="el-icon-success"></i>
-									</div>
-								</div>
-							</el-col>
-						</el-row>
+                                    <!-- 尺寸 -->
+                                    <div class="cl-upload-space__file-size"></div>
 
-						<div class="cl-upload-space__file-empty" v-else>
-							<div class="cl-upload-space__file-drag">
-								<i class="el-icon-upload"></i>
-								<p>点击上传</p>
-							</div>
-						</div>
-					</div>
+                                    <!-- 遮罩层 -->
+                                    <div
+                                        class="cl-upload-space__file-mask"
+                                        v-show="item.selected"
+                                    >
+                                        <i class="el-icon-success"></i>
+                                    </div>
+                                </div>
+                            </el-col>
+                        </el-row>
 
-					<!-- 分页 -->
-					<el-pagination
-						background
-						:page-size="file.pagination.size"
-						:current-page="file.pagination.page"
-						:total="file.pagination.total"
-						@current-change="onCurrentChange"
-					></el-pagination>
-				</div>
-			</div>
-		</cl-dialog>
+                        <div
+                            class="cl-upload-space__file-empty"
+                            v-else
+                        >
+                            <div
+                                class="cl-upload-space__file-drag"
+                                @click="chooseImage"
+                            >
+                                <i class="el-icon-upload"></i>
+                                <p>点击上传</p>
+                            </div>
+                        </div>
+                    </div>
 
-		<!-- 右键菜单 -->
-		<cl-context-menu ref="context-menu"></cl-context-menu>
+                    <!-- 分页 -->
+                    <el-pagination
+                        background
+                        :page-size="file.pagination.size"
+                        :current-page="file.pagination.page"
+                        :total="file.pagination.total"
+                        @current-change="onCurrentChange"
+                    ></el-pagination>
+                </div>
+            </div>
+        </cl-dialog>
 
-		<!-- 添加分类 -->
-		<cl-form ref="form-category"></cl-form>
-	</div>
+        <!-- 右键菜单 -->
+        <cl-context-menu ref="context-menu"></cl-context-menu>
+
+        <!-- 添加分类 -->
+        <cl-form ref="form-category"></cl-form>
+    </div>
 </template>
 
 <script>
@@ -142,6 +150,8 @@ import { mapGetters } from "vuex";
 import _ from "lodash";
 
 export default {
+	componentName: "UploadSpace",
+
 	props: {
 		// 是否多选
 		multiple: Boolean,
@@ -154,6 +164,62 @@ export default {
 		accept: {
 			type: String,
 			default: "image/*, video/*"
+		}
+	},
+
+	components: {
+		categoryList: {
+			props: {
+				list: Array,
+				current: String
+			},
+
+			computed: {
+				parent() {
+					let parent = this;
+
+					while (parent.$options.componentName != "UploadSpace") {
+						parent = parent.$parent;
+					}
+
+					return parent;
+				}
+			},
+
+			methods: {
+				onSelect(item) {
+					this.parent.selectCategory(item);
+				},
+
+				onContextMenu(e, item) {
+					this.parent.openCategoryContextMenu(e, item);
+					e.stopPropagation();
+					e.preventDefault();
+				}
+			},
+
+			render() {
+				return (
+					<ul>
+						{this.list.map((item) => {
+							return (
+								<li
+									class={{
+										"is-active": item.id == this.current
+									}}
+									on-click={() => {
+										this.onSelect(item);
+									}}
+									on-contextmenu={(e) => {
+										this.onContextMenu(e, item);
+									}}>
+									{item.name}
+								</li>
+							);
+						})}
+					</ul>
+				);
+			}
 		}
 	},
 
@@ -229,18 +295,31 @@ export default {
 			this.visible = false;
 		},
 
-		// 重设上传方法
-		httpRequest(req) {
-			this.$service.common.ossUpload(req.file).then((url) => {
-				this.$service.space.info
-					.add({
-						url,
-						type: req.file.type.includes("video/") ? 1 : 0,
-						classifyId: this.category.current.id
-					})
-					.then(() => {
-						this.refreshFile();
+		// 选择图片
+		chooseImage() {
+			uni.chooseImage({
+				success: (res) => {
+					res.tempFiles.forEach((e, i) => {
+						uniCloud.uploadFile({
+							filePath: res.tempFilePaths[i],
+							cloudPath: e.name,
+							success: (res) => {
+								this.$service.space.info
+									.add({
+										url: res.fileID,
+										type: 0,
+										classifyId: this.category.current.id
+									})
+									.then(() => {
+										this.refreshFile();
+									});
+							},
+							fail: (err) => {
+								this.$message.error(err);
+							}
+						});
 					});
+				}
 			});
 		},
 
@@ -489,7 +568,7 @@ export default {
 		&-list {
 			overflow: hidden auto;
 
-			ul {
+			/deep/ul {
 				li {
 					list-style: none;
 					font-size: 14px;
@@ -578,7 +657,7 @@ export default {
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
-			border: 1px dashed #eee;
+			border: 1px dashed #ccc;
 			border-radius: 6px;
 			cursor: pointer;
 			height: 180px;

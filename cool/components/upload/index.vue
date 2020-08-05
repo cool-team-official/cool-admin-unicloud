@@ -1,45 +1,52 @@
 <template>
-	<div
-		class="cl-upload"
-		:class="{
+    <div
+        class="cl-upload"
+        :class="{
 			'is-multiple': props.multiple
 		}"
-	>
-		<el-input class="cl-upload__hidden" type="hidden" v-model="value"></el-input>
+    >
+        <el-input
+            class="cl-upload__hidden"
+            type="hidden"
+            v-model="value"
+        ></el-input>
 
-		<el-upload
-			v-for="(item, index) in list"
-			:key="index"
-			v-bind="props"
-			accept="image/*, video/*"
-			action=""
-			:headers="{
-				Authorization: token
-			}"
-			:show-file-list="false"
-			:http-request="
-				(e) => {
-					httpRequest(e, item);
-				}
-			"
-		>
-			<slot>
-				<div
-					class="cl-upload__wrap"
-					:style="style"
-					v-loading="item.loading"
-					@click="chooseImage(item)"
-				>
-					<img class="cl-upload__image" :src="item.url" alt="" v-if="item.url" />
-					<i class="el-icon-picture avatar-uploader-icon" v-else></i>
+        <el-upload
+            v-for="(item, index) in list"
+            :key="index"
+            :show-file-list="false"
+            action=""
+            v-bind="props"
+        >
+            <slot>
+                <div
+                    class="cl-upload__wrap"
+                    :style="style"
+                    v-loading="item.loading"
+                    @click="chooseImage(item)"
+                >
+                    <img
+                        class="cl-upload__image"
+                        :src="item.url"
+                        alt=""
+                        v-if="item.url"
+                    />
+                    <i
+                        class="el-icon-picture avatar-uploader-icon"
+                        v-else
+                    ></i>
 
-					<i class="el-icon-close" v-if="item.url" @click.stop="removeFile(index)"></i>
-				</div>
-			</slot>
+                    <i
+                        class="el-icon-close"
+                        v-if="item.url"
+                        @click.stop="removeFile(index)"
+                    ></i>
+                </div>
+            </slot>
 
-			<div slot="trigger"></div>
-		</el-upload>
-	</div>
+            <div slot="trigger"></div>
+        </el-upload>
+    </div>
 </template>
 
 <script>
@@ -194,26 +201,7 @@ export default {
 			this.callback();
 		},
 
-		// 重设上传请求
-		httpRequest(req, item) {
-			this.$service.common
-				.ossUpload(req.file)
-				.then(async (url) => {
-					if (this.saveToSpace) {
-						await this.$service.space.info.add({
-							url,
-							type: req.file.type.includes("video/") ? 1 : 0,
-							classifyId: null
-						});
-					}
-
-					this.onUploadSuccess(url, req.file, item);
-				})
-				.catch((err) => {
-					this.onUploadError(err, req.file);
-				});
-		},
-
+		// 选择图片
 		chooseImage(item) {
 			uni.chooseImage({
 				success: (res) => {

@@ -1,21 +1,29 @@
 <template>
     <cl-layout>
         <div class="page-demo">
-            <div
-                class="block"
-                :ref="`col-${index + 1}`"
-                v-for="(item, index) in layout"
-                :key="index"
-            >
-                <transition-group name="fade">
-                    <component
-                        :ref="item2"
-                        :is="item2"
-                        :key="item2 + index2"
-                        v-for="(item2, index2) in item"
-                    ></component>
-                </transition-group>
-            </div>
+            <el-row :gutter="10">
+                <el-col
+                    v-for="(item, index) in layout"
+                    :key="index"
+                    :xs="24"
+                    :md="12"
+                    :lg="6"
+                >
+                    <div
+                        class="block"
+                        :ref="`col-${index + 1}`"
+                    >
+                        <transition-group name="fade">
+                            <component
+                                :ref="item2"
+                                :is="item2"
+                                :key="item2 + index2"
+                                v-for="(item2, index2) in item"
+                            ></component>
+                        </transition-group>
+                    </div>
+                </el-col>
+            </el-row>
         </div>
     </cl-layout>
 </template>
@@ -113,12 +121,10 @@ export default {
 }
 
 .page-demo {
-	overflow-y: auto;
+	overflow: hidden auto;
 
 	.block {
-		width: calc(25% - 10px);
-		margin-right: 10px;
-		float: left;
+		width: 100%;
 	}
 
 	/deep/.scope {

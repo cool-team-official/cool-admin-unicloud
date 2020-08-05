@@ -1,33 +1,35 @@
 <template>
-	<div class="scope">
-		<div class="h">
-			<span>cl-upload</span>
-			图片上传
-		</div>
-		<div class="c">
-			<el-row>
-				<el-col :span="12">
-					<span class="label">默认</span>
-					<cl-upload
-						v-model="avatar"
-						accept="image/*"
-						:props="{
-							'on-success': onSuccess
+    <div class="scope">
+        <div class="h">
+            <span>cl-upload</span>
+            图片上传
+        </div>
+        <div class="c">
+            <el-row>
+                <el-col :span="12">
+                    <span class="label">默认</span>
+                    <cl-upload
+                        v-model="avatar"
+                        :props="{
+							'on-success': onSuccess,
 						}"
-					>
-					</cl-upload>
-				</el-col>
+                    >
+                    </cl-upload>
+                </el-col>
 
-				<el-col :span="12">
-					<span class="label">自定义</span>
-					<cl-upload-space v-model="avatar" accept="image/*"></cl-upload-space>
-				</el-col>
-			</el-row>
-		</div>
-		<div class="f">
-			<span class="date">2019/09/25</span>
-		</div>
-	</div>
+                <el-col :span="12">
+                    <span class="label">自定义</span>
+                    <cl-upload-space
+                        v-model="avatar"
+                        accept="image/*"
+                    ></cl-upload-space>
+                </el-col>
+            </el-row>
+        </div>
+        <div class="f">
+            <span class="date">2019/09/25</span>
+        </div>
+    </div>
 </template>
 
 <script>

@@ -37,8 +37,8 @@ babel-runtime@6.x:
 
 cl-crud2@^0.1.0:
   version "0.1.0"
-  resolved "https://registry.yarnpkg.com/cl-crud2/-/cl-crud2-0.1.0.tgz#99fb1401f1f2863c8d5341a24d52ca60b0478b1d"
-  integrity sha512-5NWfZ5OG6w7bFD6iViqHCzp+joaQ590Z5skzIhcBFeijn/kTMYsTS+d7w+QYR9clDGQCzBKhmnszvjBMG7/UIw==
+  resolved "https://registry.npm.taobao.org/cl-crud2/download/cl-crud2-0.1.0.tgz#99fb1401f1f2863c8d5341a24d52ca60b0478b1d"
+  integrity sha1-mfsUAfHyhjyNU0GiTVLKYLBHix0=
   dependencies:
     array.prototype.flat "^1.2.3"
     clone-deep "^4.0.1"

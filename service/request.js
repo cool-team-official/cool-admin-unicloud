@@ -1,9 +1,6 @@
 import { Message } from "element-ui";
 import Store from "@/store";
 
-// 异常锁
-let lock = false;
-
 export default function (options) {
 	return new Promise((resolve, reject) => {
 		const token = uni.getStorageSync("token") || "";
@@ -29,23 +26,17 @@ export default function (options) {
 						break;
 					// 无权限
 					case 1002:
-						if (!lock) {
-							// Start
-							lock = true;
+						Message.close();
 
-							Message({
-								type: "error",
-								message
-							});
+						Message({
+							type: "error",
+							message
+						});
 
-							Store.dispatch("userRemove");
-							uni.navigateTo({
-								url: "/pages/login/index"
-							});
-
-							// Stop
-							lock = false;
-						}
+						Store.dispatch("userRemove");
+						uni.navigateTo({
+							url: "/pages/login/index"
+						});
 
 						break;
 					// 失败
