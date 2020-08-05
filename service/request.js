@@ -1,6 +1,8 @@
 import { Message } from "element-ui";
 import Store from "@/store";
 
+let tips = null;
+
 export default function (options) {
 	return new Promise((resolve, reject) => {
 		const token = uni.getStorageSync("token") || "";
@@ -26,9 +28,11 @@ export default function (options) {
 						break;
 					// 无权限
 					case 1002:
-						Message.close();
+						if (tips) {
+							tips.close();
+						}
 
-						Message({
+						tips = Message({
 							type: "error",
 							message
 						});

@@ -6,9 +6,11 @@ export default {
 	onShow: function () {
 		console.log("App Show", uni.getStorageSync("token"));
 		if (!uni.getStorageSync("token")) {
-			uni.navigateTo({
-				url: "/pages/login/index"
-			});
+			if (this.$route.path != "/pages/login/index") {
+				uni.navigateTo({
+					url: "/pages/login/index"
+				});
+			}
 		}
 	},
 	onHide: function () {
