@@ -1,28 +1,30 @@
 <template>
-	<div class="scope">
-		<div class="h">
-			<span>cl-upload</span>
-			图片上传
-		</div>
-		<div class="c">
-			<el-row>
-				<span class="label">默认</span>
-				<cl-upload
-					v-model="avatar"
-					multiple
-					:limit="3"
-					:on-upload="onUpload"
-					:on-remove="onRemove"
-					@success="onSuccess"
-					@error="onError"
-				>
-				</cl-upload>
-			</el-row>
-		</div>
-		<div class="f">
-			<span class="date">2019/09/25</span>
-		</div>
-	</div>
+    <div class="scope">
+        <div class="h">
+            <span>cl-upload</span>
+            图片上传
+        </div>
+        <div class="c">
+            <el-row>
+                <span class="label">默认</span>
+                <cl-upload
+                    v-model="avatar"
+                    multiple
+                    :limit="3"
+                    :on-upload="onUpload"
+                    :on-remove="onRemove"
+                    @success="onSuccess"
+                    @error="onError"
+                >
+                </cl-upload>
+
+                <cl-upload-space></cl-upload-space>
+            </el-row>
+        </div>
+        <div class="f">
+            <span class="date">2019/09/25</span>
+        </div>
+    </div>
 </template>
 
 <script>

@@ -160,11 +160,6 @@ export default {
 		limit: {
 			type: Number,
 			default: 9
-		},
-		// 选择类型 image,video
-		accept: {
-			type: String,
-			default: "image/*, video/*"
 		}
 	},
 
@@ -234,18 +229,6 @@ export default {
 					width: "1000px"
 				}
 			},
-			upload: {
-				props: {
-					action: "",
-					accept: this.accept,
-					multiple: true,
-					headers: {
-						Authorization: this.token
-					},
-					"show-file-list": false,
-					"http-request": this.httpRequest
-				}
-			},
 			category: {
 				list: [],
 				current: {},
@@ -272,11 +255,6 @@ export default {
 
 		selection() {
 			return this.file.list.filter((e) => e.selected);
-		},
-
-		type() {
-			const i = ["image/*", "video/*"].indexOf(this.accept);
-			return i < 0 ? null : i;
 		}
 	},
 
@@ -333,7 +311,7 @@ export default {
 					...this.file.pagination,
 					...params,
 					classifyId: this.category.current.id,
-					type: this.type
+					type: 0
 				})
 				.then((res) => {
 					this.file.list = res.list;

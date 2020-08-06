@@ -1,28 +1,45 @@
 <template>
-	<div
-		class="cl-upload"
-		:class="{
+    <div
+        class="cl-upload"
+        :class="{
 			'is-multiple': multiple
 		}"
-	>
-		<div
-			v-for="(item, index) in list"
-			class="cl-upload__item"
-			:key="index"
-			:style="style"
-			v-loading="item.loading"
-			@click="chooseImage(item)"
-		>
-			<img class="cl-upload__image" :src="item.url" alt="" v-if="item.url" />
-			<i class="el-icon-picture" v-else></i>
+    >
+        <div
+            v-for="(item, index) in list"
+            class="cl-upload__item"
+            :key="index"
+            :style="style"
+            v-loading="item.loading"
+            @click="chooseImage(item)"
+        >
+            <img
+                class="cl-upload__image"
+                :src="item.url"
+                alt=""
+                v-if="item.url"
+            />
+            <i
+                class="el-icon-picture"
+                v-else
+            ></i>
 
-			<i class="el-icon-close" v-if="item.url" @click.stop="removeFile(index)"></i>
-		</div>
+            <i
+                class="el-icon-close"
+                v-if="item.url"
+                @click.stop="removeFile(index)"
+            ></i>
+        </div>
 
-		<div class="cl-upload__item" :style="style" @click="chooseImage()" v-if="isAppend">
-			<i class="el-icon-picture"></i>
-		</div>
-	</div>
+        <div
+            class="cl-upload__item"
+            :style="style"
+            @click="chooseImage()"
+            v-if="isAppend"
+        >
+            <i class="el-icon-picture"></i>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -47,9 +64,7 @@ export default {
 		// 上传时的钩子
 		onUpload: Function,
 		// 删除文件时的钩子
-		onRemove: Function,
-		// 是否同时保存到图片空间
-		saveToSpace: Boolean
+		onRemove: Function
 	},
 
 	data() {
