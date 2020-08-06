@@ -944,15 +944,6 @@
 				"MgoIsUnique": true
 			}
 		}, {
-			"IndexName": "data",
-			"MgoKeySchema": {
-				"MgoIndexKeys": [{
-					"Name": "data",
-					"Direction": "1"
-				}],
-				"MgoIsUnique": false
-			}
-		}, {
 			"IndexName": "expiredTime",
 			"MgoKeySchema": {
 				"MgoIndexKeys": [{
