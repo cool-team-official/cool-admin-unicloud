@@ -4,7 +4,7 @@ export default {
 		console.log("App Launch");
 	},
 	onShow: function () {
-		console.log("App Show", uni.getStorageSync("token"));
+		console.log("App Show");
 		if (!uni.getStorageSync("token")) {
 			if (this.$route.path != "/pages/login/index") {
 				uni.navigateTo({

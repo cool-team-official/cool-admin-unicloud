@@ -1,52 +1,28 @@
 <template>
-    <div
-        class="cl-upload"
-        :class="{
-			'is-multiple': props.multiple
+	<div
+		class="cl-upload"
+		:class="{
+			'is-multiple': multiple
 		}"
-    >
-        <el-input
-            class="cl-upload__hidden"
-            type="hidden"
-            v-model="value"
-        ></el-input>
+	>
+		<div
+			v-for="(item, index) in list"
+			class="cl-upload__item"
+			:key="index"
+			:style="style"
+			v-loading="item.loading"
+			@click="chooseImage(item)"
+		>
+			<img class="cl-upload__image" :src="item.url" alt="" v-if="item.url" />
+			<i class="el-icon-picture" v-else></i>
 
-        <el-upload
-            v-for="(item, index) in list"
-            :key="index"
-            :show-file-list="false"
-            action=""
-            v-bind="props"
-        >
-            <slot>
-                <div
-                    class="cl-upload__wrap"
-                    :style="style"
-                    v-loading="item.loading"
-                    @click="chooseImage(item)"
-                >
-                    <img
-                        class="cl-upload__image"
-                        :src="item.url"
-                        alt=""
-                        v-if="item.url"
-                    />
-                    <i
-                        class="el-icon-picture avatar-uploader-icon"
-                        v-else
-                    ></i>
+			<i class="el-icon-close" v-if="item.url" @click.stop="removeFile(index)"></i>
+		</div>
 
-                    <i
-                        class="el-icon-close"
-                        v-if="item.url"
-                        @click.stop="removeFile(index)"
-                    ></i>
-                </div>
-            </slot>
-
-            <div slot="trigger"></div>
-        </el-upload>
-    </div>
+		<div class="cl-upload__item" :style="style" @click="chooseImage()" v-if="isAppend">
+			<i class="el-icon-picture"></i>
+		</div>
+	</div>
 </template>
 
 <script>
@@ -56,17 +32,22 @@ import { uploadFile } from "../../utils/cloud";
 
 export default {
 	props: {
+		value: [Array, String],
 		size: {
 			type: [Number, Array],
 			default: 120
 		},
-		props: {
-			type: Object,
-			default: () => {
-				return {};
-			}
+		// 是否支持多选文件
+		multiple: Boolean,
+		// 最大允许上传个数
+		limit: {
+			type: Number,
+			default: 9
 		},
-		value: [Array, String],
+		// 上传时的钩子
+		onUpload: Function,
+		// 删除文件时的钩子
+		onRemove: Function,
 		// 是否同时保存到图片空间
 		saveToSpace: Boolean
 	},
@@ -91,6 +72,10 @@ export default {
 				height,
 				width
 			};
+		},
+
+		isAppend() {
+			return this.multiple ? this.list.length < this.limit : this.list.length == 0;
 		}
 	},
 
@@ -98,18 +83,16 @@ export default {
 		value: {
 			immediate: true,
 			handler() {
-				this.render();
+				this.parseValue();
 			}
 		}
 	},
 
 	methods: {
-		render() {
-			const { multiple } = this.props;
-
+		parseValue() {
 			let val = this.value;
 
-			if (multiple) {
+			if (this.multiple) {
 				let list = [];
 
 				if (val instanceof Array) {
@@ -124,21 +107,11 @@ export default {
 						loading: false
 					};
 				});
-
-				this.ajSize();
-			} else {
-				this.list = [
-					{
-						url: val || "",
-						loading: false
-					}
-				];
 			}
 		},
 
-		callback() {
-			this.ajSize();
-
+		// 回调
+		emit() {
 			const value = this.list
 				.filter((e) => e.url)
 				.map((e) => e.url)
@@ -148,22 +121,10 @@ export default {
 			this.$emit("change", value);
 		},
 
-		ajSize() {
-			const { "multiple-limit": multipleLimit = 1 } = this.props;
-
-			if (this.list.length < multipleLimit) {
-				this.list.unshift({});
-			}
-		},
-
 		// 上传成功
 		onUploadSuccess(url, file, item) {
-			const { multiple } = this.props;
-
-			item.loading = false;
-
-			if (multiple) {
-				if (item.url) {
+			if (this.multiple) {
+				if (item) {
 					item.url = url;
 				} else {
 					this.list.push({
@@ -171,53 +132,86 @@ export default {
 					});
 				}
 			} else {
-				this.list = [
-					{
-						url
-					}
-				];
+				this.list = [{ url }];
 			}
 
-			this.callback();
-
-			if (this.props && this.props["on-success"]) {
-				this.props["on-success"](url, file);
+			if (item) {
+				item.loading = false;
 			}
+
+			this.$emit("success", url);
+			this.emit();
 		},
 
 		// 上传错误
 		onUploadError(err, file) {
 			console.error("upload error", err);
-			this.$message.error(err.toString());
+			this.$message.error(err);
 			this.loading = false;
-
-			if (this.props && this.props["on-error"]) {
-				this.props["on-error"](err, file);
-			}
+			this.$emit("error", err);
 		},
 
 		// 移除文件
 		removeFile(i) {
-			this.list.splice(i, 1);
-			this.callback();
+			const next = (index) => {
+				this.list.splice(index, 1);
+				this.emit();
+			};
+
+			if (this.onRemove) {
+				this.onRemove(i, { next });
+			} else {
+				next(i);
+			}
 		},
 
 		// 选择图片
 		chooseImage(item) {
+			const count = this.multiple && !item ? 2 : 1;
+
 			uni.chooseImage({
+				count,
 				success: (res) => {
-					res.tempFiles.forEach((e, i) => {
-						uploadFile({
-							filePath: res.tempFilePaths[i],
-							cloudPath: e.name
+					let data = null;
+
+					if (item) {
+						item.loading = true;
+						data = item;
+					}
+
+					res.tempFiles
+						.filter((e, i) => {
+							return this.multiple ? i < this.limit - this.list.length : i < 1;
 						})
-							.then((url) => {
-								this.onUploadSuccess(url, e, item);
-							})
-							.catch((err) => {
-								this.onUploadError(err, e);
-							});
-					});
+						.forEach((e, i) => {
+							const next = (name) => {
+								return new Promise((resolve, reject) => {
+									uploadFile({
+										filePath: res.tempFilePaths[i],
+										cloudPath: name || e.name
+									})
+										.then((url) => {
+											this.onUploadSuccess(url, e, data);
+											resolve(url);
+										})
+										.catch((err) => {
+											reject(err);
+										});
+								});
+							};
+
+							const done = () => {
+								if (item) {
+									item.loading = false;
+								}
+							};
+
+							if (this.onUpload) {
+								this.onUpload(e, { next, done });
+							} else {
+								next();
+							}
+						});
 				}
 			});
 		}
@@ -235,7 +229,7 @@ export default {
 		width: 0;
 	}
 
-	&__wrap {
+	&__item {
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -243,6 +237,8 @@ export default {
 		border: 1px dashed #d9d9d9;
 		border-radius: 6px;
 		position: relative;
+		margin-right: 10px;
+		margin-bottom: 10px;
 
 		.el-icon-picture {
 			font-size: 24px;

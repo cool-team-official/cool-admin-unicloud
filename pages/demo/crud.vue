@@ -401,7 +401,15 @@ export default {
 					console.log("POST[update]", d);
 					return Promise.resolve();
 				}
-			}).done();
+			})
+				.permission(() => {
+					return {
+						add: true,
+						update: true,
+						delete: true
+					};
+				})
+				.done();
 
 			app.refresh();
 		}
