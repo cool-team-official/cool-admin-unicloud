@@ -1,43 +1,55 @@
 <template>
-    <div
-        class="cl-upload"
-        :class="{
+    <div class="cl-upload__wrap">
+        <!-- 文件空间 -->
+        <cl-upload-space
+            :limit="limit"
+            @confirm="onSpaceConfirm"
+            v-if="isSpace"
+        ></cl-upload-space>
+
+        <!-- 默认上传 -->
+        <div
+            v-else
+            class="cl-upload"
+            :class="{
 			'is-multiple': multiple
 		}"
-    >
-        <div
-            v-for="(item, index) in list"
-            class="cl-upload__item"
-            :key="index"
-            :style="style"
-            v-loading="item.loading"
-            @click="chooseImage(item)"
         >
-            <img
-                class="cl-upload__image"
-                :src="item.url"
-                alt=""
-                v-if="item.url"
-            />
-            <i
-                class="el-icon-picture"
-                v-else
-            ></i>
+            <div
+                v-for="(item, index) in list"
+                class="cl-upload__item"
+                :key="index"
+                :style="style"
+                v-loading="item.loading"
+                @click="chooseImage(item)"
+            >
+                <img
+                    class="cl-upload__image"
+                    :src="item.url"
+                    alt=""
+                    v-if="item.url"
+                />
+                <i
+                    class="el-icon-picture"
+                    v-else
+                ></i>
 
-            <i
-                class="el-icon-close"
-                v-if="item.url"
-                @click.stop="removeFile(index)"
-            ></i>
-        </div>
+                <i
+                    class="el-icon-close"
+                    v-if="item.url"
+                    @click.stop="removeFile(index)"
+                ></i>
+            </div>
 
-        <div
-            class="cl-upload__item"
-            :style="style"
-            @click="chooseImage()"
-            v-if="isAppend"
-        >
-            <i class="el-icon-picture"></i>
+            <template v-if="isAppend">
+                <div
+                    class="cl-upload__item"
+                    :style="style"
+                    @click="chooseImage()"
+                >
+                    <i class="el-icon-picture"></i>
+                </div>
+            </template>
         </div>
     </div>
 </template>
@@ -64,7 +76,9 @@ export default {
 		// 上传时的钩子
 		onUpload: Function,
 		// 删除文件时的钩子
-		onRemove: Function
+		onRemove: Function,
+		// 是否显示文件空间
+		isSpace: Boolean
 	},
 
 	data() {
@@ -97,31 +111,34 @@ export default {
 	watch: {
 		value: {
 			immediate: true,
-			handler() {
-				this.parseValue();
-			}
+			handler: "parseValue"
 		}
 	},
 
 	methods: {
-		parseValue() {
-			let val = this.value;
-
+		parseValue(value) {
 			if (this.multiple) {
 				let list = [];
 
-				if (val instanceof Array) {
-					list = val;
+				if (value instanceof Array) {
+					list = value;
 				} else {
-					list = (val || "").split(",");
+					list = (value || "").split(",");
 				}
 
-				this.list = list.filter(Boolean).map((e) => {
+				this.list = list.filter(Boolean).map((url) => {
 					return {
-						url: e,
+						url,
 						loading: false
 					};
 				});
+			} else {
+				this.list = [
+					{
+						url: value,
+						loading: false
+					}
+				];
 			}
 		},
 
@@ -229,6 +246,12 @@ export default {
 						});
 				}
 			});
+		},
+
+		// 确认图片
+		onSpaceConfirm(urls) {
+			this.$emit("input", urls);
+			this.$emit("change", urls);
 		}
 	}
 };

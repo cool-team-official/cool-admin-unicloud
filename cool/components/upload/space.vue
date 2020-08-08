@@ -21,6 +21,7 @@
                             size="mini"
                             @click="editCategory()"
                         >添加分类</el-button>
+
                         <el-input
                             v-model="category.keyword"
                             placeholder="输入关键字过滤"
@@ -41,6 +42,11 @@
                     <!-- 操作栏 -->
                     <div class="cl-upload-space__opbar">
                         <el-button
+                            size="mini"
+                            @click="refreshFile()"
+                        >刷新</el-button>
+
+                        <el-button
                             type="success"
                             size="mini"
                             :disabled="selection.length === 0"
@@ -51,6 +57,7 @@
                             type="danger"
                             size="mini"
                             :disabled="selection.length === 0"
+                            :loading="file.loading.delete"
                             @click="deleteFile()"
                         >删除选中文件</el-button>
 
@@ -58,69 +65,42 @@
                             type="primary"
                             size="mini"
                             @click="chooseImage"
-                        >上传文件</el-button>
+                            :loading="file.loading.uploadImage"
+                        >选择图片</el-button>
+
+                        <el-button
+                            type="primary"
+                            size="mini"
+                            @click="chooseVideo"
+                            :loading="file.loading.uploadVideo"
+                        >选择视频</el-button>
                     </div>
 
-                    <!-- 文件列表 -->
+                    <!-- 文件区域 -->
                     <div
                         class="cl-upload-space__file"
-                        v-loading="file.loading"
+                        v-loading="file.loading.refresh"
                         element-loading-text="拼命加载中"
                     >
+                        <!-- 文件列表 -->
                         <el-row v-if="file.list.length > 0">
                             <el-col
                                 :span="6"
                                 v-for="(item, index) in file.list"
                                 :key="index"
                             >
-                                <div
-                                    class="cl-upload-space__file-item"
-                                    @click.stop.prevent="selectFile(item)"
-                                    @contextmenu.stop.prevent="openFileContextMenu($event, item)"
-                                >
-                                    <!-- 图片 -->
-                                    <template v-if="item.type == 0">
-                                        <el-image
-                                            class="cl-upload-space__file-image"
-                                            fit="cover"
-                                            :src="item.url"
-                                            lazy
-                                        ></el-image>
-                                    </template>
-
-                                    <!-- 视频 -->
-                                    <template v-else-if="item.type == 1">
-                                        <video
-                                            class="cl-upload-space__file-video"
-                                            controls
-                                            :src="item.url"
-                                        ></video>
-                                    </template>
-
-                                    <!-- 尺寸 -->
-                                    <div class="cl-upload-space__file-size"></div>
-
-                                    <!-- 遮罩层 -->
-                                    <div
-                                        class="cl-upload-space__file-mask"
-                                        v-show="item.selected"
-                                    >
-                                        <i class="el-icon-success"></i>
-                                    </div>
-                                </div>
+                                <file-item :value="item"></file-item>
                             </el-col>
                         </el-row>
 
+                        <!-- 空态 -->
                         <div
                             class="cl-upload-space__file-empty"
                             v-else
                         >
-                            <div
-                                class="cl-upload-space__file-drag"
-                                @click="chooseImage"
-                            >
+                            <div @click="chooseImage">
                                 <i class="el-icon-upload"></i>
-                                <p>点击上传</p>
+                                <p>暂无内容,点击上传</p>
                             </div>
                         </div>
                     </div>
@@ -154,12 +134,9 @@ export default {
 	componentName: "UploadSpace",
 
 	props: {
-		// 是否多选
-		multiple: Boolean,
-		// 多选限制
 		limit: {
 			type: Number,
-			default: 9
+			default: 8
 		}
 	},
 
@@ -216,6 +193,86 @@ export default {
 					</ul>
 				);
 			}
+		},
+
+		fileItem: {
+			props: {
+				value: Object
+			},
+
+			computed: {
+				parent() {
+					let parent = this;
+
+					while (parent.$options.componentName != "UploadSpace") {
+						parent = parent.$parent;
+					}
+
+					return parent;
+				}
+			},
+
+			methods: {
+				onSelect() {
+					this.parent.selectFile(this.value);
+				},
+
+				onContextMenu(e) {
+					this.parent.openFileContextMenu(e, this.value);
+					e.stopPropagation();
+					e.preventDefault();
+				}
+			},
+
+			render() {
+				if (!this.value) {
+					return null;
+				}
+
+				let itemEl = null;
+
+				const { url, type, selected } = this.value;
+				const fileType = (type || "").split("/")[0];
+
+				switch (fileType) {
+					case "image":
+						itemEl = <el-image fit="cover" src={url} lazy></el-image>;
+						break;
+
+					case "video":
+						itemEl = (
+							<video
+								controls
+								src={url}
+								style={{
+									"max-height": "100%",
+									"max-width": "100%"
+								}}></video>
+						);
+						break;
+
+					default:
+						itemEl = <span>{url}</span>;
+						break;
+				}
+
+				return (
+					<div
+						class={["cl-upload-space__file-item", `is-${fileType}`]}
+						on-click={this.onSelect}
+						on-contextmenu={this.onContextMenu}>
+						{itemEl}
+
+						<div class="cl-upload-space__file-size"></div>
+
+						{selected && (
+							<div class="cl-upload-space__file-mask">
+								<i class="el-icon-success"></i>
+							</div>
+						)}
+					</div>
+				);
+			}
 		}
 	},
 
@@ -241,7 +298,12 @@ export default {
 					size: 12,
 					total: 0
 				},
-				loading: false
+				loading: {
+					refresh: false,
+					delete: false,
+					uploadImage: false,
+					uploadVideo: false
+				}
 			}
 		};
 	},
@@ -278,47 +340,91 @@ export default {
 		chooseImage() {
 			uni.chooseImage({
 				success: (res) => {
-					res.tempFiles.forEach((e, i) => {
-						uploadFile({
-							filePath: res.tempFilePaths[i],
-							cloudPath: e.name
-						})
-							.then((url) => {
-								this.$service.space.info
-									.add({
-										url,
-										type: 0,
-										classifyId: this.category.current.id
-									})
-									.then(() => {
-										this.refreshFile();
-									});
+					this.file.loading.uploadImage = true;
+
+					// 批量上传
+					const arr = res.tempFiles.map((e, i) => {
+						return new Promise((resolve, reject) => {
+							uploadFile({
+								filePath: res.tempFilePaths[i],
+								cloudPath: e.name
 							})
-							.catch((err) => {
-								this.$message.error(err);
-							});
+								.then((url) => {
+									this.$service.space.info.add({
+										url,
+										type: e.type,
+										classifyId: this.category.current.id
+									});
+
+									resolve(url);
+								})
+								.catch((err) => {
+									reject(err);
+								});
+						});
 					});
+
+					Promise.all(arr)
+						.then(() => {
+							this.refreshFile();
+						})
+						.catch((err) => {
+							this.$message.error(err.toString());
+						})
+						.done(() => {
+							this.file.loading.uploadImage = false;
+						});
+				}
+			});
+		},
+
+		// 选择视频
+		chooseVideo() {
+			uni.chooseVideo({
+				success: (res) => {
+					this.file.loading.uploadVideo = true;
+
+					uploadFile({
+						filePath: res.tempFilePath,
+						cloudPath: res.tempFile.name
+					})
+						.then((url) => {
+							this.$service.space.info
+								.add({
+									url,
+									type: res.tempFile.type,
+									classifyId: this.category.current.id
+								})
+								.then(() => {
+									this.refreshFile();
+								});
+						})
+						.catch((err) => {
+							this.$message.error(err.toString());
+						})
+						.done(() => {
+							this.file.loading.uploadVideo = false;
+						});
 				}
 			});
 		},
 
 		// 刷新资源文件
 		refreshFile(params) {
-			this.file.loading = true;
+			this.file.loading.refresh = true;
 
 			this.$service.space.info
 				.page({
 					...this.file.pagination,
 					...params,
-					classifyId: this.category.current.id,
-					type: 0
+					classifyId: this.category.current.id
 				})
 				.then((res) => {
 					this.file.list = res.list;
 					this.file.pagination = res.pagination;
 				})
 				.done(() => {
-					this.file.loading = false;
+					this.file.loading.refresh = false;
 				});
 		},
 
@@ -469,23 +575,20 @@ export default {
 
 		// 确认选中文件
 		confirmFile() {
-			const urls = this.selection.map((e) => e.url);
-			this.$emit("input", this.multiple ? urls : urls[0]);
+			const urls = this.selection
+				.filter((e, i) => i < this.limit)
+				.map((e) => e.url)
+				.join(",");
+
+			this.$emit("input", urls);
+			this.$emit("confirm", urls);
+
 			this.close();
 		},
 
 		// 选择文件
 		selectFile(item) {
-			if (this.multiple) {
-				this.$set(item, "selected", !item.selected);
-			} else {
-				if (!item.selected) {
-					this.file.list.map((e) => {
-						this.$set(e, "selected", false);
-					});
-				}
-				item.selected = !item.selected;
-			}
+			this.$set(item, "selected", !item.selected);
 		},
 
 		// 删除选中文件
@@ -498,11 +601,10 @@ export default {
 				type: "warning"
 			})
 				.then(() => {
-					const ids = selection.map((e) => e.id);
-
+					this.file.loading.delete = true;
 					this.$service.space.info
 						.delete({
-							ids: ids.join(",")
+							ids: selection.map((e) => e.id).join(",")
 						})
 						.then(() => {
 							this.$message.success("删除成功");
@@ -510,6 +612,9 @@ export default {
 						})
 						.catch((err) => {
 							this.$message.error(err);
+						})
+						.done(() => {
+							this.file.loading.delete = false;
 						});
 				})
 				.catch(() => {});
@@ -579,7 +684,10 @@ export default {
 		height: calc(100% - 70px);
 		overflow: hidden auto;
 
-		&-item {
+		/deep/.cl-upload-space__file-item {
+			display: flex;
+			align-items: center;
+			justify-content: center;
 			height: 160px;
 			width: 160px;
 			margin-bottom: 10px;
@@ -588,39 +696,43 @@ export default {
 			border-radius: 3px;
 			box-sizing: border-box;
 			background-color: #f7f7f7;
-		}
 
-		&-video {
-			max-height: 100%;
-			width: 100%;
-		}
+			&.is-image {
+				img {
+					height: 100%;
+					width: 100%;
+				}
+			}
 
-		&-image {
-			height: 100%;
-			width: 100%;
-		}
+			&.is-video {
+				video {
+					max-height: 100%;
+					width: 100%;
+				}
+			}
 
-		&-size {
-			position: absolute;
-			bottom: 0;
-			left: 0;
-			background-color: rgba(0, 0, 0, 0.5);
-		}
+			.cl-upload-space__file-size {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				background-color: rgba(0, 0, 0, 0.5);
+			}
 
-		&-mask {
-			position: absolute;
-			left: 0;
-			top: 0;
-			height: 100%;
-			width: 100%;
-			background-color: rgba(0, 0, 0, 0.5);
-			display: flex;
-			justify-content: center;
-			align-items: center;
+			.cl-upload-space__file-mask {
+				position: absolute;
+				left: 0;
+				top: 0;
+				height: 100%;
+				width: 100%;
+				background-color: rgba(0, 0, 0, 0.5);
+				display: flex;
+				justify-content: center;
+				align-items: center;
 
-			i {
-				font-size: 30px;
-				color: #67c23a;
+				i {
+					font-size: 30px;
+					color: #67c23a;
+				}
 			}
 		}
 
@@ -629,26 +741,26 @@ export default {
 			align-items: center;
 			justify-content: center;
 			margin-top: 100px;
-		}
 
-		&-drag {
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-			border: 1px dashed #ccc;
-			border-radius: 6px;
-			cursor: pointer;
-			height: 180px;
-			width: 360px;
+			& > div {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				border: 1px dashed #ccc;
+				border-radius: 6px;
+				cursor: pointer;
+				height: 180px;
+				width: 360px;
 
-			i {
-				font-size: 67px;
-				color: #c0c4cc;
-			}
+				i {
+					font-size: 67px;
+					color: #c0c4cc;
+				}
 
-			&:hover {
-				border-color: #409eff;
+				&:hover {
+					border-color: #409eff;
+				}
 			}
 		}
 	}

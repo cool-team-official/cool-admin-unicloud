@@ -6,9 +6,8 @@
         </div>
         <div class="c">
             <el-row>
-                <span class="label">默认</span>
                 <cl-upload
-                    v-model="avatar"
+                    v-model="urls"
                     multiple
                     :limit="3"
                     :on-upload="onUpload"
@@ -18,11 +17,14 @@
                 >
                 </cl-upload>
 
-                <cl-upload-space></cl-upload-space>
+                <cl-upload
+                    v-model="urls2"
+                    is-space
+                ></cl-upload>
             </el-row>
         </div>
         <div class="f">
-            <span class="date">2019/09/25</span>
+            <span class="date">2020/08/08</span>
         </div>
     </div>
 </template>
@@ -31,8 +33,8 @@
 export default {
 	data() {
 		return {
-			avatar: "",
-			avatar2: ""
+			urls: "",
+			urls2: ""
 		};
 	},
 
