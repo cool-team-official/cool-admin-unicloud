@@ -21,6 +21,21 @@
                     v-model="urls2"
                     is-space
                 ></cl-upload>
+
+                <ul
+                    class="urls"
+                    v-if="urls2"
+                >
+                    <li
+                        v-for="(item, index) in list"
+                        :key="index"
+                    >
+                        <img
+                            :src="item"
+                            alt=""
+                        >
+                    </li>
+                </ul>
             </el-row>
         </div>
         <div class="f">
@@ -36,6 +51,12 @@ export default {
 			urls: "",
 			urls2: ""
 		};
+	},
+
+	computed: {
+		list() {
+			return this.urls2.split(",");
+		}
 	},
 
 	methods: {
@@ -68,6 +89,21 @@ export default {
 		display: inline-block;
 		font-size: 12px;
 		padding-bottom: 10px;
+	}
+
+	.urls {
+		display: flex;
+		flex-wrap: wrap;
+		margin-top: 10px;
+
+		li {
+			img {
+				display: block;
+				height: 100px;
+				width: 100px;
+				margin: 0 10px 10px 0;
+			}
+		}
 	}
 }
 </style>

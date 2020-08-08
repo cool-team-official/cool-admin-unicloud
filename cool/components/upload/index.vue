@@ -2,10 +2,13 @@
     <div class="cl-upload__wrap">
         <!-- 文件空间 -->
         <cl-upload-space
+            ref="space"
             :limit="limit"
             @confirm="onSpaceConfirm"
             v-if="isSpace"
-        ></cl-upload-space>
+        >
+            <slot></slot>
+        </cl-upload-space>
 
         <!-- 默认上传 -->
         <div
@@ -246,6 +249,11 @@ export default {
 						});
 				}
 			});
+		},
+
+		// 打开文件空间
+		openSpace() {
+			this.$refs["space"].open();
 		},
 
 		// 确认图片
