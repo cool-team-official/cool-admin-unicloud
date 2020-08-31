@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Crud2 from "cl-crud2";
-import ElementUI from "element-ui";
+import ElementUI, { Loading } from "element-ui";
 import store from "@/store";
 import { LoadService } from "@/cool";
 import App from "./App";
@@ -37,13 +37,19 @@ Vue.use(Crud2, {
 	}
 });
 
-store.dispatch("appLoad");
-
 App.mpType = "app";
 Vue.config.productionTip = false;
 
-const app = new Vue({
-	store,
-	...App
+const loader = Loading.service({
+	text: "加载配置中"
 });
-app.$mount();
+
+store.dispatch("appLoad").done(() => {
+	loader.close();
+
+	const app = new Vue({
+		store,
+		...App
+	});
+	app.$mount();
+});
