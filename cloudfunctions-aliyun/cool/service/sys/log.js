@@ -16,7 +16,7 @@ module.exports = {
 			action: url,
 			ip,
 			name: currentUser.username,
-			ipAddr: utils.getIpAddr(ip),
+			//ipAddr: utils.getIpAddr(ip),
 			params: JSON.stringify(params)
 		})
 	},

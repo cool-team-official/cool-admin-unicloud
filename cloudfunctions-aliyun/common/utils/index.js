@@ -12,7 +12,7 @@ const lodash = require('lodash');
 // jwt工具类
 const jwt = require('jsonwebtoken');
 // IP地址
-const ipdb = require('ipip-ipdb');
+// const ipdb = require('ipip-ipdb');
 module.exports = {
 	uuid,
 	md5,
@@ -49,20 +49,20 @@ module.exports = {
 		}
 	},
 	// 获得IP地址
-	getIpAddr(ip) {
-		try {
-			const bst = new ipdb.BaseStation(__dirname+'/ipipfree.ipdb');
-			const result = bst.findInfo(ip, 'CN');
-			const addArr = [];
-			if (result) {
-				addArr.push(result.countryName);
-				addArr.push(result.regionName);
-				addArr.push(result.cityName);
-				return lodash.uniq(addArr).join('');
-			}
-		} catch (err) {
-			uniCloud.logger.error(err)
-			return '无法获取地址信息';
-		}
-	}
+	// getIpAddr(ip) {
+	// 	try {
+	// 		const bst = new ipdb.BaseStation(__dirname+'/ipipfree.ipdb');
+	// 		const result = bst.findInfo(ip, 'CN');
+	// 		const addArr = [];
+	// 		if (result) {
+	// 			addArr.push(result.countryName);
+	// 			addArr.push(result.regionName);
+	// 			addArr.push(result.cityName);
+	// 			return lodash.uniq(addArr).join('');
+	// 		}
+	// 	} catch (err) {
+	// 		uniCloud.logger.error(err)
+	// 		return '无法获取地址信息';
+	// 	}
+	// }
 }
