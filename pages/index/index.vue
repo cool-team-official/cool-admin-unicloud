@@ -1,80 +1,56 @@
 <template>
-    <cl-layout>
-        <div class="home">
-            <el-row :gutter="15">
-                <el-col
-                    :span="12"
-                    :xl="6"
-                >
-                    <div class="card">
-                        <count-sales></count-sales>
-                    </div>
-                </el-col>
-                <el-col
-                    :span="12"
-                    :xl="6"
-                >
-                    <div class="card">
-                        <count-views></count-views>
-                    </div>
-                </el-col>
-                <el-col
-                    :span="12"
-                    :xl="6"
-                >
-                    <div class="card">
-                        <count-paid></count-paid>
-                    </div>
-                </el-col>
-                <el-col
-                    :span="12"
-                    :xl="6"
-                >
-                    <div class="card">
-                        <count-effect></count-effect>
-                    </div>
-                </el-col>
-            </el-row>
+	<cl-layout>
+		<div class="home">
+			<el-row :gutter="15">
+				<el-col :span="6">
+					<div class="card">
+						<count-sales></count-sales>
+					</div>
+				</el-col>
+				<el-col :span="6">
+					<div class="card">
+						<count-views></count-views>
+					</div>
+				</el-col>
+				<el-col :span="6">
+					<div class="card">
+						<count-paid></count-paid>
+					</div>
+				</el-col>
+				<el-col :span="6">
+					<div class="card">
+						<count-effect></count-effect>
+					</div>
+				</el-col>
+			</el-row>
 
-            <el-row :gutter="15">
-                <el-col
-                    :span="24"
-                    :xl="14"
-                >
-                    <div class="card">
-                        <tab-chart></tab-chart>
-                    </div>
-                </el-col>
-                <el-col
-                    :span="24"
-                    :xl="10"
-                >
-                    <div class="card">
-                        <sales-rank></sales-rank>
-                    </div>
-                </el-col>
-            </el-row>
+			<el-row :gutter="15">
+				<el-col :span="24" :xl="14">
+					<div class="card">
+						<tab-chart></tab-chart>
+					</div>
+				</el-col>
+				<el-col :span="24" :xl="10">
+					<div class="card">
+						<sales-rank></sales-rank>
+					</div>
+				</el-col>
+			</el-row>
 
-            <el-row :gutter="15">
-                <el-col
-                    :span="24"
-                    :xl="14"
-                >
-                    <div class="card card--last">
-                        <hot-search></hot-search>
-                    </div>
-                </el-col>
-                <el-col
-                    :span="24"
-                    :xl="10"
-                >
-                    <div class="card card--last">
-                        <category-ratio></category-ratio>
-                    </div>
-                </el-col>
-            </el-row>
-        </div>
-    </cl-layout>
+			<el-row :gutter="15">
+				<el-col :span="24" :xl="14">
+					<div class="card card--last">
+						<hot-search></hot-search>
+					</div>
+				</el-col>
+				<el-col :span="24" :xl="10">
+					<div class="card card--last">
+						<category-ratio></category-ratio>
+					</div>
+				</el-col>
+			</el-row>
+		</div>
+	</cl-layout>
 </template>
 
 <script>
