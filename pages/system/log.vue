@@ -62,12 +62,6 @@
 							align: 'center'
 						},
 						{
-							prop: 'ipAddr',
-							label: 'ip地址',
-							minWidth: '150',
-							align: 'center'
-						},
-						{
 							prop: 'createTime',
 							label: '创建时间',
 							minWidth: '150',
