@@ -1,6 +1,6 @@
 {
 	"name": "cool-admin-cloud",
-	"version": "0.0.7",
+	"version": "0.0.8",
 	"dependencies": {
 		"@tinymce/tinymce-vue": "^3.2.2",
 		"cl-crud2": "^0.2.0",
