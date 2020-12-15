@@ -10,6 +10,7 @@ Vue.component("cl-menu-perms", () => import("./menu/perms.vue"));
 Vue.component("cl-menu-file-path", () => import("./menu/file-path.vue"));
 Vue.component("cl-role-tree", () => import("./role/tree.vue"));
 Vue.component("cl-role-select", () => import("./role/select.vue"));
+Vue.component("cl-dept-check", () => import("./dept/check.vue"));
 Vue.component("cl-dept-tree", () => import("./dept/tree.vue"));
 Vue.component("cl-scroll", () => import("./scroll/index.vue"));
 Vue.component("cl-context-menu", () => import("./context-menu/index.js"));

@@ -35,10 +35,10 @@ babel-runtime@6.x:
     core-js "^2.4.0"
     regenerator-runtime "^0.11.0"
 
-cl-crud2@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/cl-crud2/-/cl-crud2-0.2.0.tgz#c087bea9e61303d73f793625de94da56c73d949b"
-  integrity sha512-B1DlKjTLhfTrZyqwjg7oKV/hB5vqIDMZ00B3vSZUWR4rVIBLJOU2meblg7+aHIfJq/ZyV0iT3CEanvO8Tuzp6g==
+cl-crud2@^0.2.12:
+  version "0.2.12"
+  resolved "https://registry.yarnpkg.com/cl-crud2/-/cl-crud2-0.2.12.tgz#87ff40d7f39eef6feaa41edcc339a6a067a000fe"
+  integrity sha512-8QlZ8hWD+CWAleUJyYJegJRe25cuwW0KGEPF2CEE/mIRtc0uLDKLz5BSHBz1fGNpOmfUKszRvmvzWdmbHtuOXA==
   dependencies:
     array.prototype.flat "^1.2.3"
     clone-deep "^4.0.1"

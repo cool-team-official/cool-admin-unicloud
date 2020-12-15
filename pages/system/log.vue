@@ -86,12 +86,6 @@
 import { mapGetters } from "vuex";
 
 export default {
-	created() {
-		this.$service.system.log.getKeep().then((res) => {
-			this.day = res;
-		});
-	},
-
 	methods: {
 		onCrudLoad({ ctx, app }) {
 			ctx.service(this.$service.system.log).done();

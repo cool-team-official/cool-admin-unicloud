@@ -47,7 +47,7 @@
 							v-loading="dept.loading"
 							@node-click="deptClick"
 						>
-							<span slot-scope="{ node, data }">
+							<span slot-scope="{ data }">
 								<dept-label :item="data" />
 							</span>
 						</el-tree>
@@ -165,7 +165,7 @@
 									]"
 								>
 									<!-- 头像 -->
-									<template #column-headImg="{scope}">
+									<template #column-headImg="{ scope }">
 										<cl-avatar
 											shape="square"
 											size="medium"
@@ -176,7 +176,7 @@
 									</template>
 
 									<!-- 状态 -->
-									<template #column-status="{scope}">
+									<template #column-status="{ scope }">
 										<el-tag
 											v-if="scope.row.status == 1"
 											size="small"

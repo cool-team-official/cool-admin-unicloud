@@ -1,17 +1,12 @@
 <template>
-    <el-select
-        v-model="newValue"
-        v-bind="props"
-        v-on="on"
-        multiple
-    >
-        <el-option
-            v-for="(item, index) in list"
-            :value="item._id"
-            :label="item.name"
-            :key="index"
-        ></el-option>
-    </el-select>
+	<el-select v-model="newValue" v-bind="props" v-on="on" multiple @change="onChange">
+		<el-option
+			v-for="(item, index) in list"
+			:value="item.id"
+			:label="item.name"
+			:key="index"
+		></el-option>
+	</el-select>
 </template>
 
 <script>
@@ -25,7 +20,7 @@ export default {
 	data() {
 		return {
 			list: [],
-			newValue: this.value
+			newValue: undefined
 		};
 	},
 
@@ -38,20 +33,18 @@ export default {
 				} else {
 					this.newValue = val;
 				}
-
-				console.log(this.newValue);
 			}
-		},
-
-		newValue(val) {
-			this.$emit("input", val);
 		}
 	},
 
 	async created() {
 		this.list = await this.$service.system.role.list();
+	},
+
+	methods: {
+		onChange(val) {
+			this.$emit("input", val);
+		}
 	}
 };
 </script>
-
-<style lang="scss" scoped></style>
