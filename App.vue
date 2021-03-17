@@ -12,6 +12,23 @@ export default {
 				});
 			}
 		}
+
+		// 路由导航
+		this.$router.beforeEach((to, from, next) => {
+			const item = this.$store.getters.routes.find((e) =>
+				e.path.includes("?") ? e.path == to.fullPath : e.path == to.fullPath
+			);
+
+			if (item) {
+				// 添加路由进程
+				this.$store.commit("ADD_PROCESS", {
+					label: item.name,
+					value: item.path.includes("?") ? to.fullPath : to.path
+				});
+			}
+
+			next();
+		});
 	},
 	onHide: function () {
 		console.log("App Hide");

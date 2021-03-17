@@ -1,5 +1,5 @@
 <template>
-	<div class="app-topbar-menu" v-if="conf.showAMenu">
+	<div class="app-topbar-menu" v-if="app.conf.showAMenu">
 		<el-menu :default-active="index" mode="horizontal" @select="onSelect">
 			<el-menu-item v-for="(item, index) in menuGroup" :index="`${index}`" :key="index">
 				<icon-svg v-if="item.icon" :name="item.icon"></icon-svg>
@@ -21,7 +21,7 @@ export default {
 	},
 
 	computed: {
-		...mapGetters(["menuGroup", "conf"])
+		...mapGetters(["menuGroup", "app"])
 	},
 
 	mounted() {

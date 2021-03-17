@@ -1,24 +1,16 @@
 <template>
-    <div class="app-slider">
-        <div class="logo">
-            <a href="https://cool-admin.com/">
-                <img
-                    class="c"
-                    src="@/static/icon/logo/silder.png"
-                    v-if="!menuCollapse"
-                />
-                <img
-                    class="z"
-                    src="@/static/icon/logo/silder-simple.png"
-                    v-else
-                />
-            </a>
-        </div>
+	<div class="app-slider">
+		<div class="logo">
+			<a href="https://cool-admin.com/">
+				<img class="c" src="@/static/icon/logo/silder.png" v-if="!menuCollapse" />
+				<img class="z" src="@/static/icon/logo/silder-simple.png" v-else />
+			</a>
+		</div>
 
-        <div class="menu">
-            <deep-menu></deep-menu>
-        </div>
-    </div>
+		<div class="menu">
+			<deep-menu></deep-menu>
+		</div>
+	</div>
 </template>
 
 <script>
@@ -43,10 +35,8 @@ export default {
 								case 0:
 									ids.push(e.id);
 									return fn(e.children);
-									break;
 								case 1:
 									return e.path == this.$route.path;
-									break;
 								default:
 									return false;
 							}
@@ -70,6 +60,12 @@ export default {
 					}
 
 					return ids.map(String);
+				},
+
+				defaultActive() {
+					return this.$route.fullPath.includes("?")
+						? decodeURIComponent(this.$route.fullPath)
+						: this.$route.path;
 				}
 			},
 
@@ -118,7 +114,7 @@ export default {
 
 				return (
 					<el-menu
-						default-active={this.$route.path}
+						default-active={this.defaultActive}
 						default-openeds={this.openeds}
 						collapse-transition={false}
 						collapse={this.menuCollapse}

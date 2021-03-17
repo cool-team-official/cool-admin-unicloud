@@ -2,22 +2,22 @@
 	<cl-layout>
 		<div class="home">
 			<el-row :gutter="15">
-				<el-col :span="6">
+				<el-col :lg="6" :md="12" :xs="24">
 					<div class="card">
 						<count-sales></count-sales>
 					</div>
 				</el-col>
-				<el-col :span="6">
+				<el-col :lg="6" :md="12" :xs="24">
 					<div class="card">
 						<count-views></count-views>
 					</div>
 				</el-col>
-				<el-col :span="6">
+				<el-col :lg="6" :md="12" :xs="24">
 					<div class="card">
 						<count-paid></count-paid>
 					</div>
 				</el-col>
-				<el-col :span="6">
+				<el-col :lg="6" :md="12" :xs="24">
 					<div class="card">
 						<count-effect></count-effect>
 					</div>
@@ -25,12 +25,12 @@
 			</el-row>
 
 			<el-row :gutter="15">
-				<el-col :span="24" :xl="14">
+				<el-col :lg="14" :xs="24">
 					<div class="card">
 						<tab-chart></tab-chart>
 					</div>
 				</el-col>
-				<el-col :span="24" :xl="10">
+				<el-col :lg="10" :xs="24">
 					<div class="card">
 						<sales-rank></sales-rank>
 					</div>
@@ -38,12 +38,12 @@
 			</el-row>
 
 			<el-row :gutter="15">
-				<el-col :span="24" :xl="14">
+				<el-col :lg="14" :sm="24">
 					<div class="card card--last">
 						<hot-search></hot-search>
 					</div>
 				</el-col>
-				<el-col :span="24" :xl="10">
+				<el-col :lg="10" :sm="24">
 					<div class="card card--last">
 						<category-ratio></category-ratio>
 					</div>
@@ -81,13 +81,52 @@ export default {
 .home {
 	overflow: hidden auto;
 
-	.card {
+	/deep/.card {
 		background-color: #fff;
 		border-radius: 5px;
 		margin-bottom: 15px;
+		font-size: 12px;
+		letter-spacing: 0.5px;
 
-		&--last {
-			margin-bottom: 0;
+		&__header {
+			display: flex;
+			align-items: center;
+			height: 50px;
+			padding: 0 20px;
+
+			.label {
+				font-size: 12px;
+			}
+
+			.value {
+				font-size: 18px;
+				font-weight: bold;
+				margin-left: 10px;
+			}
+		}
+
+		&__container {
+			padding: 0 20px;
+			height: 50px;
+		}
+
+		&__footer {
+			display: flex;
+			align-items: center;
+			height: 50px;
+			border-top: 1px solid #f7f7f7;
+			font-size: 12px;
+			margin: 0 5px;
+			padding: 0 15px;
+			box-sizing: border-box;
+
+			.label {
+				margin-right: 10px;
+			}
+
+			.value {
+				font-size: 13px;
+			}
 		}
 	}
 }

@@ -1,8 +1,8 @@
 export default {
 	// 应用信息
-	appInfo: (state) => state.app.info,
-	// 应用配置
-	conf: (state) => state.app.conf,
+	app: (state) => state.app.info,
+	// 浏览器信息
+	browser: state => state.browser,
 	// 窗口列表
 	processList: (state) => state.process.list,
 	// 总菜单列表

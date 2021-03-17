@@ -20,32 +20,12 @@ export default {
 	},
 
 	computed: {
-		...mapGetters(["processList", "routes"])
-	},
-
-	watch: {
-		processList() {
-			let maxWidth = this.$el.clientWidth;
-
-			this.$nextTick(() => {
-				let list = this.$el.querySelectorAll(".app-process__item") || [];
-
-				let sumWidth = 0;
-
-				for (let i = 0; i < list.length; i++) {
-					sumWidth += list[i].clientWidth;
-				}
-
-				if (maxWidth - sumWidth > 1000) {
-					this.page += 1;
-				}
-			});
-		}
+		...mapGetters(["processList", 'routes'])
 	},
 
 	mounted() {
-		this.$el.oncontextmenu = () => {
-			event.returnValue = false;
+		this.$el.oncontextmenu = (e) => {
+			e.returnValue = false;
 		};
 
 		document.body.addEventListener("click", () => {
@@ -54,18 +34,14 @@ export default {
 			}
 		});
 
-		const pages = getCurrentPages();
+		const item = this.routes.find((r) => this.$route.path == r.path || decodeURIComponent(this.$route.fullPath) == r.path);
 
-		pages.forEach((e) => {
-			let item = this.routes.find((r) => e.__page__.path == r.path);
-
-			if (item) {
-				this.ADD_PROCESS({
-					label: item.name,
-					value: item.path
-				});
-			}
-		});
+		if (item) {
+			this.ADD_PROCESS({
+				label: item.name,
+				value: item.path
+			});
+		}
 	},
 
 	methods: {
@@ -121,12 +97,8 @@ export default {
 		},
 
 		toPath() {
-			const active = this.processList.find((e) => e.active);
-
-			if (!active) {
-				const next = this.processList[this.processList.length - 1];
-				this.$router.push(next ? next.value : "/");
-			}
+			const next = this.processList[this.processList.length - 1];
+			this.$router.push(next ? next.value : "/");
 		}
 	},
 
@@ -140,7 +112,7 @@ export default {
 								class={[
 									"app-process__item",
 									{
-										"is-active": item.active
+										"is-active": item.value.includes('?') ? item.value == this.$route.fullPath : item.value == this.$route.path
 									}
 								]}
 								data-index={index}

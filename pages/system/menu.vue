@@ -6,132 +6,135 @@
 				<cl-add-btn />
 			</el-row>
 
-			<cl-table
-				ref="table"
-				:props="{
-					'row-key': 'id'
-				}"
-				:on="{
-					'row-click': this.onRowClick,
-					'row-contextmenu': this.onRowContextMenu
-				}"
-				:columns="[
-					{
-						prop: 'name',
-						label: '名称',
-						width: 200
-					},
-					{
-						prop: 'icon',
-						label: '图标',
-						align: 'center',
-						width: 80
-					},
-					{
-						prop: 'type',
-						label: '类型',
-						align: 'center',
-						width: 100,
-						dict: [
-							{
-								label: '目录',
-								value: 0
-							},
-							{
-								label: '菜单',
-								value: 1
-							},
-							{
-								label: '权限',
-								value: 2
-							}
-						]
-					},
-					{
-						prop: 'router',
-						label: '节点路由',
-						align: 'center',
-						'min-width': 160
-					},
-					{
-						prop: 'orderNum',
-						label: '排序号',
-						align: 'center',
-						width: 90
-					},
-					{
-						prop: 'perms',
-						label: '权限',
-						'header-align': 'center',
-						'min-width': 300
-					},
-					{
-						prop: 'updateTime',
-						label: '更新时间',
-						align: 'center',
-						sortable: true,
-						width: 180
-					},
-					{
-						label: '操作',
-						align: 'center',
-						type: 'op',
-						layout: ['slot-add', 'edit', 'delete']
-					}
-				]"
-			>
-				<!-- 名称 -->
-				<template #column-name="{scope}">
-					<span>{{ scope.row.name }}</span>
-					<el-tag
-						size="mini"
-						effect="dark"
-						type="danger"
-						v-if="!scope.row.isShow"
-						style="margin-left: 10px;"
-						>隐藏</el-tag
-					>
-				</template>
+			<el-row>
+				<cl-table
+					ref="table"
+					:props="{
+						'row-key': 'id'
+					}"
+					:on="{
+						'row-click': this.onRowClick,
+						'row-contextmenu': this.onRowContextMenu
+					}"
+					:columns="[
+						{
+							prop: 'name',
+							label: '名称',
+							align: 'left',
+							width: 200
+						},
+						{
+							prop: 'icon',
+							label: '图标',
+							align: 'center',
+							width: 80
+						},
+						{
+							prop: 'type',
+							label: '类型',
+							align: 'center',
+							width: 100,
+							dict: [
+								{
+									label: '目录',
+									value: 0
+								},
+								{
+									label: '菜单',
+									value: 1
+								},
+								{
+									label: '权限',
+									value: 2
+								}
+							]
+						},
+						{
+							prop: 'router',
+							label: '节点路由',
+							align: 'center',
+							'min-width': 160
+						},
+						{
+							prop: 'orderNum',
+							label: '排序号',
+							align: 'center',
+							width: 90
+						},
+						{
+							prop: 'perms',
+							label: '权限',
+							'header-align': 'center',
+							'min-width': 300
+						},
+						{
+							prop: 'updateTime',
+							label: '更新时间',
+							align: 'center',
+							sortable: true,
+							width: 180
+						},
+						{
+							label: '操作',
+							align: 'center',
+							type: 'op',
+							buttons: ['slot-add', 'edit', 'delete']
+						}
+					]"
+				>
+					<!-- 名称 -->
+					<template #column-name="{ scope }">
+						<span>{{ scope.row.name }}</span>
+						<el-tag
+							size="mini"
+							effect="dark"
+							type="danger"
+							v-if="!scope.row.isShow"
+							style="margin-left: 10px"
+							>隐藏</el-tag
+						>
+					</template>
 
-				<!-- 图标 -->
-				<template #column-icon="{scope}">
-					<icon-svg :name="scope.row.icon" style="margin-top: 5px;"></icon-svg>
-				</template>
+					<!-- 图标 -->
+					<template #column-icon="{ scope }">
+						<icon-svg :name="scope.row.icon" style="margin-top: 5px"></icon-svg>
+					</template>
 
-				<!-- 权限 -->
-				<template #column-perms="{scope}">
-					<el-tag
-						v-for="(item, index) in scope.row.permList"
-						:key="index"
-						size="mini"
-						effect="dark"
-						style="margin: 2px; letter-spacing: 0.5px;"
-						>{{ item }}</el-tag
-					>
-				</template>
+					<!-- 权限 -->
+					<template #column-perms="{ scope }">
+						<el-tag
+							v-for="(item, index) in scope.row.permList"
+							:key="index"
+							size="mini"
+							effect="dark"
+							style="margin: 2px; letter-spacing: 0.5px"
+							>{{ item }}</el-tag
+						>
+					</template>
 
-				<!-- 路由 -->
-				<template #column-router="{scope}">
-					<el-link
-						type="primary"
-						:href="scope.row.router | router_link"
-						v-if="scope.row.type == 1"
-						>{{ scope.row.router }}</el-link
-					>
-					<span v-else>{{ scope.row.router }}</span>
-				</template>
+					<!-- 路由 -->
+					<template #column-router="{ scope }">
+						<el-link
+							type="primary"
+							:href="scope.row.router | router_link"
+							v-if="scope.row.type == 1"
+							>{{ scope.row.router }}</el-link
+						>
+						<span v-else>{{ scope.row.router }}</span>
+					</template>
 
-				<!-- 行新增 -->
-				<template #slot-add="{scope}">
-					<el-button
-						type="text"
-						size="mini"
-						@click="upsertAppend(scope.row)"
-						v-if="scope.row.type != 2"
-						>新增</el-button
-					>
-				</template>
-			</cl-table>
+					<!-- 行新增 -->
+					<template #slot-add="{ scope }">
+						<el-button
+							type="text"
+							size="mini"
+							@click="upsertAppend(scope.row)"
+							v-if="scope.row.type != 2"
+							>新增</el-button
+						>
+					</template>
+				</cl-table>
+			</el-row>
 
 			<!-- 编辑 -->
 			<cl-upsert

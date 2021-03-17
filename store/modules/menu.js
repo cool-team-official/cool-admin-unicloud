@@ -95,7 +95,7 @@ export default {
 		},
 
 		SET_MENU_LIST(state, index) {
-			const { showAMenu } = this.state.app.conf
+			const { showAMenu } = this.getters.app.conf
 
 			if (showAMenu) {
 				const { children = [] } = state.group[index] || {}

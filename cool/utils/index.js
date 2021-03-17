@@ -221,3 +221,73 @@ export function moreList(res, { list, pagination }) {
 
 	return page != 1;
 }
+
+export function isPc() {
+	const userAgentInfo = navigator.userAgent;
+	const Agents = ["Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod"];
+	let flag = true;
+	for (let v = 0; v < Agents.length; v++) {
+		if (userAgentInfo.indexOf(Agents[v]) > 0) {
+			flag = false;
+			break;
+		}
+	}
+	return flag;
+}
+
+export const isIOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+
+export function getBrowser() {
+	let ua = navigator.userAgent.toLowerCase();
+	let btypeInfo = (ua.match(/firefox|chrome|safari|opera/g) || "other")[0];
+	if ((ua.match(/msie|trident/g) || [])[0]) {
+		btypeInfo = "msie";
+	}
+	let pc = "";
+	let prefix = "";
+	let plat = "";
+
+	let isTocuh =
+		"ontouchstart" in window || ua.indexOf("touch") !== -1 || ua.indexOf("mobile") !== -1;
+	if (isTocuh) {
+		if (ua.indexOf("ipad") !== -1) {
+			pc = "pad";
+		} else if (ua.indexOf("mobile") !== -1) {
+			pc = "mobile";
+		} else if (ua.indexOf("android") !== -1) {
+			pc = "androidPad";
+		} else {
+			pc = "pc";
+		}
+	} else {
+		pc = "pc";
+	}
+	switch (btypeInfo) {
+		case "chrome":
+		case "safari":
+		case "mobile":
+			prefix = "webkit";
+			break;
+		case "msie":
+			prefix = "ms";
+			break;
+		case "firefox":
+			prefix = "Moz";
+			break;
+		case "opera":
+			prefix = "O";
+			break;
+		default:
+			prefix = "webkit";
+			break;
+	}
+	plat = ua.indexOf("android") > 0 ? "android" : navigator.platform.toLowerCase();
+	return {
+		version: (ua.match(/[\s\S]+(?:rv|it|ra|ie)[\/: ]([\d.]+)/) || [])[1],
+		plat: plat,
+		type: btypeInfo,
+		pc: pc,
+		prefix: prefix,
+		isMobile: pc == "pc" ? false : true
+	};
+}

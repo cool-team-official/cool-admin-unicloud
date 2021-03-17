@@ -1,39 +1,27 @@
 <template>
-    <cl-layout>
-        <div class="page-my-info">
-            <div class="title">基本信息</div>
+	<cl-layout>
+		<div class="page-my-info">
+			<div class="title">基本信息</div>
 
-            <el-form
-                size="small"
-                label-width="100px"
-                :model="form"
-                :disabled="saving"
-            >
-                <el-form-item label="头像">
-                    <cl-upload v-model="form.headImg"></cl-upload>
-                </el-form-item>
+			<el-form size="small" label-width="100px" :model="form" :disabled="saving">
+				<el-form-item label="头像">
+					<cl-upload v-model="form.headImg"></cl-upload>
+				</el-form-item>
 
-                <el-form-item label="昵称">
-                    <el-input v-model="form.nickName"></el-input>
-                </el-form-item>
+				<el-form-item label="昵称">
+					<el-input v-model="form.nickName"></el-input>
+				</el-form-item>
 
-                <el-form-item label="密码">
-                    <el-input
-                        type="password"
-                        v-model="form.password"
-                    ></el-input>
-                </el-form-item>
+				<el-form-item label="密码">
+					<el-input type="password" v-model="form.password"></el-input>
+				</el-form-item>
 
-                <el-form-item label="">
-                    <el-button
-                        type="primary"
-                        @click="save"
-                        :disabled="saving"
-                    >保存修改</el-button>
-                </el-form-item>
-            </el-form>
-        </div>
-    </cl-layout>
+				<el-form-item label="">
+					<el-button type="primary" @click="save" :disabled="saving">保存修改</el-button>
+				</el-form-item>
+			</el-form>
+		</div>
+	</cl-layout>
 </template>
 
 <script>
@@ -91,6 +79,7 @@ export default {
 
 	.el-form {
 		width: 400px;
+		max-width: 100%;
 	}
 
 	.title {

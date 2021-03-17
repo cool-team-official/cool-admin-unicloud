@@ -1,5 +1,5 @@
 import Vue from "vue";
-import Crud2 from "cl-crud2";
+import Crud from "cl-admin-crud";
 import ElementUI, { Loading } from "element-ui";
 import store from "@/store";
 import { LoadService } from "@/cool";
@@ -14,7 +14,7 @@ LoadService({ store });
 
 Vue.component("cl-layout", Layout);
 Vue.use(ElementUI);
-Vue.use(Crud2, {
+Vue.use(Crud, {
 	crud: {
 		dict: {
 			sort: {

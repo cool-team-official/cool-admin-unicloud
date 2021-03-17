@@ -158,7 +158,7 @@
 										{
 											align: 'center',
 											type: 'op',
-											layout: ['slot-move-btn', 'edit', 'delete'],
+											buttons: ['slot-move-btn', 'edit', 'delete'],
 											fixed: 'right',
 											width: '160px'
 										}
@@ -231,7 +231,7 @@
 </template>
 
 <script>
-import { deepTree, isArray, revDeepTree } from "@/cool/utils";
+import { deepTree, isArray, revDeepTree, isPc } from "@/cool/utils";
 
 export default {
 	componentName: "User",
@@ -241,7 +241,7 @@ export default {
 			dept: {
 				isDrag: false,
 				loading: false,
-				expand: true,
+				expand: isPc(),
 				list: []
 			},
 			selects: {
@@ -479,7 +479,7 @@ export default {
 			toggleItem("tips", !isEdit);
 		},
 
-		onUpsertSubmit(isEdit, data, { next }) {
+		onUpsertSubmit(_, data, { next }) {
 			let departmentId = this.selects.dept.id;
 
 			if (!departmentId) {
@@ -579,7 +579,7 @@ export default {
 			return data.parentId;
 		},
 
-		deptAllowDrop(draggingNode, dropNode) {
+		deptAllowDrop(_, dropNode) {
 			return dropNode.data.parentId;
 		},
 
@@ -864,13 +864,12 @@ export default {
 
 			div {
 				font-size: 14px;
-				color: $uni-color-main;
 				flex: 1;
+				white-space: nowrap;
 			}
 
 			i {
 				font-size: 18px;
-				color: $uni-color-main;
 				cursor: pointer;
 			}
 		}
@@ -928,14 +927,21 @@ export default {
 
 			span {
 				font-size: 14px;
+				white-space: nowrap;
+				overflow: hidden;
 			}
 
 			.icon {
 				position: absolute;
-				left: 10px;
+				left: 0;
+				top: 0;
 				font-size: 18px;
-				color: $uni-color-main;
 				cursor: pointer;
+				background-color: #fff;
+				height: 40px;
+				width: 80px;
+				line-height: 40px;
+				padding-left: 10px;
 			}
 		}
 	}
@@ -944,6 +950,12 @@ export default {
 	.user {
 		.container {
 			height: calc(100% - 40px);
+		}
+	}
+
+	@media only screen and (max-width: 768px) {
+		.dept {
+			width: calc(100% - 100px);
 		}
 	}
 }
